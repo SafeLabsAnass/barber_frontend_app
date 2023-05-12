@@ -183,7 +183,7 @@ class _Notification1 extends State<Notification1> {
                                             child: new Row(
                                               children: <Widget>[
                                                 new Container(
-                                                  height: 50,
+                                                  height: 60,
                                                   width: screenWidth * .12,
                                                   alignment: Alignment.topLeft,
                                                   child: CachedNetworkImage(
@@ -193,7 +193,7 @@ class _Notification1 extends State<Notification1> {
                                                         borderRadius: BorderRadius.circular(10.0),
                                                         image: DecorationImage(
                                                           image: imageProvider,
-                                                          fit: BoxFit.fill,
+                                                          fit: BoxFit.contain,
                                                           alignment: Alignment.topCenter,
                                                         ),
                                                       ),
@@ -203,9 +203,10 @@ class _Notification1 extends State<Notification1> {
                                                 Container(
                                                     width: screenWidth * .75,
                                                     height: 80,
-                                                    margin: EdgeInsets.only(left: 1.0, top: 1),
+                                                    margin: EdgeInsets.only(left: 5.0, top: 1),
                                                     alignment: Alignment.topLeft,
                                                     child: ListView(
+                                                      
                                                       physics: NeverScrollableScrollPhysics(),
                                                       children: <Widget>[
                                                         Container(
@@ -219,6 +220,7 @@ class _Notification1 extends State<Notification1> {
                                                                 fontFamily: ConstantFont.montserratSemiBold),
                                                           ),
                                                         ),
+                                                        SizedBox(height: 10,),
                                                         Container(
                                                           margin: EdgeInsets.only(left: 5),
                                                           child: Text(
@@ -227,7 +229,7 @@ class _Notification1 extends State<Notification1> {
                                                             maxLines: 4,
                                                             style: TextStyle(
                                                                 color: greyColor,
-                                                                fontSize: 11,
+                                                                fontSize: 12,
                                                                 fontWeight: FontWeight.w600,
                                                                 fontFamily: ConstantFont.montserratRegular),
                                                           ),
