@@ -340,7 +340,7 @@ class _Profile extends State<Profile> {
                                               imageBuilder: (context, imageProvider) => ClipOval(
                                                 child: Image(
                                                   image: imageProvider,
-                                                  fit: BoxFit.fill,
+                                                  fit: BoxFit.cover,
                                                 ),
                                               ),
                                               placeholder: (context, url) => SpinKitFadingCircle(color: pinkColor),
@@ -369,6 +369,7 @@ class _Profile extends State<Profile> {
                                       margin: EdgeInsets.only(right: 15),
                                       child: SvgPicture.asset(
                                         DummyImage.edit,
+                                        
                                         width: 30,
                                         height: 30,
                                       )),
@@ -594,7 +595,7 @@ class _Profile extends State<Profile> {
                                   borderRadius: BorderRadius.circular(8),
                                 ),
                                 height: 45,
-                                color: pinkColor,
+                                color: black1E,
                                 onPressed: () async {
                                   if (_formKey.currentState!.validate()) {
                                     _formKey.currentState!.save();
@@ -696,7 +697,7 @@ class _Profile extends State<Profile> {
                                           border: Border.all(color: whiteF1, width: 3),
                                           borderRadius: BorderRadius.all(Radius.circular(10)),
                                         ),
-                                        padding: EdgeInsets.only(bottom: 5),
+                                        padding: EdgeInsets.symmetric(horizontal: 10, vertical:20,),
                                         child: Column(
                                           crossAxisAlignment: CrossAxisAlignment.stretch,
                                           children: [
@@ -720,7 +721,7 @@ class _Profile extends State<Profile> {
                                                                     borderRadius: BorderRadius.circular(10.0),
                                                                     image: DecorationImage(
                                                                       image: imageProvider,
-                                                                      fit: BoxFit.fill,
+                                                                      fit: BoxFit.contain,
                                                                       alignment: Alignment.topCenter,
                                                                     ),
                                                                   ),
@@ -838,7 +839,7 @@ class _Profile extends State<Profile> {
                                                 )),
                                             Container(
                                               child: Container(
-                                                margin: const EdgeInsets.only(top: 1.0, bottom: 1.0),
+                                                margin: const EdgeInsets.only(top: 1.0, bottom: 10.0),
                                                 padding: const EdgeInsets.only(left: 10.0, right: 10.0),
                                                 child: MySeparator(color: greyColor),
                                               ),
@@ -1137,6 +1138,7 @@ class _Profile extends State<Profile> {
                                       },
                                       child: Container(
                                         margin: EdgeInsets.only(left: 10, right: 10, top: 10),
+                                        padding: EdgeInsets.symmetric(horizontal: 10, vertical: 20),
                                         width: double.infinity,
                                         decoration: BoxDecoration(
                                           border: Border.all(color: whiteF1, width: 3),
@@ -1162,7 +1164,7 @@ class _Profile extends State<Profile> {
                                                               borderRadius: BorderRadius.circular(10.0),
                                                               image: DecorationImage(
                                                                 image: imageProvider,
-                                                                fit: BoxFit.fill,
+                                                                fit: BoxFit.contain,
                                                                 alignment: Alignment.topCenter,
                                                               ),
                                                             ),
