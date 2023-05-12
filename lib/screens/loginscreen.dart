@@ -77,33 +77,20 @@ class _LoginScreen extends State<LoginScreen> {
               new ListView(
                 children: [
                   Container(
+                    width: double.infinity,
+                    
                     child: Container(
-                      margin: const EdgeInsets.only(top: 150.0, left: 100.0),
-                      alignment: FractionalOffset.topLeft,
-                      child: Text(
-                        "The",
-                        textAlign: TextAlign.end,
-                        style: TextStyle(
-                            color: whiteColor,
-                            fontSize: 20,
-                            fontWeight: FontWeight.w600,
-                            fontFamily: ConstantFont.montserratRegular),
+                       margin: const EdgeInsets.only(top: 150.0),
+                      alignment: FractionalOffset.center,
+                      child: Image.asset(
+                        DummyImage.mainLogo,
+                                  height: 170,
+                                  width: double.infinity,
+                                  fit: BoxFit.contain,
                       ),
                     ),
                   ),
-                  Container(
-                    margin: const EdgeInsets.only(top: 0.0, left: 100.0),
-                    alignment: FractionalOffset.topLeft,
-                    child: Text(
-                      "BARBER.",
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                          color: whiteColor,
-                          fontSize: 35,
-                          fontWeight: FontWeight.w700,
-                          fontFamily: ConstantFont.montserratBlack),
-                    ),
-                  ),
+                 
                   Container(
                     margin: const EdgeInsets.only(top: 20.0, left: 20.0, right: 20.0),
                     alignment: FractionalOffset.topCenter,
@@ -119,12 +106,12 @@ class _LoginScreen extends State<LoginScreen> {
                       autofocus: false,
                       style: TextStyle(
                           fontSize: 14.0,
-                          color: whiteColor,
+                          color: blackColor,
                           fontWeight: FontWeight.w600,
                           fontFamily: ConstantFont.montserratMedium),
                       decoration: InputDecoration(
                         filled: true,
-                        fillColor: whiteF1.withOpacity(0.2),
+                        fillColor: whiteColor,
                         hintText: 'Email id',
                         hintStyle:
                             TextStyle(fontSize: 14.0, color: greyColor, fontFamily: ConstantFont.montserratMedium),
@@ -158,12 +145,12 @@ class _LoginScreen extends State<LoginScreen> {
                       onSaved: (password) => _password = password,
                       style: TextStyle(
                           fontSize: 14.0,
-                          color: whiteColor,
+                          color: blackColor,
                           fontWeight: FontWeight.w600,
                           fontFamily: ConstantFont.montserratMedium),
                       decoration: InputDecoration(
                         filled: true,
-                        fillColor: whiteF1.withOpacity(0.2),
+                        fillColor: whiteColor,
                         hintText: 'Password',
                         hintStyle:
                             TextStyle(fontSize: 14.0, color: greyColor, fontFamily: ConstantFont.montserratMedium),
@@ -206,7 +193,7 @@ class _LoginScreen extends State<LoginScreen> {
                           StringConstant.ForgotPassword,
                           textAlign: TextAlign.center,
                           style: TextStyle(
-                              color: whiteColor,
+                              color: pinkColor,
                               fontSize: 16,
                               fontWeight: FontWeight.w600,
                               fontFamily: ConstantFont.montserratMedium),
@@ -258,7 +245,7 @@ class _LoginScreen extends State<LoginScreen> {
                                   new Text(
                                     StringConstant.donHaveAnAccount,
                                     style: TextStyle(
-                                        color: whiteColor,
+                                        color: grey99,
                                         fontSize: 15,
                                         fontWeight: FontWeight.w600,
                                         fontFamily: ConstantFont.montserratMedium),
