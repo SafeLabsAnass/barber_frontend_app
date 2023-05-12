@@ -85,24 +85,10 @@ class _RegisterScreen extends State<RegisterScreen> {
       color: Colors.transparent.withOpacity(0.2),
       progressIndicator: SpinKitFadingCircle(color: pinkColor),
       child: SafeArea(
-        child: Stack(
-          children: [
-           new Container(
-           
-               
-                 decoration: new BoxDecoration(
-                  color: Colors.red,
-                  image: new DecorationImage(
-                    image: new ExactAssetImage(DummyImage.loginBG),
-                    fit: BoxFit.cover,
-                  ),
-                ),
-              ),
-            Scaffold(
+        child: Scaffold(
               key: _scaffoldKey,
               body: Container(
                 decoration: new BoxDecoration(
-                  color: Colors.red,
                   image: new DecorationImage(
                     image: new ExactAssetImage(DummyImage.loginBG),
                     fit: BoxFit.cover,
@@ -483,8 +469,7 @@ class _RegisterScreen extends State<RegisterScreen> {
                   ),
                 ),
               )),
-          ],
-        ),
+         
       ),
     );
   }
