@@ -253,11 +253,15 @@ class _FgHome extends State<FgHome> {
                                       color: Colors.transparent,
                                     ),
                                     alignment: Alignment.topCenter,
-                                    margin: EdgeInsets.only(top: 10, left: 20, right: 20),
+                                    //margin: EdgeInsets.only(top: 10, left: 20, right: 20),
                                     child: Card(
                                       elevation: 10,
                                       shape: new RoundedRectangleBorder(
                                         borderRadius: new BorderRadius.circular(15.0),
+                                        side: BorderSide(
+                                          width: 20,
+                                          color:Colors.black,
+                                        )
                                       ),
                                       child: Container(
                                         child: Stack(
@@ -279,11 +283,11 @@ class _FgHome extends State<FgHome> {
                                                         borderRadius: BorderRadius.circular(15),
                                                         child: ColorFiltered(
                                                           colorFilter: ColorFilter.mode(
-                                                              blackColor.withOpacity(0.4), BlendMode.srcOver),
+                                                              blackColor.withOpacity(0.0), BlendMode.srcOver),//0.4
                                                           child: CachedNetworkImage(
                                                             imageUrl: singleImage!,
                                                             height: 200,
-                                                            width: 500,
+                                                            width: double.infinity,
                                                             fit: BoxFit.fill,
                                                             placeholder: (context, url) => SpinKitFadingCircle(
                                                               color: pinkColor,
@@ -330,11 +334,12 @@ class _FgHome extends State<FgHome> {
                                     height: 200,
                                     color: Colors.transparent,
                                     alignment: Alignment.topCenter,
-                                    margin: EdgeInsets.only(top: 10, left: 20, right: 20),
+                                    //margin: EdgeInsets.only(top: 10, left: 20, right: 20),
                                     child: Card(
                                       elevation: 10,
                                       shape: new RoundedRectangleBorder(
                                         borderRadius: new BorderRadius.circular(15.0),
+                                        
                                       ),
                                       child: Container(
                                         child: Stack(
@@ -364,13 +369,13 @@ class _FgHome extends State<FgHome> {
                                                           clipBehavior: Clip.antiAliasWithSaveLayer,
                                                           type: MaterialType.transparency,
                                                           child: ColorFiltered(
-                                                            colorFilter: ColorFilter.mode(
-                                                                blackColor.withOpacity(0.4), BlendMode.srcOver),
+                                                           colorFilter: ColorFilter.mode(
+                                                               blackColor.withOpacity(0), BlendMode.srcOver), //0,4
                                                             child: CachedNetworkImage(
                                                               imageUrl: it.imagePath! + it.image!,
                                                               height: 200,
-                                                              width: 500,
-                                                              fit: BoxFit.fill,
+                                                              width: double.infinity,
+                                                              fit: BoxFit.cover,
                                                               placeholder: (context, url) => SpinKitFadingCircle(
                                                                 color: pinkColor,
                                                               ),
@@ -380,13 +385,19 @@ class _FgHome extends State<FgHome> {
                                                           ),
                                                         ),
                                                         Center(
-                                                          child: Text(
-                                                            it.title!,
-                                                            style: TextStyle(
-                                                                color: whiteColor,
-                                                                fontSize: 26,
-                                                                fontFamily: ConstantFont.montserratRegular,
-                                                                fontWeight: FontWeight.w800),
+                                                          child: Container(
+                                                           
+                                                            padding: EdgeInsets.symmetric(horizontal: 10, vertical: 20),
+                                                            decoration: BoxDecoration(color: whiteColor.withOpacity(0.8),border: Border.all(color: Colors.black,)),
+                                                            child: Text(
+                                                              it.title!,
+                                                              style: TextStyle(
+                                                                  color: blackColor,
+                                                                  fontSize: 22,
+                                                                  fontFamily: ConstantFont.montserratRegular,
+                                                                  fontWeight: FontWeight.w800),
+                                                            ),
+                                                          
                                                           ),
                                                         )
                                                       ],
@@ -465,7 +476,7 @@ class _FgHome extends State<FgHome> {
                             : Container(
                                 margin: EdgeInsets.only(left: 10, right: 10),
                                 child: GridView.count(
-                                  childAspectRatio: 2.3,
+                                  childAspectRatio: 2.2,
                                   crossAxisCount: 2,
                                   crossAxisSpacing: 0.0,
                                   shrinkWrap: true,
@@ -485,41 +496,47 @@ class _FgHome extends State<FgHome> {
                                               left: ScreenUtil().setWidth(10), right: ScreenUtil().setWidth(10)),
                                           child: Card(
                                             shape: RoundedRectangleBorder(
-                                              borderRadius: BorderRadius.circular(20.0),
+                                              borderRadius: BorderRadius.circular(15.0),
+                                       
                                             ),
                                             color: whiteColor,
                                             elevation: 5,
-                                            child: Row(
+                                            child:  Row(
                                               children: [
-                                                Padding(
-                                                  padding: EdgeInsets.only(
-                                                      left: ScreenUtil().setWidth(20),
-                                                      right: ScreenUtil().setWidth(10)),
+                                               ClipRRect(
+                                                  borderRadius: BorderRadius.only( topLeft: Radius.circular(15), bottomLeft: Radius.circular(15), ),
                                                   child: CachedNetworkImage(
-                                                    imageUrl: categoryDataList[index].imagePath! +
-                                                        categoryDataList[index].image!,
-                                                    width: ScreenUtil().setWidth(30),
-                                                    height: ScreenUtil().setHeight(30),
-                                                    fit: BoxFit.fill,
-                                                    placeholder: (context, url) => SpinKitFadingCircle(
-                                                      color: pinkColor,
+                                                      imageUrl: categoryDataList[index].imagePath! +
+                                                          categoryDataList[index].image!,
+                                                      width: MediaQuery.of(context).size.width/5,
+                                                      height: ScreenUtil().setHeight(double.infinity),
+                                                      fit: BoxFit.fill,
+                                                      placeholder: (context, url) => SpinKitFadingCircle(
+                                                        color: pinkColor,
+                                                      ),
+                                                      errorWidget: (context, url, error) =>
+                                                          Image.asset(DummyImage.noImage),
                                                     ),
-                                                    errorWidget: (context, url, error) =>
-                                                        Image.asset(DummyImage.noImage),
-                                                  ),
                                                 ),
+                                                
                                                 Container(
-                                                  width: ScreenUtil().setWidth(75),
-                                                  child: Text(
-                                                    categoryDataList[index].name!,
-                                                    overflow: TextOverflow.ellipsis,
-                                                    maxLines: 1,
-                                                    style: TextStyle(
-                                                        color: blackColor,
-                                                        fontSize: 12,
-                                                        fontWeight: FontWeight.w600,
-                                                        fontFamily: ConstantFont.montserratMedium),
-                                                  ),
+                                                  
+                                                  width: ScreenUtil().setWidth(85),
+                                                 padding: EdgeInsets.symmetric(horizontal: 5),
+                                                  child:
+                                                        Text(                                
+                                                        categoryDataList[index].name!,
+                                                        textAlign: TextAlign.justify,
+                                                        overflow: TextOverflow.ellipsis,
+                                                        maxLines: 2,
+                                                        style: TextStyle(
+                                                            color: blackColor,
+                                                            fontSize: 12,
+                                                            fontWeight: FontWeight.w600,
+                                                            fontFamily: ConstantFont.montserratMedium),
+                                                                                                         ),
+                                                     
+                                                  
                                                 ),
                                               ],
                                             ),
@@ -530,9 +547,7 @@ class _FgHome extends State<FgHome> {
                                   }),
                                 ),
                               ),
-                        SizedBox(
-                          height: 20,
-                        )
+                     
                       ],
                     ),
                   ]),
