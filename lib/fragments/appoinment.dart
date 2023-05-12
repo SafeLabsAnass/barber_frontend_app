@@ -298,6 +298,7 @@ class _Appoinment extends State<Appoinment> with SingleTickerProviderStateMixin 
                                               },
                                               child: Container(
                                                 margin: EdgeInsets.only(left: 10, right: 10, top: 10),
+                                                padding: EdgeInsets.symmetric(vertical: 10, horizontal: 20),
                                                 width: double.infinity,
                                                 decoration: BoxDecoration(
                                                   border: Border.all(color: whiteF1, width: 3),
@@ -323,7 +324,7 @@ class _Appoinment extends State<Appoinment> with SingleTickerProviderStateMixin 
                                                                     borderRadius: BorderRadius.circular(10.0),
                                                                     image: DecorationImage(
                                                                       image: imageProvider,
-                                                                      fit: BoxFit.fill,
+                                                                      fit: BoxFit.contain,
                                                                       alignment: Alignment.topCenter,
                                                                     ),
                                                                   ),
@@ -788,7 +789,7 @@ class _Appoinment extends State<Appoinment> with SingleTickerProviderStateMixin 
                                                     crossAxisAlignment: CrossAxisAlignment.stretch,
                                                     children: [
                                                       Padding(
-                                                          padding: const EdgeInsets.only(left: 0.0),
+                                                                  padding: EdgeInsets.symmetric(horizontal: 20, vertical:10),
                                                           child: Row(
                                                             children: <Widget>[
                                                               Expanded(
@@ -804,7 +805,7 @@ class _Appoinment extends State<Appoinment> with SingleTickerProviderStateMixin 
                                                                         borderRadius: BorderRadius.circular(10.0),
                                                                         image: DecorationImage(
                                                                           image: imageProvider,
-                                                                          fit: BoxFit.fill,
+                                                                          fit: BoxFit.contain,
                                                                           alignment: Alignment.topCenter,
                                                                         ),
                                                                       ),
@@ -1156,7 +1157,7 @@ class _Appoinment extends State<Appoinment> with SingleTickerProviderStateMixin 
                                                     crossAxisAlignment: CrossAxisAlignment.stretch,
                                                     children: [
                                                       Padding(
-                                                          padding: const EdgeInsets.only(left: 0.0),
+                                                          padding: EdgeInsets.symmetric(vertical:10,horizontal: 20, ),
                                                           child: Row(
                                                             children: <Widget>[
                                                               Expanded(
@@ -1172,7 +1173,7 @@ class _Appoinment extends State<Appoinment> with SingleTickerProviderStateMixin 
                                                                         borderRadius: BorderRadius.circular(10.0),
                                                                         image: DecorationImage(
                                                                           image: imageProvider,
-                                                                          fit: BoxFit.fill,
+                                                                          fit: BoxFit.contain,
                                                                           alignment: Alignment.topCenter,
                                                                         ),
                                                                       ),
