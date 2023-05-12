@@ -2,6 +2,7 @@ import 'dart:async';
 import 'package:barber_app/constant/appconstant.dart';
 import 'package:barber_app/constant/color_constant.dart';
 import 'package:barber_app/constant/constant_font.dart';
+import 'package:barber_app/constant/dymmyimages.dart';
 import 'package:barber_app/constant/preferenceutils.dart';
 import 'package:barber_app/constant/string_constant.dart';
 import 'package:barber_app/constant/toast_message.dart';
@@ -47,209 +48,217 @@ class _OtpScreen extends State<OtpScreen> {
       opacity: 1.0,
       color: Colors.transparent.withOpacity(0.2),
       progressIndicator: SpinKitFadingCircle(color: pinkColor),
-      child: Scaffold(
-          key: _scaffoldKey,
-          resizeToAvoidBottomInset: true,
-          backgroundColor: whiteColor,
-          appBar: AppBar(
-            leading: IconButton(
-              icon: Icon(
-                Icons.keyboard_arrow_left,
-                color: blackColor,
-                size: 30,
-              ),
-              onPressed: () => Navigator.of(context).pop(),
+      child: Container(
+        decoration: new BoxDecoration(
+          image: new DecorationImage(
+            image: new ExactAssetImage(DummyImage.loginBG),
+            fit: BoxFit.cover,
             ),
-            title: Text(
-              StringConstant.verification,
-              style: TextStyle(
+        ),
+        child: Scaffold(
+            key: _scaffoldKey,
+            resizeToAvoidBottomInset: true,
+            backgroundColor: Colors.transparent,
+            appBar: AppBar(
+              leading: IconButton(
+                icon: Icon(
+                  Icons.keyboard_arrow_left,
                   color: blackColor,
-                  fontFamily: ConstantFont.montserratBold,
-                  fontSize: 16,
-                  fontWeight: FontWeight.w600),
+                  size: 30,
+                ),
+                onPressed: () => Navigator.of(context).pop(),
+              ),
+              title: Text(
+                StringConstant.verification,
+                style: TextStyle(
+                    color: blackColor,
+                    fontFamily: ConstantFont.montserratBold,
+                    fontSize: 16,
+                    fontWeight: FontWeight.w600),
+              ),
+              centerTitle: true,
+              backgroundColor: Colors.transparent,
+              elevation: 0.0,
             ),
-            centerTitle: true,
-            backgroundColor: whiteColor,
-            elevation: 0.0,
-          ),
-          body: Container(
-              child: Stack(children: <Widget>[
-            ListView(
-              children: [
-                Container(
-                  child: Container(
-                    margin: const EdgeInsets.only(top: 100.0, left: 0.0),
-                    alignment: FractionalOffset.center,
-                    child: Text(
-                      StringConstant.otp,
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                          color: blackColor,
-                          fontSize: 18,
-                          fontWeight: FontWeight.w800,
-                          fontFamily: ConstantFont.montserratBold),
-                    ),
-                  ),
-                ),
-                Container(
-                  child: Container(
-                    margin: const EdgeInsets.only(top: 1.0, left: 0.0),
-                    alignment: FractionalOffset.center,
-                    child: Text(
-                      "Set your $otp1 here.",
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                          color: blackColor,
-                          fontSize: 15,
-                          fontWeight: FontWeight.w500,
-                          fontFamily: ConstantFont.montserratMedium),
-                    ),
-                  ),
-                ),
-                Container(
-                  child: Container(
-                    margin: const EdgeInsets.only(top: 30.0, left: 0.0),
-                    alignment: FractionalOffset.center,
-                    child: Text(
-                      "00:" + "$_start",
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                          color: grey99,
-                          fontSize: 16,
-                          fontWeight: FontWeight.w800,
-                          fontFamily: ConstantFont.montserratMedium),
-                    ),
-                  ),
-                ),
-                Container(
-                  padding: const EdgeInsets.all(5.0),
-                  margin: const EdgeInsets.only(top: 20.0, left: 0.0),
-                  alignment: FractionalOffset.center,
-                  child: PinCodeTextField(
-                    autofocus: true,
-                    hideCharacter: false,
-                    highlight: false,
-                    pinBoxColor: whiteF1,
-                    controller: otpTextEditingController,
-                    highlightColor: whiteF1,
-                    defaultBorderColor: whiteF1,
-                    hasTextBorderColor: whiteF1,
-                    pinBoxBorderWidth: 2,
-                    maxLength: 4,
-                    onTextChanged: (text) {
-                      setState(() {
-                        print('hi');
-                      });
-                    },
-                    onDone: (text) async {
-                      print("DONE $text");
-
-                      otp = text;
-
-                      var connectivityResult = await (Connectivity().checkConnectivity());
-                      if (connectivityResult == ConnectivityResult.mobile) {
-                        callOtpCheckApi(otp);
-                      } else if (connectivityResult == ConnectivityResult.wifi) {
-                        callOtpCheckApi(otp);
-                      } else {
-                        ToastMessage.toastMessage("No Internet Connection");
-                      }
-                    },
-                    pinBoxWidth: 50,
-                    pinBoxHeight: 50,
-                    pinBoxOuterPadding: const EdgeInsets.all(10.0),
-                    pinBoxRadius: 10,
-                    hasUnderline: false,
-                    wrapAlignment: WrapAlignment.center,
-                    pinBoxDecoration: ProvidedPinBoxDecoration.defaultPinBoxDecoration,
-                    pinTextStyle: TextStyle(fontSize: 22.0, color: grey99, fontFamily: ConstantFont.montserratMedium),
-                    pinTextAnimatedSwitcherTransition: ProvidedPinBoxTextAnimation.defaultNoTransition,
-                    highlightPinBoxColor: whiteF1,
-                    pinTextAnimatedSwitcherDuration: Duration(milliseconds: 300),
-                    highlightAnimationBeginColor: whiteF1,
-                    highlightAnimationEndColor: whiteF1,
-                    keyboardType: TextInputType.number,
-                  ),
-                ),
-                Container(
-                    margin: const EdgeInsets.only(top: 10.0),
-                    alignment: FractionalOffset.center,
-                    child: MaterialButton(
-                      shape: new RoundedRectangleBorder(borderRadius: new BorderRadius.circular(5.0)),
-                      minWidth: 300,
-                      height: 40,
-                      color: pinkColor,
-                      onPressed: () async {
-                        if (otp.length == 0 && otp.length < 4) {
-                          ToastMessage.toastMessage("Invalid Text");
-                        } else {
-                          var connectivityResult = await (Connectivity().checkConnectivity());
-                          if (connectivityResult == ConnectivityResult.mobile) {
-                            callOtpCheckApi(otp);
-                          } else if (connectivityResult == ConnectivityResult.wifi) {
-                            callOtpCheckApi(otp);
-                          } else {
-                            ToastMessage.toastMessage("No Internet Connection");
-                          }
-                        }
-                      },
+            body: Container(
+                child: Stack(children: <Widget>[
+              ListView(
+                children: [
+                  Container(
+                    child: Container(
+                      margin: const EdgeInsets.only(top: 100.0, left: 0.0),
+                      alignment: FractionalOffset.center,
                       child: Text(
-                        StringConstant.next,
+                        StringConstant.otp,
                         textAlign: TextAlign.center,
                         style: TextStyle(
-                          color: whiteColor,
-                          fontSize: 15,
-                          fontWeight: FontWeight.w600,
-                          fontFamily: ConstantFont.montserratMedium,
-                        ),
+                            color: blackColor,
+                            fontSize: 18,
+                            fontWeight: FontWeight.w800,
+                            fontFamily: ConstantFont.montserratBold),
                       ),
-                    )),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: <Widget>[
-                    Expanded(
-                      child: Container(
-                          margin: const EdgeInsets.only(top: 20.0),
-                          alignment: FractionalOffset.bottomCenter,
-                          child: GestureDetector(
-                            onTap: () async {
-                              var connectivityResult = await (Connectivity().checkConnectivity());
-                              if (connectivityResult == ConnectivityResult.mobile) {
-                                callResendOtpApi();
-                              } else if (connectivityResult == ConnectivityResult.wifi) {
-                                callResendOtpApi();
-                              } else {
-                                ToastMessage.toastMessage("No Internet Connection");
-                              }
-                            },
-                            child: new Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: <Widget>[
-                                new Text(
-                                  StringConstant.donReceiveOtp,
-                                  style: TextStyle(
-                                      color: blackColor,
-                                      fontSize: 15,
-                                      fontWeight: FontWeight.w600,
-                                      fontFamily: ConstantFont.montserratMedium),
-                                ),
-                                new Text(
-                                  StringConstant.resend,
-                                  style: TextStyle(
-                                      color: pinkColor,
-                                      fontSize: 15,
-                                      fontWeight: FontWeight.w600,
-                                      fontFamily: ConstantFont.montserratBold),
-                                )
-                              ],
-                            ),
-                          )),
                     ),
-                  ],
-                )
-              ],
-            ),
-          ]))),
+                  ),
+                  Container(
+                    child: Container(
+                      margin: const EdgeInsets.only(top: 1.0, left: 0.0),
+                      alignment: FractionalOffset.center,
+                      child: Text(
+                        "Set your $otp1 here.",
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                            color: blackColor,
+                            fontSize: 15,
+                            fontWeight: FontWeight.w500,
+                            fontFamily: ConstantFont.montserratMedium),
+                      ),
+                    ),
+                  ),
+                  Container(
+                    child: Container(
+                      margin: const EdgeInsets.only(top: 30.0, left: 0.0),
+                      alignment: FractionalOffset.center,
+                      child: Text(
+                        "00:" + "$_start",
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                            color: grey99,
+                            fontSize: 16,
+                            fontWeight: FontWeight.w800,
+                            fontFamily: ConstantFont.montserratMedium),
+                      ),
+                    ),
+                  ),
+                  Container(
+                    padding: const EdgeInsets.all(5.0),
+                    margin: const EdgeInsets.only(top: 20.0, left: 0.0),
+                    alignment: FractionalOffset.center,
+                    child: PinCodeTextField(
+                      autofocus: true,
+                      hideCharacter: false,
+                      highlight: false,
+                      pinBoxColor: whiteF1,
+                      controller: otpTextEditingController,
+                      highlightColor: whiteF1,
+                      defaultBorderColor: whiteF1,
+                      hasTextBorderColor: whiteF1,
+                      pinBoxBorderWidth: 2,
+                      maxLength: 4,
+                      onTextChanged: (text) {
+                        setState(() {
+                          print('hi');
+                        });
+                      },
+                      onDone: (text) async {
+                        print("DONE $text");
+      
+                        otp = text;
+      
+                        var connectivityResult = await (Connectivity().checkConnectivity());
+                        if (connectivityResult == ConnectivityResult.mobile) {
+                          callOtpCheckApi(otp);
+                        } else if (connectivityResult == ConnectivityResult.wifi) {
+                          callOtpCheckApi(otp);
+                        } else {
+                          ToastMessage.toastMessage("No Internet Connection");
+                        }
+                      },
+                      pinBoxWidth: 50,
+                      pinBoxHeight: 50,
+                      pinBoxOuterPadding: const EdgeInsets.all(10.0),
+                      pinBoxRadius: 10,
+                      hasUnderline: false,
+                      wrapAlignment: WrapAlignment.center,
+                      pinBoxDecoration: ProvidedPinBoxDecoration.defaultPinBoxDecoration,
+                      pinTextStyle: TextStyle(fontSize: 22.0, color: grey99, fontFamily: ConstantFont.montserratMedium),
+                      pinTextAnimatedSwitcherTransition: ProvidedPinBoxTextAnimation.defaultNoTransition,
+                      highlightPinBoxColor: whiteF1,
+                      pinTextAnimatedSwitcherDuration: Duration(milliseconds: 300),
+                      highlightAnimationBeginColor: whiteF1,
+                      highlightAnimationEndColor: whiteF1,
+                      keyboardType: TextInputType.number,
+                    ),
+                  ),
+                  Container(
+                      margin: const EdgeInsets.only(top: 10.0),
+                      alignment: FractionalOffset.center,
+                      child: MaterialButton(
+                        shape: new RoundedRectangleBorder(borderRadius: new BorderRadius.circular(5.0)),
+                        minWidth: 300,
+                        height: 40,
+                        color: pinkColor,
+                        onPressed: () async {
+                          if (otp.length == 0 && otp.length < 4) {
+                            ToastMessage.toastMessage("Invalid Text");
+                          } else {
+                            var connectivityResult = await (Connectivity().checkConnectivity());
+                            if (connectivityResult == ConnectivityResult.mobile) {
+                              callOtpCheckApi(otp);
+                            } else if (connectivityResult == ConnectivityResult.wifi) {
+                              callOtpCheckApi(otp);
+                            } else {
+                              ToastMessage.toastMessage("No Internet Connection");
+                            }
+                          }
+                        },
+                        child: Text(
+                          StringConstant.next,
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                            color: whiteColor,
+                            fontSize: 15,
+                            fontWeight: FontWeight.w600,
+                            fontFamily: ConstantFont.montserratMedium,
+                          ),
+                        ),
+                      )),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: <Widget>[
+                      Expanded(
+                        child: Container(
+                            margin: const EdgeInsets.only(top: 20.0),
+                            alignment: FractionalOffset.bottomCenter,
+                            child: GestureDetector(
+                              onTap: () async {
+                                var connectivityResult = await (Connectivity().checkConnectivity());
+                                if (connectivityResult == ConnectivityResult.mobile) {
+                                  callResendOtpApi();
+                                } else if (connectivityResult == ConnectivityResult.wifi) {
+                                  callResendOtpApi();
+                                } else {
+                                  ToastMessage.toastMessage("No Internet Connection");
+                                }
+                              },
+                              child: new Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: <Widget>[
+                                  new Text(
+                                    StringConstant.donReceiveOtp,
+                                    style: TextStyle(
+                                        color: blackColor,
+                                        fontSize: 15,
+                                        fontWeight: FontWeight.w600,
+                                        fontFamily: ConstantFont.montserratMedium),
+                                  ),
+                                  new Text(
+                                    StringConstant.resend,
+                                    style: TextStyle(
+                                        color: pinkColor,
+                                        fontSize: 15,
+                                        fontWeight: FontWeight.w600,
+                                        fontFamily: ConstantFont.montserratBold),
+                                  )
+                                ],
+                              ),
+                            )),
+                      ),
+                    ],
+                  )
+                ],
+              ),
+            ]))),
+      ),
     );
   }
 
