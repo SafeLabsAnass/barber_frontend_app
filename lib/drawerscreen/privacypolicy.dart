@@ -17,6 +17,12 @@ import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 
 class PrivacyPolicy extends StatefulWidget {
+  PrivacyPolicy({Key? key, isDrawerOpen,required this.onOpen, required this.onClose}) :
+  isDrawerOpen = isDrawerOpen, super(key: key);
+
+  final bool isDrawerOpen;
+    final VoidCallback onOpen;
+  final VoidCallback onClose;
   @override
   _PrivacyPolicy createState() => new _PrivacyPolicy();
 }
@@ -89,7 +95,7 @@ class _PrivacyPolicy extends State<PrivacyPolicy> {
         child: new SafeArea(
           child: Scaffold(
             backgroundColor: whiteColor,
-            appBar: appbar(context, StringConstant.privacyPolicy, _drawerScaffoldKey, false)
+            appBar: appbar(context, StringConstant.privacyPolicy, _drawerScaffoldKey, false,widget.isDrawerOpen, widget.onOpen, widget.onClose)
                 as PreferredSizeWidget?,
             body: Scaffold(
               backgroundColor:whiteColor,

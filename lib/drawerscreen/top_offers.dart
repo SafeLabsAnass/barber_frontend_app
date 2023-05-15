@@ -21,6 +21,28 @@ import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 
 class TopOffers extends StatefulWidget {
+  TopOffers(
+    this.code,
+    this.selectedEmpId,
+    this.time,
+    this.date,
+    this.totalprice,
+    this.selectedServices,
+    this.salonId,
+    this._selectedServicesName,
+    this._totalprice,
+    this.salonData,
+      this.onOpen,
+       this.onClose,
+       this.isDrawerOpen,
+  );
+
+    
+ 
+
+    final bool isDrawerOpen;
+   final VoidCallback onOpen;
+  final VoidCallback onClose;
   final int code;
   final double? totalprice;
   final List<int>? selectedServices;
@@ -36,18 +58,7 @@ class TopOffers extends StatefulWidget {
 
   final salonData;
 
-  TopOffers(
-    this.code,
-    this.selectedEmpId,
-    this.time,
-    this.date,
-    this.totalprice,
-    this.selectedServices,
-    this.salonId,
-    this._selectedServicesName,
-    this._totalprice,
-    this.salonData,
-  );
+  
 
   @override
   _TopOffers createState() => new _TopOffers();
@@ -253,7 +264,7 @@ class _TopOffers extends State<TopOffers> {
       child: new SafeArea(
         child: Scaffold(
           backgroundColor: whiteColor,
-          appBar: appbar(context, StringConstant.topOffers, _drawerScaffoldKey, false)
+          appBar: appbar(context, StringConstant.topOffers, _drawerScaffoldKey, false, widget.isDrawerOpen,widget.onOpen,widget.onClose)
               as PreferredSizeWidget?,
           body: Scaffold(
               resizeToAvoidBottomInset: true,

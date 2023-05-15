@@ -27,6 +27,15 @@ import 'package:intl/intl.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 
 class Profile extends StatefulWidget {
+  Profile({Key? key, isDrawerOpen,  required this.onOpen, required this.onClose}) : 
+
+   isDrawerOpen = isDrawerOpen,
+  super(key: key);
+
+    final bool isDrawerOpen;
+  final VoidCallback onOpen;
+  final VoidCallback onClose;
+
   @override
   _Profile createState() => new _Profile();
 }
@@ -302,7 +311,7 @@ class _Profile extends State<Profile> {
             resizeToAvoidBottomInset: false,
             key: _drawerScaffoldKey,
             backgroundColor: whiteColor,
-            appBar: appbar(context, StringConstant.profile, _drawerScaffoldKey, false) as PreferredSizeWidget?,
+            appBar: appbar(context, StringConstant.profile, _drawerScaffoldKey, false, widget.isDrawerOpen,widget.onOpen, widget.onClose) as PreferredSizeWidget?,
             drawer: new DrawerOnly(),
             body: Form(
               key: _formKey,

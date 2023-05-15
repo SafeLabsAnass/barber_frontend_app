@@ -1,6 +1,6 @@
 class ApiServiceConstant {
   ///do not remove /api/
-  static const String baseUrl = "http://192.168.1.20:5000/api/";
+  static const String baseUrl = "http://192.168.1.81:8000/api/";
   static const String login = "login";
   static const String register = "register";
   static const String checkOtp = "checkotp";

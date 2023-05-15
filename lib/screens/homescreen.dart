@@ -54,14 +54,14 @@ class _HomeScreen extends State<HomeScreen> {
     SystemChrome.setSystemUIOverlayStyle(
         SystemUiOverlayStyle(statusBarBrightness: Brightness.dark));
 
-    return new SafeArea(
+    return new Scaffold(
 
-      child: Scaffold(
-      resizeToAvoidBottomInset: true,
-      key: _drawerScaffoldKey,
-      drawer: DrawerOnly(),
-      bottomNavigationBar: new BottomBar(widget.index),
-    ));
+      body: Stack(
+        children:[ 
+        DrawerOnly(),
+        BottomBar(widget.index),
+        ],
+      ));
   }
 
   void callApiForBarberDetail() {

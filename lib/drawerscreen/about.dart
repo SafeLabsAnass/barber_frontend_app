@@ -17,6 +17,13 @@ import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 
 class About extends StatefulWidget {
+  About({Key? key,isDrawerOpen, required this.onOpen, required this.onClose}) :
+  isDrawerOpen = isDrawerOpen,
+   super(key: key);
+
+   final bool isDrawerOpen;
+    final VoidCallback onOpen;
+  final VoidCallback onClose;
   @override
   _About createState() => new _About();
 }
@@ -88,7 +95,7 @@ class _About extends State<About> {
           child: Scaffold(
             extendBodyBehindAppBar: true,
             backgroundColor: whiteColor,
-            appBar: appbar(context, StringConstant.aboutApp, _drawerScaffoldKey, false)
+            appBar: appbar(context, StringConstant.aboutApp, _drawerScaffoldKey, false,widget.isDrawerOpen,widget.onOpen, widget.onClose)
                 as PreferredSizeWidget?,
             body: Scaffold(
               resizeToAvoidBottomInset: true,

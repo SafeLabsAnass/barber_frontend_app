@@ -24,6 +24,10 @@ import 'package:flutter_spinkit/flutter_spinkit.dart';
 
 // ignore: must_be_immutable
 class DrawerOnly extends StatefulWidget {
+
+
+
+  
   @override
   State<DrawerOnly> createState() => _DrawerOnlyState();
 }
@@ -41,184 +45,187 @@ class _DrawerOnlyState extends State<DrawerOnly> {
     } else {
       name = "User";
     }
-    return new Drawer(
-        child: ListView(
-      children: <Widget>[
-        Container(
-          padding: EdgeInsets.only(left: 10.0, top: 10.0, bottom: 10),
-          alignment: Alignment.center,
-          height: 80,
-          width: double.infinity,
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Expanded(
-                child: Row(
-                  children: [
-                    CachedNetworkImage(
-                      height: 60,
-                      width: 60,
-                      imageUrl: PreferenceUtils.getString(AppConstant.fullImage),
-                      imageBuilder: (context, imageProvider) => ClipOval(
-                        child: Image(
-                          image: imageProvider,
-                          fit: BoxFit.fill,
+    return  SafeArea(
+      child: Container(
+        color: Color.fromARGB(255, 253, 237, 242),
+        child: Column(
+          children:[
+          Container(
+            padding: EdgeInsets.only(left: 10.0, top: 10.0, bottom: 10),
+            alignment: Alignment.center,
+            height: 80,
+            width: double.infinity,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Expanded(
+                  child: Row(
+                    children: [
+                      CachedNetworkImage(
+                        height: 60,
+                        width: 60,
+                        imageUrl: PreferenceUtils.getString(AppConstant.fullImage),
+                        imageBuilder: (context, imageProvider) => ClipOval(
+                          child: Image(
+                            image: imageProvider,
+                            fit: BoxFit.fill,
+                          ),
+                        ),
+                        placeholder: (context, url) => SpinKitFadingCircle(
+                          color: pinkColor,
+                          size: 5,
+                        ),
+                        errorWidget: (context, url, error) => Image.asset(DummyImage.noImage),
+                      ),
+                      Expanded(
+                        child: Padding(
+                          padding: EdgeInsets.only(left: 8.0),
+                          child: Text(
+                            'Hi, ' + name!,
+                            overflow: TextOverflow.ellipsis,
+                            maxLines: 1,
+                            style: TextStyle(
+                                color: blackColor, fontSize: 15, fontWeight: FontWeight.w600, fontFamily: 'Montserrat'),
+                          ),
                         ),
                       ),
-                      placeholder: (context, url) => SpinKitFadingCircle(
-                        color: pinkColor,
-                        size: 5,
-                      ),
-                      errorWidget: (context, url, error) => Image.asset(DummyImage.noImage),
-                    ),
-                    Expanded(
-                      child: Padding(
-                        padding: EdgeInsets.only(left: 8.0),
-                        child: Text(
-                          'Hi, ' + name!,
-                          overflow: TextOverflow.ellipsis,
-                          maxLines: 1,
-                          style: TextStyle(
-                              color: blackColor, fontSize: 15, fontWeight: FontWeight.w600, fontFamily: 'Montserrat'),
-                        ),
-                      ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
-              ),
-              IconButton(
-                onPressed: () {
-                  Navigator.of(context).pop();
-                },
-                icon: Icon(
-                  Icons.arrow_back_ios,
-                  color: Colors.black,
-                ),
-              ),
-            ],
+                // IconButton(
+                //   onPressed: () {
+                //     Navigator.of(context).pop();
+                //   },
+                //   icon: Icon(
+                //     Icons.arrow_back_ios,
+                //     color: Colors.black,
+                //   ),
+                // ),
+              ],
+            ),
           ),
-        ),
-        Container(
-            height: 0,
-            padding: EdgeInsets.only(top: 10, bottom: 10, left: 5, right: 5),
-            child: DottedLine(
-              direction: Axis.horizontal,
-              lineLength: double.infinity,
-              lineThickness: 1.0,
-              dashLength: 5.0,
-              dashColor: blackColor,
-              dashRadius: 0.0,
-              dashGapLength: 8.0,
-              dashGapColor: Colors.transparent,
-              dashGapRadius: 0.0,
-            )),
-        Container(
-            alignment: Alignment.centerLeft,
-            margin: EdgeInsets.only(left: 20.0, top: 10.0),
-            child: ListTile(
-              title: Text(
-                StringConstant.topOffers,
-                style:
-                    TextStyle(color: blackColor, fontSize: 15, fontWeight: FontWeight.w600, fontFamily: 'Montserrat'),
-              ),
-              onTap: () {
-                Navigator.of(context).pop();
-                Navigator.of(context).push(MaterialPageRoute(
-                    builder: (context) => new TopOffers(-1, null, null, null, null, null, null, null, null, null)));
-              },
-            )),
-        Container(
-            alignment: Alignment.centerLeft,
-            margin: EdgeInsets.only(left: 20.0, top: 0.0),
-            child: ListTile(
-              title: Text(
-                StringConstant.termsAndConditions,
-                style:
-                    TextStyle(color: blackColor, fontSize: 15, fontWeight: FontWeight.w600, fontFamily: 'Montserrat'),
-              ),
-              onTap: () {
-                Navigator.of(context).pop();
-                Navigator.of(context).push(MaterialPageRoute(builder: (context) => new TermsCondition()));
-              },
-            )),
-        Container(
-            alignment: Alignment.centerLeft,
-            margin: EdgeInsets.only(left: 20.0, top: 0.0),
-            child: ListTile(
-              title: Text(
-                StringConstant.privacyAndPolicy,
-                style:
-                    TextStyle(color: blackColor, fontSize: 15, fontWeight: FontWeight.w600, fontFamily: 'Montserrat'),
-              ),
-              onTap: () {
-                Navigator.of(context).pop();
-                Navigator.of(context).push(MaterialPageRoute(builder: (context) => new PrivacyPolicy()));
-              },
-            )),
-        Container(
-            alignment: Alignment.centerLeft,
-            margin: EdgeInsets.only(left: 20.0, top: 0.0),
-            child: ListTile(
-              title: Text(
-                StringConstant.inviteAFriends,
-                style:
-                    TextStyle(color: blackColor, fontSize: 15, fontWeight: FontWeight.w600, fontFamily: 'Montserrat'),
-              ),
-              onTap: () {
-                Navigator.pop(context);
-                share();
-              },
-            )),
-        Container(
-            alignment: Alignment.centerLeft,
-            margin: EdgeInsets.only(left: 20.0, top: 0.0),
-            child: ListTile(
-              title: Text(
-                StringConstant.about,
-                style:
-                    TextStyle(color: blackColor, fontSize: 15, fontWeight: FontWeight.w600, fontFamily: 'Montserrat'),
-              ),
-              onTap: () {
-                Navigator.of(context).pop();
-                Navigator.of(context).push(MaterialPageRoute(builder: (context) => new About()));
-              },
-            )),
-        Visibility(
-          visible: PreferenceUtils.getlogin(AppConstant.isLoggedIn) == true,
-          child: Container(
+          Container(
+              height: 0,
+              padding: EdgeInsets.only(top: 10, bottom: 10, left: 5, right: 5),
+              child: DottedLine(
+                direction: Axis.horizontal,
+                lineLength: double.infinity,
+                lineThickness: 1.0,
+                dashLength: 5.0,
+                dashColor: blackColor,
+                dashRadius: 0.0,
+                dashGapLength: 8.0,
+                dashGapColor: Colors.transparent,
+                dashGapRadius: 0.0,
+              )),
+          Container(
               alignment: Alignment.centerLeft,
-              margin: EdgeInsets.only(left: 20.0, top: 0.0),
+              margin: EdgeInsets.only(left: 20.0, top: 10.0),
               child: ListTile(
                 title: Text(
-                  StringConstant.deleteAccount,
+                  StringConstant.topOffers,
                   style:
                       TextStyle(color: blackColor, fontSize: 15, fontWeight: FontWeight.w600, fontFamily: 'Montserrat'),
                 ),
                 onTap: () {
                   Navigator.of(context).pop();
-                  showDeleteAccountDialog(context);
-                  // Navigator.of(context).push(MaterialPageRoute(builder: (context) => new About()));
+                  Navigator.of(context).push(MaterialPageRoute(
+                      builder: (context) => Text("Top Offers")));//new TopOffers(-1, null, null, null, null, null, null, null, null, null)));
                 },
               )),
-        ),
-        Visibility(
-          visible: PreferenceUtils.getlogin(AppConstant.isLoggedIn) == true,
-          child: Container(
+          Container(
               alignment: Alignment.centerLeft,
               margin: EdgeInsets.only(left: 20.0, top: 0.0),
               child: ListTile(
                 title: Text(
-                  StringConstant.logout,
+                  StringConstant.termsAndConditions,
                   style:
                       TextStyle(color: blackColor, fontSize: 15, fontWeight: FontWeight.w600, fontFamily: 'Montserrat'),
                 ),
-                onTap: () async {
-                  showAlertDialog(context);
+                onTap: () {
+                  Navigator.of(context).pop();
+                  Navigator.of(context).push(MaterialPageRoute(builder: (context) => Text('Terms')));
                 },
               )),
-        ),
-      ],
-    ));
+          Container(
+              alignment: Alignment.centerLeft,
+              margin: EdgeInsets.only(left: 20.0, top: 0.0),
+              child: ListTile(
+                title: Text(
+                  StringConstant.privacyAndPolicy,
+                  style:
+                      TextStyle(color: blackColor, fontSize: 15, fontWeight: FontWeight.w600, fontFamily: 'Montserrat'),
+                ),
+                onTap: () {
+                  Navigator.of(context).pop();
+                  Navigator.of(context).push(MaterialPageRoute(builder: (context) => Text("PrivacyPolicy")));
+                },
+              )),
+          Container(
+              alignment: Alignment.centerLeft,
+              margin: EdgeInsets.only(left: 20.0, top: 0.0),
+              child: ListTile(
+                title: Text(
+                  StringConstant.inviteAFriends,
+                  style:
+                      TextStyle(color: blackColor, fontSize: 15, fontWeight: FontWeight.w600, fontFamily: 'Montserrat'),
+                ),
+                onTap: () {
+                  Navigator.pop(context);
+                  share();
+                },
+              )),
+          Container(
+              alignment: Alignment.centerLeft,
+              margin: EdgeInsets.only(left: 20.0, top: 0.0),
+              child: ListTile(
+                title: Text(
+                  StringConstant.about,
+                  style:
+                      TextStyle(color: blackColor, fontSize: 15, fontWeight: FontWeight.w600, fontFamily: 'Montserrat'),
+                ),
+                onTap: () {
+                  Navigator.of(context).pop();
+                  Navigator.of(context).push(MaterialPageRoute(builder: (context) => Text("About") ));
+                },
+              )),
+          Visibility(
+            visible: PreferenceUtils.getlogin(AppConstant.isLoggedIn) == true,
+            child: Container(
+                alignment: Alignment.centerLeft,
+                margin: EdgeInsets.only(left: 20.0, top: 0.0),
+                child: ListTile(
+                  title: Text(
+                    StringConstant.deleteAccount,
+                    style:
+                        TextStyle(color: blackColor, fontSize: 15, fontWeight: FontWeight.w600, fontFamily: 'Montserrat'),
+                  ),
+                  onTap: () {
+                    Navigator.of(context).pop();
+                    showDeleteAccountDialog(context);
+                    // Navigator.of(context).push(MaterialPageRoute(builder: (context) => new About()));
+                  },
+                )),
+          ),
+          Visibility(
+            visible: PreferenceUtils.getlogin(AppConstant.isLoggedIn) == true,
+            child: Container(
+                alignment: Alignment.centerLeft,
+                margin: EdgeInsets.only(left: 20.0, top: 0.0),
+                child: ListTile(
+                  title: Text(
+                    StringConstant.logout,
+                    style:
+                        TextStyle(color: blackColor, fontSize: 15, fontWeight: FontWeight.w600, fontFamily: 'Montserrat'),
+                  ),
+                  onTap: () async {
+                    showAlertDialog(context);
+                  },
+                )),
+          ),
+        ])
+      ),
+    );
   }
 
   showAlertDialog(BuildContext context) {

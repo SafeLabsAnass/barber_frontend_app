@@ -17,6 +17,13 @@ import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 
 class TermsCondition extends StatefulWidget {
+    TermsCondition({Key? key, isDrawerOpen, required this.onOpen, required this.onClose}) : 
+    isDrawerOpen = isDrawerOpen,
+    super(key: key);
+
+  final bool isDrawerOpen;
+   final VoidCallback onOpen;
+  final VoidCallback onClose;
   @override
   _TermsCondition createState() => new _TermsCondition();
 }
@@ -41,15 +48,31 @@ class _TermsCondition extends State<TermsCondition> {
     });
     RestClient(RetroApi().dioData()).settings().then((response) {
       setState(() {
+        //  if (response.success = true) {
+        //   _loading = false;
+        //   dataVisible = true;
+        //   PreferenceUtils.setString(appId, response.data!.appId!.isNotEmpty?response.data!.appId!:"");
+        //   PreferenceUtils.setString(AppConstant.currencySymbol, response.data!.currencySymbol!);
+        //   termsData = response.data?.termsConditions;
+        // } else {
+        //   dataVisible = false;
+
+        //   ToastMessage.toastMessage("No Data");
+        // }
+         _loading = false;
         if (response.success = true) {
-          _loading = false;
           dataVisible = true;
-          PreferenceUtils.setString(appId, response.data!.appId!.isNotEmpty?response.data!.appId!:"");
           PreferenceUtils.setString(AppConstant.currencySymbol, response.data!.currencySymbol!);
-          termsData = response.data!.termsConditions;
+          if (response.data!.termsConditions == null) {
+            dataVisible = false;
+          } else {
+            dataVisible = true;
+            termsData = response.data?.termsConditions;
+          }
+          PreferenceUtils.setString(appId, response.data!.appId!.isNotEmpty?response.data!.appId!:"");
+          
         } else {
           dataVisible = false;
-
           ToastMessage.toastMessage("No Data");
         }
       });
@@ -59,7 +82,6 @@ class _TermsCondition extends State<TermsCondition> {
       });
       print("error:$obj");
       print(obj.runtimeType);
-      ToastMessage.toastMessage("Internal Server Error");
     });
   }
 
@@ -79,7 +101,7 @@ class _TermsCondition extends State<TermsCondition> {
         child: new SafeArea(
           child: Scaffold(
             appBar:
-                appbar(context, StringConstant.termsAndConditions, _drawerScaffoldKey, false)
+                appbar(context, StringConstant.termsAndConditions, _drawerScaffoldKey, false,widget.isDrawerOpen,widget.onOpen,widget.onClose)
                     as PreferredSizeWidget?,
             body: Scaffold(
               backgroundColor:whiteColor,

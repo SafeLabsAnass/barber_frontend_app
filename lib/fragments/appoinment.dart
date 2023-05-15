@@ -28,6 +28,13 @@ import 'package:dio/dio.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 
 class Appoinment extends StatefulWidget {
+   Appoinment({Key? key,required isDrawerOpen, required this.onOpen, required this.onClose}) : 
+   isDrawerOpen = isDrawerOpen,super(key: key);
+
+  final bool isDrawerOpen;
+  final VoidCallback onOpen;
+  final VoidCallback onClose;
+
   @override
   _Appoinment createState() => new _Appoinment();
 }
@@ -211,7 +218,7 @@ class _Appoinment extends State<Appoinment> with SingleTickerProviderStateMixin 
           child: Scaffold(
               backgroundColor: whiteColor,
               resizeToAvoidBottomInset: true,
-              appBar: appbar(context, StringConstant.appointment, _drawerScaffoldKey, true) as PreferredSizeWidget?,
+              appBar: appbar(context, StringConstant.appointment, _drawerScaffoldKey, true,widget.isDrawerOpen, widget.onOpen, widget.onClose) as PreferredSizeWidget?,
               key: _drawerScaffoldKey,
               drawer: new DrawerOnly(),
               body: new Stack(

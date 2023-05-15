@@ -18,9 +18,16 @@ import 'package:barber_app/screens/loginscreen.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 
 class Notification1 extends StatefulWidget {
-  Notification1({Key? key, this.title}) : super(key: key);
+
+   
+  Notification1({Key? key,isDrawerOpen, this.title,required this.onOpen, required this.onClose}) : 
+  isDrawerOpen = isDrawerOpen,
+  super(key: key);
 
   final String? title;
+   final VoidCallback onOpen;
+  final VoidCallback onClose;
+  final bool isDrawerOpen;
 
   @override
   _Notification1 createState() => _Notification1();
@@ -153,7 +160,7 @@ class _Notification1 extends State<Notification1> {
                 key: _drawerScaffoldKey,
                 backgroundColor: whiteColor,
                 appBar:
-                    appbar(context, StringConstant.notifications, _drawerScaffoldKey, false) as PreferredSizeWidget?,
+                    appbar(context, StringConstant.notifications, _drawerScaffoldKey, false,widget.isDrawerOpen, widget.onOpen,widget.onClose) as PreferredSizeWidget?,
                 drawer: new DrawerOnly(),
                 body: new Stack(
                   children: <Widget>[

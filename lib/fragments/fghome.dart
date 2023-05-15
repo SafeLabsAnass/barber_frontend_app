@@ -27,9 +27,12 @@ import 'package:logger/logger.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 
 class FgHome extends StatefulWidget {
-  FgHome({Key? key, this.title}) : super(key: key);
+  FgHome({Key? key, this.title,required this.isDrawerOpen, required this.onOpen, required this.onClose}) : super(key: key);
 
   final String? title;
+  final VoidCallback onOpen;
+  final VoidCallback onClose;
+  final bool isDrawerOpen;
 
   @override
   _FgHome createState() => _FgHome();
@@ -233,7 +236,7 @@ class _FgHome extends State<FgHome> {
           child: SafeArea(
             child: Scaffold(
                 backgroundColor: whiteColor,
-                appBar: appbar(context, StringConstant.home, _drawerScaffoldKey, false) as PreferredSizeWidget?,
+                appBar: appbar(context, StringConstant.home, _drawerScaffoldKey, false, widget.isDrawerOpen,widget.onOpen, widget.onClose) as PreferredSizeWidget?,
                 resizeToAvoidBottomInset: true,
                 key: _drawerScaffoldKey,
                 drawer: new DrawerOnly(),
@@ -489,7 +492,9 @@ class _FgHome extends State<FgHome> {
                                         onTap: () {
                                           print(index);
                                           Navigator.of(context).push(MaterialPageRoute(
-                                              builder: (context) => new DetailBarber(categoryDataList[index].catId)));
+                                              builder: (context) => new DetailBarber(catId:categoryDataList[index].catId, onOpen: (){},onClose: () {
+  
+                                              },)));
                                         },
                                         child: Container(
                                           margin: EdgeInsets.only(

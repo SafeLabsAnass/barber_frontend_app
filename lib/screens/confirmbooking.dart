@@ -616,17 +616,17 @@ class _ConfirmBooking extends State<ConfirmBooking> {
                                           Navigator.pushReplacement(
                                             context,
                                             new MaterialPageRoute(
-                                              builder: (context) => new TopOffers(
-                                                  1,
-                                                  selectedEmpId,
-                                                  time,
-                                                  date,
-                                                  totalprice,
-                                                  selectedServices,
-                                                  salonId,
-                                                  _selectedServicesName,
-                                                  _totalprice,
-                                                  salonData),
+                                               builder: (context) =>  Text("TopOffers")//new TopOffers(
+                                              //     1,
+                                              //     selectedEmpId,
+                                              //     time,
+                                              //     date,
+                                              //     totalprice,
+                                              //     selectedServices,
+                                              //     salonId,
+                                              //     _selectedServicesName,
+                                              //     _totalprice,
+                                              //     salonData),
                                             ),
                                           );
                                         },

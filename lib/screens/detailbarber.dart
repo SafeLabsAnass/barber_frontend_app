@@ -28,9 +28,19 @@ import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 import 'homescreen.dart';
 
 class DetailBarber extends StatefulWidget {
+
+   DetailBarber({Key? key,this.title, isDrawerOpen, this.catId, required this.onOpen, required this.onClose}) : 
+   isDrawerOpen = isDrawerOpen,
+   super(key: key);
+
+  final String? title;
+   final VoidCallback onOpen;
+  final VoidCallback onClose;
+  final bool isDrawerOpen;
+
   final int? catId;
 
-  DetailBarber(this.catId);
+ 
 
   @override
   _DetailBarber createState() => new _DetailBarber();
@@ -351,7 +361,7 @@ class _DetailBarber extends State<DetailBarber>
         child: SafeArea(
           child: Scaffold(
             backgroundColor: whiteColor,
-            appBar: appbar(context, salonName!, _drawerScaffoldKey, false)
+            appBar: appbar(context, salonName!, _drawerScaffoldKey, false,widget.isDrawerOpen,widget.onOpen, widget.onClose)
                 as PreferredSizeWidget?,
             body: Scaffold(
                 resizeToAvoidBottomInset: true,
