@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'dart:io';
+
 import 'package:barber_app/ResponseModel/showprofileResponse.dart';
 import 'package:barber_app/constant/appconstant.dart';
 import 'package:barber_app/constant/color_constant.dart';
@@ -30,7 +31,8 @@ class EditProfile extends StatefulWidget {
 }
 
 class _EditProfile extends State<EditProfile> {
-  final GlobalKey<ScaffoldState> _drawerScaffoldKey = new GlobalKey<ScaffoldState>();
+  final GlobalKey<ScaffoldState> _drawerScaffoldKey =
+      new GlobalKey<ScaffoldState>();
 
   List<AddressList>? addressDataList = <AddressList>[];
   ShowProfileData? showProfile1;
@@ -49,7 +51,8 @@ class _EditProfile extends State<EditProfile> {
     });
   }
 
-  void fieldFocusChange(BuildContext context, FocusNode currentFocus, FocusNode nextFocus) {
+  void fieldFocusChange(
+      BuildContext context, FocusNode currentFocus, FocusNode nextFocus) {
     currentFocus.unfocus();
     FocusScope.of(context).requestFocus(nextFocus);
   }
@@ -59,7 +62,8 @@ class _EditProfile extends State<EditProfile> {
       int? addressId = addressDataList![index].addressId;
       print("addressId:$addressId");
 
-      AppConstant.checkNetwork().whenComplete(() => callAddressRemoveApi(addressDataList![index].addressId));
+      AppConstant.checkNetwork().whenComplete(
+          () => callAddressRemoveApi(addressDataList![index].addressId));
       addressDataList!.removeAt(index);
     });
   }
@@ -98,7 +102,8 @@ class _EditProfile extends State<EditProfile> {
         if (response.success = true) {
           print(response.msg);
 
-          Navigator.of(context).push(MaterialPageRoute(builder: (context) => new HomeScreen(3)));
+          Navigator.of(context)
+              .push(MaterialPageRoute(builder: (context) => new HomeScreen(3)));
         } else {
           ToastMessage.toastMessage("No Data");
         }
@@ -132,12 +137,21 @@ class _EditProfile extends State<EditProfile> {
       "dark_color": const Color(0xFFffb5cc),
       "light_color": const Color(0xFFffc8de),
     },
-    {"discount": "50%", "dark_color": const Color(0xFFb5b8ff), "light_color": const Color(0xFFc8caff)},
-    {"discount": "30%", "dark_color": const Color(0xFFffb5b5), "light_color": const Color(0xFFffc8c8)},
+    {
+      "discount": "50%",
+      "dark_color": const Color(0xFFb5b8ff),
+      "light_color": const Color(0xFFc8caff)
+    },
+    {
+      "discount": "30%",
+      "dark_color": const Color(0xFFffb5b5),
+      "light_color": const Color(0xFFffc8c8)
+    },
   ];
   File? _image;
   final picker = ImagePicker();
   bool isTextEnable = false;
+
   @override
   Widget build(BuildContext context) {
     SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
@@ -181,7 +195,8 @@ class _EditProfile extends State<EditProfile> {
           key: _drawerScaffoldKey,
           body: Form(
             key: _formKey,
-            child: new ListView(physics: ClampingScrollPhysics(), children: <Widget>[
+            child: new ListView(physics: ClampingScrollPhysics(), children: <
+                Widget>[
               Padding(
                 padding: const EdgeInsets.all(10.0),
                 child: Column(
@@ -209,7 +224,8 @@ class _EditProfile extends State<EditProfile> {
                                   child: Stack(
                                     children: <Widget>[
                                       Padding(
-                                        padding: const EdgeInsets.only(left: 8.0),
+                                        padding:
+                                            const EdgeInsets.only(left: 8.0),
                                         child: CircleAvatar(
                                           radius: 30,
                                           backgroundColor: Colors.transparent,
@@ -222,17 +238,25 @@ class _EditProfile extends State<EditProfile> {
                                               },
                                               child: _image == null
                                                   ? CachedNetworkImage(
-                                                      imageUrl: showProfile1!.imagePath! + showProfile1!.image!,
-                                                      imageBuilder: (context, imageProvider) => ClipOval(
+                                                      imageUrl: showProfile1!
+                                                              .imagePath! +
+                                                          showProfile1!.image!,
+                                                      imageBuilder: (context,
+                                                              imageProvider) =>
+                                                          ClipOval(
                                                         child: Image(
                                                           image: imageProvider,
                                                           fit: BoxFit.fill,
                                                         ),
                                                       ),
-                                                      placeholder: (context, url) =>
-                                                          SpinKitFadingCircle(color: pinkColor),
-                                                      errorWidget: (context, url, error) =>
-                                                          Image.asset(DummyImage.noImage),
+                                                      placeholder: (context,
+                                                              url) =>
+                                                          SpinKitFadingCircle(
+                                                              color: pinkColor),
+                                                      errorWidget: (context,
+                                                              url, error) =>
+                                                          Image.asset(DummyImage
+                                                              .noImage),
                                                     )
                                                   : ClipOval(
                                                       child: Image.file(
@@ -245,7 +269,8 @@ class _EditProfile extends State<EditProfile> {
                                         ),
                                       ),
                                       Padding(
-                                          padding: EdgeInsets.only(left: 50, top: 35, bottom: 10),
+                                          padding: EdgeInsets.only(
+                                              left: 50, top: 35, bottom: 10),
                                           child: GestureDetector(
                                             onTap: () async {
                                               selectImage(context);
@@ -253,7 +278,8 @@ class _EditProfile extends State<EditProfile> {
                                             child: Container(
                                               width: 25,
                                               height: 25,
-                                              child: SvgPicture.asset(DummyImage.camera),
+                                              child: SvgPicture.asset(
+                                                  DummyImage.camera),
                                             ),
                                           )),
                                     ],
@@ -311,7 +337,8 @@ class _EditProfile extends State<EditProfile> {
                         keyboardType: TextInputType.text,
                         textInputAction: TextInputAction.next,
                         validator: (name) {
-                          Pattern pattern = r'^[A-Za-z0-9]+(?:[ _-][A-Za-z0-9]+)*$';
+                          Pattern pattern =
+                              r'^[A-Za-z0-9]+(?:[ _-][A-Za-z0-9]+)*$';
                           RegExp regex = new RegExp(pattern as String);
                           if (!regex.hasMatch(name!))
                             return 'Invalid name';
@@ -320,7 +347,8 @@ class _EditProfile extends State<EditProfile> {
                         },
                         onSaved: (name) => _username = name,
                         onFieldSubmitted: (_) {
-                          fieldFocusChange(context, _usernameFocusNode, _emailFocusNode);
+                          fieldFocusChange(
+                              context, _usernameFocusNode, _emailFocusNode);
                         },
                         style: TextStyle(
                             fontSize: 14.0,
@@ -331,7 +359,8 @@ class _EditProfile extends State<EditProfile> {
                           filled: true,
                           fillColor: whiteF1,
                           hintText: 'Enter your Name',
-                          contentPadding: const EdgeInsets.only(left: 14.0, bottom: 8.0, top: 8.0),
+                          contentPadding: const EdgeInsets.only(
+                              left: 14.0, bottom: 8.0, top: 8.0),
                           focusedBorder: OutlineInputBorder(
                             borderSide: BorderSide(color: whiteF1),
                             borderRadius: BorderRadius.circular(8),
@@ -365,10 +394,13 @@ class _EditProfile extends State<EditProfile> {
                         keyboardType: TextInputType.emailAddress,
                         textInputAction: TextInputAction.next,
                         focusNode: _emailFocusNode,
-                        validator: (email) => EmailValidator.validate(email!) ? null : "Invalid email address",
+                        validator: (email) => EmailValidator.validate(email!)
+                            ? null
+                            : "Invalid email address",
                         onSaved: (email) => _email = email,
                         onFieldSubmitted: (_) {
-                          fieldFocusChange(context, _emailFocusNode, _phoneFocusNode);
+                          fieldFocusChange(
+                              context, _emailFocusNode, _phoneFocusNode);
                         },
                         style: TextStyle(
                             fontSize: 14.0,
@@ -379,7 +411,8 @@ class _EditProfile extends State<EditProfile> {
                           filled: true,
                           fillColor: whiteF1,
                           hintText: 'Enter your EmailId',
-                          contentPadding: const EdgeInsets.only(left: 14.0, bottom: 8.0, top: 8.0),
+                          contentPadding: const EdgeInsets.only(
+                              left: 14.0, bottom: 8.0, top: 8.0),
                           focusedBorder: OutlineInputBorder(
                             borderSide: BorderSide(color: whiteF1),
                             borderRadius: BorderRadius.circular(8),
@@ -431,7 +464,7 @@ class _EditProfile extends State<EditProfile> {
                             fontWeight: FontWeight.w600),
                         decoration: InputDecoration(
                           prefix: Container(
-                            width: MediaQuery.of(context).size.width * 0.12,
+                            width: MediaQuery.of(context).size.width * 0.15,
                             child: Row(
                               children: [
                                 Text(
@@ -450,7 +483,8 @@ class _EditProfile extends State<EditProfile> {
                               ],
                             ),
                           ),
-                          prefixIconConstraints: BoxConstraints(minWidth: 20, maxHeight: 20),
+                          prefixIconConstraints:
+                              BoxConstraints(minWidth: 20, maxHeight: 20),
                           filled: true,
                           fillColor: whiteF1,
                           hintText: 'Enter your Contact Number',
@@ -497,7 +531,8 @@ class _EditProfile extends State<EditProfile> {
                                 Container(
                                   alignment: FractionalOffset.topLeft,
                                   width: screenWidth * .5,
-                                  transform: Matrix4.translationValues(0.0, 5.0, 0.0),
+                                  transform:
+                                      Matrix4.translationValues(0.0, 5.0, 0.0),
                                   child: ListView(
                                     shrinkWrap: true,
                                     physics: NeverScrollableScrollPhysics(),
@@ -510,7 +545,8 @@ class _EditProfile extends State<EditProfile> {
                                             color: blackColor,
                                             fontWeight: FontWeight.w600,
                                             fontSize: 14,
-                                            fontFamily: ConstantFont.montserratMedium),
+                                            fontFamily:
+                                                ConstantFont.montserratMedium),
                                       ),
                                       Text(
                                         addressDataList![index].city! +
@@ -524,7 +560,8 @@ class _EditProfile extends State<EditProfile> {
                                             color: greyColor,
                                             fontWeight: FontWeight.w600,
                                             fontSize: 11,
-                                            fontFamily: ConstantFont.montserratMedium),
+                                            fontFamily:
+                                                ConstantFont.montserratMedium),
                                       ),
                                     ],
                                   ),
@@ -536,7 +573,8 @@ class _EditProfile extends State<EditProfile> {
                                   child: Container(
                                       width: screenWidth * .25,
                                       margin: EdgeInsets.only(right: 5),
-                                      transform: Matrix4.translationValues(5.0, -10.0, 0.0),
+                                      transform: Matrix4.translationValues(
+                                          5.0, -10.0, 0.0),
                                       child: RichText(
                                         text: TextSpan(
                                           children: [
@@ -551,13 +589,17 @@ class _EditProfile extends State<EditProfile> {
                                             ),
                                             WidgetSpan(
                                               child: Container(
-                                                margin: EdgeInsets.only(top: 5, left: 5),
-                                                child: Text(StringConstant.remove,
+                                                margin: EdgeInsets.only(
+                                                    top: 5, left: 5),
+                                                child: Text(
+                                                    StringConstant.remove,
                                                     style: TextStyle(
                                                         color: redFF,
                                                         fontSize: 12,
-                                                        fontFamily: ConstantFont.montserratMedium,
-                                                        fontWeight: FontWeight.w500)),
+                                                        fontFamily: ConstantFont
+                                                            .montserratMedium,
+                                                        fontWeight:
+                                                            FontWeight.w500)),
                                               ),
                                             ),
                                           ],
@@ -582,12 +624,14 @@ class _EditProfile extends State<EditProfile> {
                               String imageB64 = "";
                               print("imageB64123:$imageB64");
 
-                              AppConstant.checkNetwork().whenComplete(() => callApiForEditProfile(imageB64));
+                              AppConstant.checkNetwork().whenComplete(
+                                  () => callApiForEditProfile(imageB64));
                             } else {
                               List<int> imageBytes = _image!.readAsBytesSync();
                               String imageB64 = base64Encode(imageBytes);
 
-                              AppConstant.checkNetwork().whenComplete(() => callApiForEditProfile(imageB64));
+                              AppConstant.checkNetwork().whenComplete(
+                                  () => callApiForEditProfile(imageB64));
                             }
                           }
                         },
@@ -596,7 +640,9 @@ class _EditProfile extends State<EditProfile> {
                           child: Text(
                             StringConstant.changeThis,
                             style: TextStyle(
-                                fontSize: 16, fontWeight: FontWeight.w600, fontFamily: ConstantFont.montserratMedium),
+                                fontSize: 16,
+                                fontWeight: FontWeight.w600,
+                                fontFamily: ConstantFont.montserratMedium),
                           ),
                         ),
                         style: ElevatedButton.styleFrom(
@@ -726,7 +772,8 @@ class _EditProfile extends State<EditProfile> {
                     leading: new Icon(Icons.photo_library),
                     title: new Text(
                       StringConstant.photoLibrary,
-                      style: TextStyle(fontFamily: ConstantFont.montserratMedium),
+                      style:
+                          TextStyle(fontFamily: ConstantFont.montserratMedium),
                     ),
                     onTap: () {
                       _imgFromGallery();
