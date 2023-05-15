@@ -380,12 +380,16 @@ class _DetailBarber extends State<DetailBarber>
                               ):Container(
                                 height: 200,
                                 width: double.infinity,
-                                alignment: Alignment.topCenter,
-                                child: Image.network(
-                                  salonImage,
-                                  height: 170,
-                                  width: double.infinity,
-                                  fit: BoxFit.fill,
+                                alignment: Alignment.center,
+                                child: Align(
+                                  alignment: Alignment.centerRight,
+                                  child: Image.network(
+                                    
+                                    salonImage,
+                                    height: 170,
+                                    width: double.infinity,
+                                    fit: BoxFit.contain,
+                                  ),
                                 ),
                               ),
                               ListView(
@@ -404,7 +408,7 @@ class _DetailBarber extends State<DetailBarber>
                                                 child: Text(
                                                   salonName!,
                                                   style: TextStyle(
-                                                      color: whiteColor,
+                                                      color: black1E,
                                                       fontFamily: ConstantFont
                                                           .montserratSemiBold,
                                                       fontWeight:
@@ -422,7 +426,7 @@ class _DetailBarber extends State<DetailBarber>
                                                   DummyImage.rightArrow,
                                                   width: 20,
                                                   height: 20,
-                                                  color: whiteColor,
+                                                  color: black1E,
                                                 ),
                                               ),
                                             ),
@@ -437,7 +441,7 @@ class _DetailBarber extends State<DetailBarber>
                                     child: Text(
                                       salonAddress!,
                                       style: TextStyle(
-                                          color: whiteColor,
+                                          color: black1E,
                                           fontFamily:
                                               ConstantFont.montserratMedium,
                                           fontWeight: FontWeight.w600,
@@ -455,7 +459,7 @@ class _DetailBarber extends State<DetailBarber>
                                             WidgetSpan(
                                               child: Container(
                                                 decoration: BoxDecoration(
-                                                    color: greenColor,
+                                                    color: mustardColor,
                                                     borderRadius:
                                                         BorderRadius.only(
                                                             topLeft:
@@ -472,7 +476,7 @@ class _DetailBarber extends State<DetailBarber>
                                                                     3)),
                                                     border: Border.all(
                                                         width: 3,
-                                                        color: greenColor,
+                                                        color: mustardColor,
                                                         style:
                                                             BorderStyle.solid)),
                                                 height: 20,

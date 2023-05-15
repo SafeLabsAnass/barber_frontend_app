@@ -591,7 +591,7 @@ class _ConfirmBooking extends State<ConfirmBooking> {
                             alignment: Alignment.center,
                             margin: EdgeInsets.only(left: 25, right: 15),
                             decoration: BoxDecoration(
-                                color: Color(0xFF80dcb4), borderRadius: BorderRadius.all(Radius.circular(10))),
+                                color: mustardColor, borderRadius: BorderRadius.all(Radius.circular(10))),
                             child: Column(
                               children: [
                                 Visibility(
@@ -874,7 +874,7 @@ class _ConfirmBooking extends State<ConfirmBooking> {
                             child: Text(
                               StringConstant.goThere,
                               style: TextStyle(
-                                  color: blue21,
+                                  color: pinkColor,
                                   fontFamily: ConstantFont.montserratMedium,
                                   fontWeight: FontWeight.w600,
                                   fontSize: 14),

@@ -323,7 +323,7 @@ class _BookAppointment extends State<BookAppoitment> with TickerProviderStateMix
                                       ),
                                       holidayTextStyle: TextStyle(color: greyColor),
                                       todayDecoration: BoxDecoration(
-                                        color: Theme.of(context).primaryColor,
+                                        color: pinkColor,
                                         shape: BoxShape.circle,
                                       ),
                                       cellMargin: EdgeInsets.all(9.0),
@@ -413,7 +413,7 @@ class _BookAppointment extends State<BookAppoitment> with TickerProviderStateMix
                                             child: Text(
                                               timeList[index].startTime!,
                                               style: TextStyle(
-                                                  color: isSelected ? whiteColor : blackColor,
+                                                  color: isSelected ? pinkColor : blackColor,
                                                   fontSize: 11,
                                                   fontWeight: FontWeight.w600,
                                                   fontFamily: ConstantFont.montserratMedium),
@@ -423,9 +423,9 @@ class _BookAppointment extends State<BookAppoitment> with TickerProviderStateMix
                                           ),
                                           decoration: isSelected
                                               ? BoxDecoration(
-                                                  color: blue4a,
+                                                  color: pinkColor,
                                                   border: Border.all(
-                                                    color: blue4a,
+                                                    color: pinkColor,
                                                   ),
                                                   borderRadius: BorderRadius.circular(8),
                                                 )
@@ -712,7 +712,7 @@ class _BookAppointment extends State<BookAppoitment> with TickerProviderStateMix
                                         }
                                       },
                                       style: TextButton.styleFrom(
-                                        backgroundColor: blue21,
+                                        backgroundColor: pinkColor,
                                         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
                                       ),
                                       child: Text(

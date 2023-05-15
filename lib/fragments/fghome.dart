@@ -474,9 +474,9 @@ class _FgHome extends State<FgHome> {
                                 ),
                               )
                             : Container(
-                                margin: EdgeInsets.only(left: 10, right: 10),
+                                margin: EdgeInsets.only(left: 8, right: 8),
                                 child: GridView.count(
-                                  childAspectRatio: 2.2,
+                                  childAspectRatio:(180.0 / 80.0),
                                   crossAxisCount: 2,
                                   crossAxisSpacing: 0.0,
                                   shrinkWrap: true,
@@ -520,8 +520,8 @@ class _FgHome extends State<FgHome> {
                                                 ),
                                                 
                                                 Container(
-                                                  
-                                                  width: ScreenUtil().setWidth(85),
+                                                   color: whiteColor,
+                                                  width: ScreenUtil().setWidth(70),
                                                  padding: EdgeInsets.symmetric(horizontal: 5),
                                                   child:
                                                         Text(                                
@@ -531,7 +531,7 @@ class _FgHome extends State<FgHome> {
                                                         maxLines: 2,
                                                         style: TextStyle(
                                                             color: blackColor,
-                                                            fontSize: 12,
+                                                            fontSize: 10,
                                                             fontWeight: FontWeight.w600,
                                                             fontFamily: ConstantFont.montserratMedium),
                                                                                                          ),

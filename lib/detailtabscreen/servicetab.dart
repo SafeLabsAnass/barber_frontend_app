@@ -153,7 +153,7 @@ class _ServiceTab extends State<ServiceTab> {
                                             child: Text(
                                               categoryList[index].name!,
                                               style: TextStyle(
-                                                  color: isSelected ? whiteColor : greyA5,
+                                                  color: isSelected ? pinkColor : greyA5,
                                                   fontSize: 14,
                                                   fontFamily: ConstantFont.montserratMedium,
                                                   fontWeight: FontWeight.w600),
@@ -179,7 +179,7 @@ class _ServiceTab extends State<ServiceTab> {
                                   visible: false,
                                   child: Container(
                                     margin: EdgeInsets.only(top: 0.0, left: 10, right: 10),
-                                    color: whiteColor,
+                                    color: blackColor,
                                     height: 40,
                                     child: Row(
                                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -451,7 +451,7 @@ class _ServiceTab extends State<ServiceTab> {
                       visible: viewVisible,
                       child: Container(
                         height: 50,
-                        color: blue21,
+                        color: Colors.white,
                         alignment: FractionalOffset.bottomCenter,
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -463,7 +463,7 @@ class _ServiceTab extends State<ServiceTab> {
                                 ("Total : " + totalprice.toString()) + " ₹ ",
                                 textAlign: TextAlign.end,
                                 style: TextStyle(
-                                    color: whiteColor,
+                                    color: black1E,
                                     fontSize: 14,
                                     fontWeight: FontWeight.w600,
                                     fontFamily: ConstantFont.montserratMedium),
@@ -489,12 +489,12 @@ class _ServiceTab extends State<ServiceTab> {
                                           .push(MaterialPageRoute(builder: (context) => new LoginScreen(6)));
                                     }
                                   },
-                                  color: whiteColor,
+                                  color: pinkColor,
                                   shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
                                   child: Text(
                                     StringConstant.bookService,
                                     style: TextStyle(
-                                        color: blue21,
+                                        color: Colors.white,
                                         fontWeight: FontWeight.w600,
                                         fontFamily: ConstantFont.montserratMedium,
                                         fontSize: 14),
