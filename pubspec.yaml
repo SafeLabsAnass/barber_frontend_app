@@ -80,6 +80,7 @@ dependencies:
   extended_image: ^6.3.4
   staggered_grid_view_flutter: ^0.0.4
   country_list_pick: ^1.0.1+6
+  persistent_bottom_nav_bar_ccc: ^5.0.1
 
 dev_dependencies:
   flutter_test:

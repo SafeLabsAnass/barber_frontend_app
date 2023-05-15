@@ -1056,6 +1056,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.11.1"
+  persistent_bottom_nav_bar_ccc:
+    dependency: "direct main"
+    description:
+      name: persistent_bottom_nav_bar_ccc
+      sha256: "46e567f36240017773ccb9365aae3c9d7520a5f0816fed89454cb854950a3791"
+      url: "https://pub.dev"
+    source: hosted
+    version: "5.0.1"
   petitparser:
     dependency: transitive
     description:

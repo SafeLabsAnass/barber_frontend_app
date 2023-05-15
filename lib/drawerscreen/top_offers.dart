@@ -615,7 +615,7 @@ class _TopOffers extends State<TopOffers> {
                       ],
                     ),
                   ),
-                  new Container(child: Body())
+                  // new Container(child: Body())
                 ],
               )),
         ),

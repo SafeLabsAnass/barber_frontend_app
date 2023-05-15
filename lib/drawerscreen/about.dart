@@ -77,66 +77,54 @@ class _About extends State<About> {
 
   @override
   Widget build(BuildContext context) {
-    return WillPopScope(
-      onWillPop: _onWillPop,
-      child: ModalProgressHUD(
-        inAsyncCall: _loading,
-        opacity: 1.0,
-        color: Colors.transparent.withOpacity(0.2),
-        progressIndicator: SpinKitFadingCircle(color: pinkColor),
-        child: new SafeArea(
-          child: Scaffold(
-            extendBodyBehindAppBar: true,
-            backgroundColor: whiteColor,
-            appBar: appbar(context, StringConstant.aboutApp, _drawerScaffoldKey, false)
-                as PreferredSizeWidget?,
-            body: Scaffold(
-              resizeToAvoidBottomInset: true,
-              key: _drawerScaffoldKey,
-              drawer: new DrawerOnly(),
-              body: new Stack(children: <Widget>[
-                Visibility(
-                  visible: dataVisible,
-                  child: Container(
-                    margin:
-                        EdgeInsets.only(left: 15, right: 15, top: 0, bottom: 60),
-                    child: Center(
-                      child: Container(
-                          width: MediaQuery.of(context).size.width,
-                          height: MediaQuery.of(context).size.height * 0.75,
-                          alignment: Alignment.center,
-                          child: ListView(
-                            shrinkWrap: true,
-                            physics: NeverScrollableScrollPhysics(),
-                            children: <Widget>[
-                              CachedNetworkImage(
-                                height: 70,
-                                width: 80,
-                                imageUrl: image,
-                                alignment: Alignment.center,
-                                placeholder: (context, url) =>
-                                    SpinKitFadingCircle(
-                                        color: pinkColor),
-                                errorWidget: (context, url, error) =>
-                                    Image.asset(DummyImage.noImage),
-                              ),
-                              Align(
-                                alignment: Alignment.center,
-                                child: Text(
-                                  appVersion!,
-                                  style: TextStyle(
-                                      color: whiteA3,
-                                      fontFamily: ConstantFont.montserratMedium,
-                                      fontWeight: FontWeight.w600,
-                                      fontSize: 16),
+    return Scaffold(
+      body: WillPopScope(
+        onWillPop: _onWillPop,
+        child: ModalProgressHUD(
+          inAsyncCall: _loading,
+          opacity: 1.0,
+          color: Colors.transparent.withOpacity(0.2),
+          progressIndicator: SpinKitFadingCircle(color: pinkColor),
+          child: new SafeArea(
+            child: Scaffold(
+              extendBodyBehindAppBar: true,
+              backgroundColor: whiteColor,
+              appBar: appbar(context, StringConstant.aboutApp, _drawerScaffoldKey, false)
+                  as PreferredSizeWidget?,
+              body: Scaffold(
+                resizeToAvoidBottomInset: true,
+                key: _drawerScaffoldKey,
+                drawer: new DrawerOnly(),
+                body: new Stack(children: <Widget>[
+                  Visibility(
+                    visible: dataVisible,
+                    child: Container(
+                      margin:
+                          EdgeInsets.only(left: 15, right: 15, top: 0, bottom: 60),
+                      child: Center(
+                        child: Container(
+                            width: MediaQuery.of(context).size.width,
+                            height: MediaQuery.of(context).size.height * 0.75,
+                            alignment: Alignment.center,
+                            child: ListView(
+                              shrinkWrap: true,
+                              physics: NeverScrollableScrollPhysics(),
+                              children: <Widget>[
+                                CachedNetworkImage(
+                                  height: 70,
+                                  width: 80,
+                                  imageUrl: image,
+                                  alignment: Alignment.center,
+                                  placeholder: (context, url) =>
+                                      SpinKitFadingCircle(
+                                          color: pinkColor),
+                                  errorWidget: (context, url, error) =>
+                                      Image.asset(DummyImage.noImage),
                                 ),
-                              ),
-                              Align(
-                                alignment: Alignment.center,
-                                child: Container(
-                                  margin: EdgeInsets.only(top: 30),
+                                Align(
+                                  alignment: Alignment.center,
                                   child: Text(
-                                    footer1!,
+                                    appVersion!,
                                     style: TextStyle(
                                         color: whiteA3,
                                         fontFamily: ConstantFont.montserratMedium,
@@ -144,64 +132,78 @@ class _About extends State<About> {
                                         fontSize: 16),
                                   ),
                                 ),
-                              ),
-                              Align(
-                                alignment: Alignment.center,
-                                child: Container(
-                                  margin: EdgeInsets.only(top: 1),
-                                  child: Text(
-                                    footer2!,
-                                    style: TextStyle(
-                                        color: whiteA3,
-                                        fontFamily: ConstantFont.montserratMedium,
-                                        fontWeight: FontWeight.w600,
-                                        fontSize: 14),
+                                Align(
+                                  alignment: Alignment.center,
+                                  child: Container(
+                                    margin: EdgeInsets.only(top: 30),
+                                    child: Text(
+                                      footer1!,
+                                      style: TextStyle(
+                                          color: whiteA3,
+                                          fontFamily: ConstantFont.montserratMedium,
+                                          fontWeight: FontWeight.w600,
+                                          fontSize: 16),
+                                    ),
                                   ),
                                 ),
-                              ),
-                            ],
-                          )),
-                    ),
-                  ),
-                ),
-                Visibility(
-                  visible: noDataVisible,
-                  child: Container(
-                    margin:
-                        EdgeInsets.only(left: 15, right: 15, top: 0, bottom: 60),
-                    child: Center(
-                      child: Container(
-                          width: MediaQuery.of(context).size.width,
-                          height: MediaQuery.of(context).size.height * 0.75,
-                          alignment: Alignment.center,
-                          child: ListView(
-                            shrinkWrap: true,
-                            physics: NeverScrollableScrollPhysics(),
-                            children: <Widget>[
-                              Image.asset(
-                                DummyImage.noData,
-                                alignment: Alignment.center,
-                                width: 150,
-                                height: 100,
-                              ),
-                              Align(
-                                alignment: Alignment.center,
-                                child: Text(
-                                  StringConstant.noData,
-                                  style: TextStyle(
-                                      color: whiteA3,
-                                      fontFamily: ConstantFont.montserratBold,
-                                      fontWeight: FontWeight.w600,
-                                      fontSize: 16),
+                                Align(
+                                  alignment: Alignment.center,
+                                  child: Container(
+                                    margin: EdgeInsets.only(top: 1),
+                                    child: Text(
+                                      footer2!,
+                                      style: TextStyle(
+                                          color: whiteA3,
+                                          fontFamily: ConstantFont.montserratMedium,
+                                          fontWeight: FontWeight.w600,
+                                          fontSize: 14),
+                                    ),
+                                  ),
                                 ),
-                              ),
-                            ],
-                          )),
+                              ],
+                            )),
+                      ),
                     ),
                   ),
-                ),
-                new Container(alignment: Alignment.bottomCenter, child: Body()),
-              ]),
+                  Visibility(
+                    visible: noDataVisible,
+                    child: Container(
+                      margin:
+                          EdgeInsets.only(left: 15, right: 15, top: 0, bottom: 60),
+                      child: Center(
+                        child: Container(
+                            width: MediaQuery.of(context).size.width,
+                            height: MediaQuery.of(context).size.height * 0.75,
+                            alignment: Alignment.center,
+                            child: ListView(
+                              shrinkWrap: true,
+                              physics: NeverScrollableScrollPhysics(),
+                              children: <Widget>[
+                                Image.asset(
+                                  DummyImage.noData,
+                                  alignment: Alignment.center,
+                                  width: 150,
+                                  height: 100,
+                                ),
+                                Align(
+                                  alignment: Alignment.center,
+                                  child: Text(
+                                    StringConstant.noData,
+                                    style: TextStyle(
+                                        color: whiteA3,
+                                        fontFamily: ConstantFont.montserratBold,
+                                        fontWeight: FontWeight.w600,
+                                        fontSize: 16),
+                                  ),
+                                ),
+                              ],
+                            )),
+                      ),
+                    ),
+                  ),
+                  // new Container(alignment: Alignment.bottomCenter, child: Body()),
+                ]),
+              ),
             ),
           ),
         ),

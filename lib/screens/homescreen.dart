@@ -1,3 +1,4 @@
+import 'package:barber_app/bottombar.dart';
 import 'package:barber_app/constant/appconstant.dart';
 import 'package:barber_app/constant/preferenceutils.dart';
 import 'package:barber_app/constant/toast_message.dart';
@@ -6,8 +7,6 @@ import 'package:barber_app/network/Apiservice.dart';
 import 'package:barber_app/network/Retro_Api.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-
-import 'package:barber_app/bottombar.dart';
 
 void main() {
   runApp(new MaterialApp(
@@ -48,15 +47,13 @@ class _HomeScreen extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
-    SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
-      statusBarColor: Colors.transparent
-    ));
+    SystemChrome.setSystemUIOverlayStyle(
+        SystemUiOverlayStyle(statusBarColor: Colors.transparent));
     SystemChrome.setSystemUIOverlayStyle(
         SystemUiOverlayStyle(statusBarBrightness: Brightness.dark));
 
     return new SafeArea(
-
-      child: Scaffold(
+        child: Scaffold(
       resizeToAvoidBottomInset: true,
       key: _drawerScaffoldKey,
       drawer: DrawerOnly(),

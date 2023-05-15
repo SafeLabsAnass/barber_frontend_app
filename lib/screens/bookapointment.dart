@@ -728,7 +728,7 @@ class _BookAppointment extends State<BookAppoitment> with TickerProviderStateMix
                             ),
                           ),
                         ),
-                        CustomView(),
+                        // CustomView(),
                       ],
                     ),
                   ),

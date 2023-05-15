@@ -3,6 +3,7 @@ class DummyImage{
   static const String calenderWhite="images/calendar_white.svg";
   static const String notificationWhite="images/notification_white.svg";
   static const String profileWhite="images/profile_white.svg";
+  static const String profile="images/profile.svg";
   static const String noImage="images/no_image.png";
   static const String noData="images/nodata.png";
   static const String star="images/star.svg";

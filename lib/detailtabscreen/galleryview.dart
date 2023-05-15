@@ -58,8 +58,10 @@ class _GalleryView extends State<GalleryView> {
     dynamic screenWidth = MediaQuery.of(context).size.width;
     return SafeArea(
       child: Scaffold(
+        extendBody: true,
+        resizeToAvoidBottomInset: true,
         body: Container(
-          margin: EdgeInsets.only(top: 0, left: 15, right: 15, bottom: 45),
+          margin: EdgeInsets.only(top: 0, left: 15, right: 15, bottom: 1),
           color: whiteColor,
           height: double.infinity,
           width: double.infinity,
@@ -77,7 +79,8 @@ class _GalleryView extends State<GalleryView> {
                       physics: NeverScrollableScrollPhysics(),
                       crossAxisCount: 4,
                       itemCount: imageList.length,
-                      itemBuilder: (BuildContext context, int index) => GestureDetector(
+                      itemBuilder: (BuildContext context, int index) =>
+                          GestureDetector(
                         onTap: () {
                           Navigator.of(context).push(MaterialPageRoute(
                               builder: (context) => FullImagePage(
@@ -92,7 +95,8 @@ class _GalleryView extends State<GalleryView> {
                             child: new Container(
                               child: CachedNetworkImage(
                                 imageUrl: imageList[index],
-                                imageBuilder: (context, imageProvider) => Container(
+                                imageBuilder: (context, imageProvider) =>
+                                    Container(
                                   decoration: BoxDecoration(
                                     borderRadius: BorderRadius.circular(10.0),
                                     image: DecorationImage(
@@ -102,12 +106,15 @@ class _GalleryView extends State<GalleryView> {
                                     ),
                                   ),
                                 ),
-                                placeholder: (context, url) => SpinKitFadingCircle(color: pinkColor),
-                                errorWidget: (context, url, error) => Image.asset(DummyImage.noImage),
+                                placeholder: (context, url) =>
+                                    SpinKitFadingCircle(color: pinkColor),
+                                errorWidget: (context, url, error) =>
+                                    Image.asset(DummyImage.noImage),
                               ),
                             )),
                       ),
-                      staggeredTileBuilder: (int index) => new StaggeredTile.count(2, index.isEven ? 2 : 1),
+                      staggeredTileBuilder: (int index) =>
+                          new StaggeredTile.count(2, index.isEven ? 2 : 1),
                       mainAxisSpacing: 4.0,
                       crossAxisSpacing: 4.0,
                     ),
@@ -118,36 +125,37 @@ class _GalleryView extends State<GalleryView> {
                 visible: noDataVisible,
                 child: SizedBox(
                   width: screenWidth,
-                  height: screenHeight * 0.5,
+                  height: screenHeight * 0.8,
                   child: Container(
                     child: Center(
                       child: Container(
-                          width: screenWidth,
-                          height: screenHeight,
-                          alignment: Alignment.center,
-                          child: ListView(
-                            shrinkWrap: true,
-                            physics: NeverScrollableScrollPhysics(),
-                            children: <Widget>[
-                              Image.asset(
-                                DummyImage.noData,
-                                alignment: Alignment.center,
-                                width: 150,
-                                height: 100,
+                        width: screenWidth,
+                        height: screenHeight,
+                        alignment: Alignment.center,
+                        child: ListView(
+                          shrinkWrap: true,
+                          physics: NeverScrollableScrollPhysics(),
+                          children: <Widget>[
+                            Image.asset(
+                              DummyImage.noData,
+                              alignment: Alignment.center,
+                              width: 150,
+                              height: 100,
+                            ),
+                            Align(
+                              alignment: Alignment.center,
+                              child: Text(
+                                StringConstant.noImagesAvailable,
+                                style: TextStyle(
+                                    color: whiteA3,
+                                    fontFamily: ConstantFont.montserratMedium,
+                                    fontWeight: FontWeight.w600,
+                                    fontSize: 16),
                               ),
-                              Align(
-                                alignment: Alignment.center,
-                                child: Text(
-                                  StringConstant.noImagesAvailable,
-                                  style: TextStyle(
-                                      color: whiteA3,
-                                      fontFamily: ConstantFont.montserratMedium,
-                                      fontWeight: FontWeight.w600,
-                                      fontSize: 16),
-                                ),
-                              ),
-                            ],
-                          )),
+                            ),
+                          ],
+                        ),
+                      ),
                     ),
                   ),
                 ),

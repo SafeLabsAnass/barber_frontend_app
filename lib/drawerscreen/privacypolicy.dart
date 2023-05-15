@@ -146,7 +146,7 @@ class _PrivacyPolicy extends State<PrivacyPolicy> {
                     ),
                   ),
                 ),
-                new Container(alignment: Alignment.bottomCenter, child: Body())
+                // new Container(alignment: Alignment.bottomCenter, child: Body())
               ]),
             ),
           ),

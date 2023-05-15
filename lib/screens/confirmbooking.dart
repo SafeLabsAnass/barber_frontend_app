@@ -788,10 +788,10 @@ class _ConfirmBooking extends State<ConfirmBooking> {
                       ),
                     ),
                   ),
-                  Align(
-                    alignment: Alignment.bottomCenter,
-                    child: CustomView(),
-                  ),
+                  // Align(
+                  //   alignment: Alignment.bottomCenter,
+                  //   child: CustomView(),
+                  // ),
                 ],
               )),
         ),
