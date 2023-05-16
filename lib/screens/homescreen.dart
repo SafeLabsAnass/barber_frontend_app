@@ -43,8 +43,6 @@ class _HomeScreen extends State<HomeScreen> {
     }
   }
 
-  final GlobalKey<ScaffoldState> _drawerScaffoldKey =
-      new GlobalKey<ScaffoldState>();
 
   @override
   Widget build(BuildContext context) {

@@ -1,4 +1,3 @@
-import 'package:barber_app/ResponseModel/WorkingHourDisplayModel.dart';
 import 'package:barber_app/ResponseModel/salonDetailResponse.dart';
 import 'package:barber_app/appbar/app_bar_only.dart';
 import 'package:barber_app/common/common_view.dart';
@@ -16,9 +15,7 @@ import 'package:barber_app/detailtabscreen/servicetab.dart';
 import 'package:barber_app/detailtabscreen/tababout.dart';
 import 'package:barber_app/drawer/drawer_only.dart';
 import 'package:barber_app/network/Apiservice.dart';
-import 'package:barber_app/network/BaseModel.dart';
 import 'package:barber_app/network/Retro_Api.dart';
-import 'package:barber_app/network/ServerError.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:flutter_svg/svg.dart';
@@ -28,17 +25,18 @@ import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 import 'homescreen.dart';
 
 class DetailBarber extends StatefulWidget {
+   final String? title;
+   final VoidCallback onOpen;
+  final VoidCallback onClose;
+   bool isDrawerOpen;
 
-   DetailBarber({Key? key,this.title,required isDrawerOpen, this.catId, required this.onOpen, required this.onClose}) : 
+  final int? catId;
+
+   DetailBarber({Key? key,this.title,this.catId, required isDrawerOpen,  required this.onOpen, required this.onClose}) : 
    isDrawerOpen = isDrawerOpen,
    super(key: key);
 
-  final String? title;
-   final VoidCallback onOpen;
-  final VoidCallback onClose;
-  final bool isDrawerOpen;
-
-  final int? catId;
+ 
 
  
 
@@ -361,7 +359,7 @@ class _DetailBarber extends State<DetailBarber>
         child: SafeArea(
           child: Scaffold(
             backgroundColor: whiteColor,
-            appBar: appbar(context, salonName!, _drawerScaffoldKey, false, widget.isDrawerOpen,widget.onOpen, widget.onClose)
+            appBar: appbar(context, salonName!, _drawerScaffoldKey, false, widget.isDrawerOpen, widget.onOpen, widget.onClose, drawer: true)
                 as PreferredSizeWidget?,
             body: Scaffold(
                 resizeToAvoidBottomInset: true,

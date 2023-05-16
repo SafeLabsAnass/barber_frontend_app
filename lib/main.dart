@@ -5,6 +5,7 @@ import 'package:flutter_stripe/flutter_stripe.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:barber_app/constant/appconstant.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'constant/preferenceutils.dart';
 
 Future<void> main() async {
@@ -29,11 +30,12 @@ class MyApp extends StatelessWidget {
           FocusManager.instance.primaryFocus!.unfocus();
         }
       },
-      child: new MaterialApp(
+      child: new GetMaterialApp(
         debugShowCheckedModeBanner: false,
         navigatorKey: NavigationService.navigatorKey,
         home: new SplashScreen(),
         routes: <String, WidgetBuilder>{
+          
           '/HomeScreen': (BuildContext context) => new HomeScreen(1),
         },
       ),

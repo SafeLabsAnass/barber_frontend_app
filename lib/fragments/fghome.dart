@@ -23,7 +23,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:geolocator/geolocator.dart';
-import 'package:logger/logger.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 
 class FgHome extends StatefulWidget {
@@ -236,7 +235,8 @@ class _FgHome extends State<FgHome> {
           child: SafeArea(
             child: Scaffold(
                 backgroundColor: whiteColor,
-                appBar: appbar(context, StringConstant.home, _drawerScaffoldKey, false, widget.isDrawerOpen,widget.onOpen, widget.onClose) as PreferredSizeWidget?,
+                appBar:  appbar (context, StringConstant.home, _drawerScaffoldKey, false, widget.isDrawerOpen,widget.onOpen, widget.onClose) 
+                as PreferredSizeWidget?,
                 resizeToAvoidBottomInset: true,
                 key: _drawerScaffoldKey,
                 drawer: new DrawerOnly(),

@@ -17,7 +17,7 @@ import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 
 import 'loginscreen.dart';
 import 'otpscreen.dart';
-import 'dart:ui';
+
 import 'package:barber_app/constant/dymmyimages.dart';
 
 

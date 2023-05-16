@@ -15,7 +15,6 @@ import 'fragments/profile.dart';
 
 class BottomBar extends StatefulWidget {
 
- final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
   final int index;
   final int savePrevIndex = 2;
  
@@ -67,67 +66,70 @@ class BottomBar extends StatefulWidget {
     return  AnimatedContainer(
       transform: Matrix4.translationValues(xOffset, yOffset, 0)..scale(scaleFactor),
       duration: const Duration(milliseconds: 400) ,
-      child: DefaultTabController(
-        length: 4,
-        initialIndex: widget.index,
-        child: new Scaffold(
-          body: TabBarView(
-            physics: NeverScrollableScrollPhysics(),
-            children: [
-              FgHome(onOpen: onOpen, onClose:onClose,isDrawerOpen: isDrawerOpen),
-              Appoinment(onOpen: onOpen, onClose:onClose, isDrawerOpen: isDrawerOpen,),
-             Notification1(onOpen: onOpen, onClose:onClose ,isDrawerOpen: isDrawerOpen,),
-              Profile(onOpen: onOpen, onClose:onClose, isDrawerOpen: isDrawerOpen, ),
-            ],
-          ),
-          bottomNavigationBar: new TabBar(
-            tabs: [
-              Tab(
-                icon: Container(
-                    width: 20,
-                    height: 20,
-                    child: new SvgPicture.asset(DummyImage.homeWhite)),
-              ),
-              Tab(
-                icon: GestureDetector(
-                  child: Container(
+      child: ClipRRect(
+        borderRadius: BorderRadius.circular(isDrawerOpen? 30: 0.0),
+        child: DefaultTabController(
+          length: 4,
+          initialIndex: widget.index,
+          child: new Scaffold(
+            body: TabBarView(
+              physics: NeverScrollableScrollPhysics(),
+              children: [
+                FgHome(onOpen: onOpen, onClose:onClose,isDrawerOpen: isDrawerOpen),
+                Appoinment(onOpen: onOpen, onClose:onClose, isDrawerOpen: isDrawerOpen,),
+               Notification1(onOpen: onOpen, onClose:onClose ,isDrawerOpen: isDrawerOpen,),
+                Profile(onOpen: onOpen, onClose:onClose, isDrawerOpen: isDrawerOpen, ),
+              ],
+            ),
+            bottomNavigationBar: new TabBar(
+              tabs: [
+                Tab(
+                  icon: Container(
                       width: 20,
                       height: 20,
-                      child: new SvgPicture.asset(DummyImage.calenderWhite)),
+                      child: new SvgPicture.asset(DummyImage.homeWhite)),
                 ),
-              ),
-              Tab(
-                icon: Container(
-                  width: 20,
-                  height: 20,
-                  child: Icon(Icons.notifications),
+                Tab(
+                  icon: GestureDetector(
+                    child: Container(
+                        width: 20,
+                        height: 20,
+                        child: new SvgPicture.asset(DummyImage.calenderWhite)),
+                  ),
                 ),
-              ),
-              Tab(
-                icon: Container(
+                Tab(
+                  icon: Container(
                     width: 20,
                     height: 20,
-                    child: new SvgPicture.asset(DummyImage.profileWhite)),
-              ),
-            ],
-            labelColor: whiteColor,
-            unselectedLabelColor: whiteColor,
-            indicatorSize: TabBarIndicatorSize.label,
-            indicatorPadding: EdgeInsets.all(0.0),
-            indicatorColor: whiteColor,
-            indicatorWeight: 3.0,
-            indicator: MD2Indicator(
-              indicatorSize: MD2IndicatorSize.full,
-              indicatorHeight: 5.0,
+                    child: Icon(Icons.notifications),
+                  ),
+                ),
+                Tab(
+                  icon: Container(
+                      width: 20,
+                      height: 20,
+                      child: new SvgPicture.asset(DummyImage.profileWhite)),
+                ),
+              ],
+              labelColor: whiteColor,
+              unselectedLabelColor: whiteColor,
+              indicatorSize: TabBarIndicatorSize.label,
+              indicatorPadding: EdgeInsets.all(0.0),
               indicatorColor: whiteColor,
+              indicatorWeight: 3.0,
+              indicator: MD2Indicator(
+                indicatorSize: MD2IndicatorSize.full,
+                indicatorHeight: 5.0,
+                indicatorColor: whiteColor,
+              ),
+              onTap: (value) {
+                _navigationQueue.addLast(index);
+                setState(() => index = value);
+                print(value);
+              },
             ),
-            onTap: (value) {
-              _navigationQueue.addLast(index);
-              setState(() => index = value);
-              print(value);
-            },
+            backgroundColor:pinkColor,
           ),
-          backgroundColor:pinkColor,
         ),
       ),
     );

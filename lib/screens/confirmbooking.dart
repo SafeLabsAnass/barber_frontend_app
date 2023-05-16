@@ -10,7 +10,6 @@ import 'package:barber_app/constant/dymmyimages.dart';
 import 'package:barber_app/constant/preferenceutils.dart';
 import 'package:barber_app/constant/string_constant.dart';
 import 'package:barber_app/constant/toast_message.dart';
-import 'package:barber_app/drawerscreen/top_offers.dart';
 import 'package:barber_app/network/Apiservice.dart';
 import 'package:barber_app/network/BaseModel.dart';
 import 'package:barber_app/network/Retro_Api.dart';
