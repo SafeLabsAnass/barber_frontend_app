@@ -7,6 +7,7 @@ import 'package:barber_app/constant/dymmyimages.dart';
 import 'package:barber_app/constant/preferenceutils.dart';
 import 'package:barber_app/constant/string_constant.dart';
 import 'package:barber_app/constant/toast_message.dart';
+import 'package:barber_app/drawer/default_page.dart';
 import 'package:barber_app/drawer/drawer_only.dart';
 import 'package:barber_app/network/Apiservice.dart';
 import 'package:barber_app/network/Retro_Api.dart';
@@ -17,12 +18,13 @@ import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 
 class TermsCondition extends StatefulWidget {
-    TermsCondition({Key? key, isDrawerOpen, required this.onOpen, required this.onClose}) : 
-    isDrawerOpen = isDrawerOpen,
-    super(key: key);
+  TermsCondition(
+      {Key? key, isDrawerOpen, required this.onOpen, required this.onClose})
+      : isDrawerOpen = isDrawerOpen,
+        super(key: key);
 
   final bool isDrawerOpen;
-   final VoidCallback onOpen;
+  final VoidCallback onOpen;
   final VoidCallback onClose;
   @override
   _TermsCondition createState() => new _TermsCondition();
@@ -33,6 +35,10 @@ class _TermsCondition extends State<TermsCondition> {
   bool _loading = false;
   String? termsData = '';
   String name = "User";
+  double xOffset = 0;
+  double yOffset = 0;
+  double scaleFactor = 1;
+  bool isDrawerOpen = false;
 
   @override
   void initState() {
@@ -59,18 +65,19 @@ class _TermsCondition extends State<TermsCondition> {
 
         //   ToastMessage.toastMessage("No Data");
         // }
-         _loading = false;
+        _loading = false;
         if (response.success = true) {
           dataVisible = true;
-          PreferenceUtils.setString(AppConstant.currencySymbol, response.data!.currencySymbol!);
+          PreferenceUtils.setString(
+              AppConstant.currencySymbol, response.data!.currencySymbol!);
           if (response.data!.termsConditions == null) {
             dataVisible = false;
           } else {
             dataVisible = true;
             termsData = response.data?.termsConditions;
           }
-          PreferenceUtils.setString(appId, response.data!.appId!.isNotEmpty?response.data!.appId!:"");
-          
+          PreferenceUtils.setString(appId,
+              response.data!.appId!.isNotEmpty ? response.data!.appId! : "");
         } else {
           dataVisible = false;
           ToastMessage.toastMessage("No Data");
@@ -88,6 +95,24 @@ class _TermsCondition extends State<TermsCondition> {
   final GlobalKey<ScaffoldState> _drawerScaffoldKey =
       new GlobalKey<ScaffoldState>();
 
+  void onOpen() {
+    setState(() {
+      xOffset = 220;
+      yOffset = 130;
+      scaleFactor = 0.7;
+      isDrawerOpen = true;
+    });
+  }
+
+  void onClose() {
+    setState(() {
+      xOffset = 0;
+      yOffset = 0;
+      scaleFactor = 1;
+      isDrawerOpen = false;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return WillPopScope(
@@ -96,68 +121,86 @@ class _TermsCondition extends State<TermsCondition> {
         inAsyncCall: _loading,
         opacity: 1.0,
         color: Colors.transparent.withOpacity(0.2),
-        progressIndicator:
-            SpinKitFadingCircle(color: pinkColor),
+        progressIndicator: SpinKitFadingCircle(color: pinkColor),
         child: new SafeArea(
-          child: Scaffold(
-            appBar:
-                appbar(context, StringConstant.termsAndConditions, _drawerScaffoldKey, false,widget.isDrawerOpen,widget.onOpen,widget.onClose)
-                    as PreferredSizeWidget?,
-            body: Scaffold(
-              backgroundColor:whiteColor,
-              resizeToAvoidBottomInset: true,
-              key: _drawerScaffoldKey,
-              drawer: new DrawerOnly(),
-              body: new Stack(children: <Widget>[
-                dataVisible
-                    ? Container(
-                        margin: EdgeInsets.only(
-                            left: 15, right: 15, top: 10, bottom: 60),
-                        child: new SingleChildScrollView(
-                          scrollDirection: Axis.vertical,
-                          child: Html(
-                            data: termsData,
+            child: Stack(
+          children: [
+            DrawerOnly(),
+            DefaultPage(
+              index: 1,
+              yOffset: yOffset,
+              xOffset: xOffset,
+              scaleFactor: scaleFactor,
+              isDrawerOpen: isDrawerOpen,
+              child: Scaffold(
+                appBar: appbar(
+                    context,
+                    StringConstant.termsAndConditions,
+                    _drawerScaffoldKey,
+                    false,
+                    isDrawerOpen,
+                    onOpen,
+                    onClose) as PreferredSizeWidget?,
+                body: Scaffold(
+                  backgroundColor: whiteColor,
+                  resizeToAvoidBottomInset: true,
+                  key: _drawerScaffoldKey,
+                  drawer: new DrawerOnly(),
+                  body: new Stack(children: <Widget>[
+                    dataVisible
+                        ? Container(
+                            margin: EdgeInsets.only(
+                                left: 15, right: 15, top: 10, bottom: 60),
+                            child: new SingleChildScrollView(
+                              scrollDirection: Axis.vertical,
+                              child: Html(
+                                data: termsData,
+                              ),
+                            ),
+                          )
+                        : Container(
+                            margin: EdgeInsets.only(
+                                left: 15, right: 15, top: 10, bottom: 60),
+                            child: Center(
+                              child: Container(
+                                  width: MediaQuery.of(context).size.width,
+                                  height:
+                                      MediaQuery.of(context).size.height * 0.75,
+                                  alignment: Alignment.center,
+                                  child: ListView(
+                                    shrinkWrap: true,
+                                    physics: NeverScrollableScrollPhysics(),
+                                    children: <Widget>[
+                                      Image.asset(
+                                        DummyImage.noData,
+                                        alignment: Alignment.center,
+                                        width: 150,
+                                        height: 100,
+                                      ),
+                                      Align(
+                                        alignment: Alignment.center,
+                                        child: Text(
+                                          StringConstant.noData,
+                                          style: TextStyle(
+                                              color: whiteA3,
+                                              fontFamily:
+                                                  ConstantFont.montserratBold,
+                                              fontWeight: FontWeight.w600,
+                                              fontSize: 16),
+                                        ),
+                                      ),
+                                    ],
+                                  )),
+                            ),
                           ),
-                        ),
-                      )
-                    : Container(
-                        margin: EdgeInsets.only(
-                            left: 15, right: 15, top: 10, bottom: 60),
-                        child: Center(
-                          child: Container(
-                              width: MediaQuery.of(context).size.width,
-                              height: MediaQuery.of(context).size.height * 0.75,
-                              alignment: Alignment.center,
-                              child: ListView(
-                                shrinkWrap: true,
-                                physics: NeverScrollableScrollPhysics(),
-                                children: <Widget>[
-                                  Image.asset(
-                                    DummyImage.noData,
-                                    alignment: Alignment.center,
-                                    width: 150,
-                                    height: 100,
-                                  ),
-                                  Align(
-                                    alignment: Alignment.center,
-                                    child: Text(
-                                      StringConstant.noData,
-                                      style: TextStyle(
-                                          color: whiteA3,
-                                          fontFamily: ConstantFont.montserratBold,
-                                          fontWeight: FontWeight.w600,
-                                          fontSize: 16),
-                                    ),
-                                  ),
-                                ],
-                              )),
-                        ),
-                      ),
-                new Container(alignment: Alignment.bottomCenter, child: Body())
-              ]),
-            ),
-          ),
-        ),
+                    new Container(
+                        alignment: Alignment.bottomCenter, child: Body())
+                  ]),
+                ),
+              ),
+            )
+          ],
+        )),
       ),
     );
   }

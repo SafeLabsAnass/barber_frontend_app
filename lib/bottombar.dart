@@ -15,6 +15,7 @@ import 'fragments/profile.dart';
 
 class BottomBar extends StatefulWidget {
 
+ final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
   final int index;
   final int savePrevIndex = 2;
  

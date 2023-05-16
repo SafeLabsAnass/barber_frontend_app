@@ -7,6 +7,7 @@ import 'package:barber_app/constant/dymmyimages.dart';
 import 'package:barber_app/constant/preferenceutils.dart';
 import 'package:barber_app/constant/string_constant.dart';
 import 'package:barber_app/constant/toast_message.dart';
+import 'package:barber_app/drawer/default_page.dart';
 import 'package:barber_app/drawer/drawer_only.dart';
 import 'package:barber_app/network/Apiservice.dart';
 import 'package:barber_app/network/Retro_Api.dart';
@@ -38,6 +39,29 @@ class _About extends State<About> {
   String? appVersion = "";
   String? termsData = "";
   String name = "User";
+  double xOffset = 0;
+  double yOffset = 0;
+  double scaleFactor = 1;
+  bool isDrawerOpen = false;
+
+ void onOpen() {
+    setState(() {
+      xOffset = 220;
+      yOffset = 130;
+      scaleFactor = 0.7;
+      isDrawerOpen = true;
+    });
+  }
+
+  void onClose() {
+    setState(() {
+      xOffset = 0;
+      yOffset = 0;
+      scaleFactor = 1;
+      isDrawerOpen = false;
+    });
+  }
+
 
   @override
   void initState() {
@@ -92,10 +116,13 @@ class _About extends State<About> {
         color: Colors.transparent.withOpacity(0.2),
         progressIndicator: SpinKitFadingCircle(color: pinkColor),
         child: new SafeArea(
-          child: Scaffold(
+          child: Stack(
+            children:[
+              DrawerOnly(),
+              DefaultPage(index: 1, yOffset: yOffset, xOffset: xOffset, scaleFactor: scaleFactor, isDrawerOpen: isDrawerOpen,child:Scaffold(
             extendBodyBehindAppBar: true,
             backgroundColor: whiteColor,
-            appBar: appbar(context, StringConstant.aboutApp, _drawerScaffoldKey, false,widget.isDrawerOpen,widget.onOpen, widget.onClose)
+            appBar: appbar(context, StringConstant.aboutApp, _drawerScaffoldKey, false,isDrawerOpen,onOpen, onClose)
                 as PreferredSizeWidget?,
             body: Scaffold(
               resizeToAvoidBottomInset: true,
@@ -210,7 +237,9 @@ class _About extends State<About> {
                 new Container(alignment: Alignment.bottomCenter, child: Body()),
               ]),
             ),
-          ),
+          ),)  
+            ]
+          )
         ),
       ),
     );

@@ -6,6 +6,10 @@ import 'package:barber_app/constant/preferenceutils.dart';
 import 'package:barber_app/constant/string_constant.dart';
 import 'package:barber_app/constant/toast_message.dart';
 import 'package:barber_app/constant/transaction.dart';
+import 'package:barber_app/drawerscreen/about.dart';
+import 'package:barber_app/drawerscreen/privacypolicy.dart';
+import 'package:barber_app/drawerscreen/tems_condition.dart';
+import 'package:barber_app/drawerscreen/top_offers.dart';
 import 'package:barber_app/main.dart';
 import 'package:barber_app/network/Apiservice.dart';
 import 'package:barber_app/network/BaseModel.dart';
@@ -40,210 +44,212 @@ class _DrawerOnlyState extends State<DrawerOnly> {
     } else {
       name = "User";
     }
-    return  SafeArea(
-      child: Container(
-        color: Color.fromARGB(255, 253, 237, 242),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children:[
-          Container(
-            padding: EdgeInsets.only(left: 15.0, top: 10.0, bottom: 10),
-            alignment: Alignment.center,
-            height: 80,
-            width: double.infinity,
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Expanded(
-                  child: Row(
-                    children: [
-                      CachedNetworkImage(
-                        height: 60,
-                        width: 60,
-                        imageUrl: PreferenceUtils.getString(AppConstant.fullImage),
-                        imageBuilder: (context, imageProvider) => ClipOval(
-                          child: Image(
-                            image: imageProvider,
-                            fit: BoxFit.fill,
+    return  Material(
+      child: SafeArea(
+        child: Container(
+          color: Color.fromARGB(255, 253, 237, 242),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children:[
+            Container(
+              padding: EdgeInsets.only(left: 15.0, top: 10.0, bottom: 10),
+              alignment: Alignment.center,
+              height: 80,
+              width: double.infinity,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Expanded(
+                    child: Row(
+                      children: [
+                        CachedNetworkImage(
+                          height: 60,
+                          width: 60,
+                          imageUrl: PreferenceUtils.getString(AppConstant.fullImage),
+                          imageBuilder: (context, imageProvider) => ClipOval(
+                            child: Image(
+                              image: imageProvider,
+                              fit: BoxFit.fill,
+                            ),
+                          ),
+                          placeholder: (context, url) => SpinKitFadingCircle(
+                            color: pinkColor,
+                            size: 5,
+                          ),
+                          errorWidget: (context, url, error) => Image.asset(DummyImage.noImage),
+                        ),
+                        Expanded(
+                          child: Padding(
+                            padding: EdgeInsets.only(left: 8.0),
+                             child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text('Cindy beauty',
+                                overflow: TextOverflow.ellipsis,
+                                maxLines: 1,
+                                style: TextStyle(
+                                color: blackColor, fontSize: 16, fontWeight: FontWeight.w600, fontFamily: 'Montserrat'),
+                                ),
+                                  Text(name!,
+                                overflow: TextOverflow.ellipsis,
+                                maxLines: 1,
+                                style: TextStyle(
+                                color: grey99, fontSize: 15, fontWeight: FontWeight.w600, fontFamily: 'Montserrat'),
+                                ),
+                              ],
+                             ) 
+                             
+                             //Text(
+                            //   'Hi, ' + name!,
+                            //   overflow: TextOverflow.ellipsis,
+                            //   maxLines: 1,
+                            //   style: TextStyle(
+                            //       color: blackColor, fontSize: 15, fontWeight: FontWeight.w600, fontFamily: 'Montserrat'),
+                            // ),
                           ),
                         ),
-                        placeholder: (context, url) => SpinKitFadingCircle(
-                          color: pinkColor,
-                          size: 5,
-                        ),
-                        errorWidget: (context, url, error) => Image.asset(DummyImage.noImage),
-                      ),
-                      Expanded(
-                        child: Padding(
-                          padding: EdgeInsets.only(left: 8.0),
-                           child: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text('Cindy beauty',
-                              overflow: TextOverflow.ellipsis,
-                              maxLines: 1,
-                              style: TextStyle(
-                              color: blackColor, fontSize: 16, fontWeight: FontWeight.w600, fontFamily: 'Montserrat'),
-                              ),
-                                Text(name!,
-                              overflow: TextOverflow.ellipsis,
-                              maxLines: 1,
-                              style: TextStyle(
-                              color: grey99, fontSize: 15, fontWeight: FontWeight.w600, fontFamily: 'Montserrat'),
-                              ),
-                            ],
-                           ) 
-                           
-                           //Text(
-                          //   'Hi, ' + name!,
-                          //   overflow: TextOverflow.ellipsis,
-                          //   maxLines: 1,
-                          //   style: TextStyle(
-                          //       color: blackColor, fontSize: 15, fontWeight: FontWeight.w600, fontFamily: 'Montserrat'),
-                          // ),
-                        ),
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
-                ),
-                // IconButton(
-                //   onPressed: () {
-                //     Navigator.of(context).pop();
-                //   },
-                //   icon: Icon(
-                //     Icons.arrow_back_ios,
-                //     color: Colors.black,
-                //   ),
-                // ),
-              ],
+                  // IconButton(
+                  //   onPressed: () {
+                  //     Navigator.of(context).pop();
+                  //   },
+                  //   icon: Icon(
+                  //     Icons.arrow_back_ios,
+                  //     color: Colors.black,
+                  //   ),
+                  // ),
+                ],
+              ),
             ),
-          ),
-          // Container(
-          //     height: 0,
-          //     padding: EdgeInsets.only(top: 10, bottom: 10, left: 5, right: 5),
-          //     child: DottedLine(
-          //       direction: Axis.horizontal,
-          //       lineLength: double.infinity,
-          //       lineThickness: 1.0,
-          //       dashLength: 5.0,
-          //       dashColor: blackColor,
-          //       dashRadius: 0.0,
-          //       dashGapLength: 8.0,
-          //       dashGapColor: Colors.transparent,
-          //       dashGapRadius: 0.0,
-          //     )),
-          Column(
-            children: [
-                Container(
-              alignment: Alignment.centerLeft,
-              margin: EdgeInsets.only(left: 20.0, top: 10.0),
-              child: ListTile(
-                title: Text(
-                  StringConstant.topOffers,
-                  style:
-                      TextStyle(color: blackColor, fontSize: 15, fontWeight: FontWeight.w600, fontFamily: 'Montserrat'),
-                ),
-                onTap: () {
-                  Navigator.of(context).pop();
-                  Navigator.of(context).push(MaterialPageRoute(
-                      builder: (context) => Text("Top Offers")));//new TopOffers(-1, null, null, null, null, null, null, null, null, null)));
-                },
-              )),
-          Container(
-              alignment: Alignment.centerLeft,
-              margin: EdgeInsets.only(left: 20.0, top: 0.0),
-              child: ListTile(
-                title: Text(
-                  StringConstant.termsAndConditions,
-                  style:
-                      TextStyle(color: blackColor, fontSize: 15, fontWeight: FontWeight.w600, fontFamily: 'Montserrat'),
-                ),
-                onTap: () {
-                  Navigator.of(context).pop();
-                  Navigator.of(context).push(MaterialPageRoute(builder: (context) => Text('Terms')));
-                },
-              )),
-          Container(
-              alignment: Alignment.centerLeft,
-              margin: EdgeInsets.only(left: 20.0, top: 0.0),
-              child: ListTile(
-                title: Text(
-                  StringConstant.privacyAndPolicy,
-                  style:
-                      TextStyle(color: blackColor, fontSize: 15, fontWeight: FontWeight.w600, fontFamily: 'Montserrat'),
-                ),
-                onTap: () {
-                  Navigator.of(context).pop();
-                  Navigator.of(context).push(MaterialPageRoute(builder: (context) => Text("PrivacyPolicy")));
-                },
-              )),
-          Container(
-              alignment: Alignment.centerLeft,
-              margin: EdgeInsets.only(left: 20.0, top: 0.0),
-              child: ListTile(
-                title: Text(
-                  StringConstant.inviteAFriends,
-                  style:
-                      TextStyle(color: blackColor, fontSize: 15, fontWeight: FontWeight.w600, fontFamily: 'Montserrat'),
-                ),
-                onTap: () {
-                  Navigator.pop(context);
-                  share();
-                },
-              )),
-          Container(
-              alignment: Alignment.centerLeft,
-              margin: EdgeInsets.only(left: 20.0, top: 0.0),
-              child: ListTile(
-                title: Text(
-                  StringConstant.about,
-                  style:
-                      TextStyle(color: blackColor, fontSize: 15, fontWeight: FontWeight.w600, fontFamily: 'Montserrat'),
-                ),
-                onTap: () {
-                  Navigator.of(context).pop();
-                  Navigator.of(context).push(MaterialPageRoute(builder: (context) => Text("About") ));
-                },
-              )),
-               Visibility(
-            visible: PreferenceUtils.getlogin(AppConstant.isLoggedIn) == true,
-            child: Container(
+            // Container(
+            //     height: 0,
+            //     padding: EdgeInsets.only(top: 10, bottom: 10, left: 5, right: 5),
+            //     child: DottedLine(
+            //       direction: Axis.horizontal,
+            //       lineLength: double.infinity,
+            //       lineThickness: 1.0,
+            //       dashLength: 5.0,
+            //       dashColor: blackColor,
+            //       dashRadius: 0.0,
+            //       dashGapLength: 8.0,
+            //       dashGapColor: Colors.transparent,
+            //       dashGapRadius: 0.0,
+            //     )),
+            Column(
+              children: [
+                  Container(
                 alignment: Alignment.centerLeft,
-                margin: EdgeInsets.only(left: 20.0, top: 0.0),
+                margin: EdgeInsets.only(left: 20.0, top: 10.0),
                 child: ListTile(
                   title: Text(
-                    StringConstant.deleteAccount,
+                    StringConstant.topOffers,
                     style:
                         TextStyle(color: blackColor, fontSize: 15, fontWeight: FontWeight.w600, fontFamily: 'Montserrat'),
                   ),
                   onTap: () {
                     Navigator.of(context).pop();
-                    showDeleteAccountDialog(context);
-                    // Navigator.of(context).push(MaterialPageRoute(builder: (context) => new About()));
+                    Navigator.of(context).push(MaterialPageRoute(
+                        builder: (context) => new TopOffers(-1, null, null, null, null, null, null, null, null, null,()=>null,()=>null, false)));
                   },
                 )),
-          ),
-            ],
-          ),
-         
-          Visibility(
-            visible: PreferenceUtils.getlogin(AppConstant.isLoggedIn) == true,
-            child: Container(
+            Container(
                 alignment: Alignment.centerLeft,
                 margin: EdgeInsets.only(left: 20.0, top: 0.0),
                 child: ListTile(
                   title: Text(
-                    StringConstant.logout,
+                    StringConstant.termsAndConditions,
                     style:
                         TextStyle(color: blackColor, fontSize: 15, fontWeight: FontWeight.w600, fontFamily: 'Montserrat'),
                   ),
-                  onTap: () async {
-                    showAlertDialog(context);
+                  onTap: () {
+                    Navigator.of(context).pop();
+                    Navigator.of(context).push(MaterialPageRoute(builder: (context) => new TermsCondition(isDrawerOpen: false,onOpen: () => null, onClose: () => null)));
                   },
                 )),
-          ),
-        ])
+            Container(
+                alignment: Alignment.centerLeft,
+                margin: EdgeInsets.only(left: 20.0, top: 0.0),
+                child: ListTile(
+                  title: Text(
+                    StringConstant.privacyAndPolicy,
+                    style:
+                        TextStyle(color: blackColor, fontSize: 15, fontWeight: FontWeight.w600, fontFamily: 'Montserrat'),
+                  ),
+                  onTap: () {
+                    Navigator.of(context).pop();
+                    Navigator.of(context).push(MaterialPageRoute(builder: (context) =>new PrivacyPolicy(isDrawerOpen: false,onOpen: () => null, onClose: () => null)));
+                  },
+                )),
+            Container(
+                alignment: Alignment.centerLeft,
+                margin: EdgeInsets.only(left: 20.0, top: 0.0),
+                child: ListTile(
+                  title: Text(
+                    StringConstant.inviteAFriends,
+                    style:
+                        TextStyle(color: blackColor, fontSize: 15, fontWeight: FontWeight.w600, fontFamily: 'Montserrat'),
+                  ),
+                  onTap: () {
+                    // Navigator.pop(context);
+                    share();
+                  },
+                )),
+            Container(
+                alignment: Alignment.centerLeft,
+                margin: EdgeInsets.only(left: 20.0, top: 0.0),
+                child: ListTile(
+                  title: Text(
+                    StringConstant.about,
+                    style:
+                        TextStyle(color: blackColor, fontSize: 15, fontWeight: FontWeight.w600, fontFamily: 'Montserrat'),
+                  ),
+                  onTap: () {
+                    Navigator.of(context).pop();
+                    Navigator.of(context).push(MaterialPageRoute(builder: (context) => new About(isDrawerOpen: false,onOpen: ()=>null, onClose: ()=>null) ));
+                  },
+                )),
+                 Visibility(
+              visible: PreferenceUtils.getlogin(AppConstant.isLoggedIn) == true,
+              child: Container(
+                  alignment: Alignment.centerLeft,
+                  margin: EdgeInsets.only(left: 20.0, top: 0.0),
+                  child: ListTile(
+                    title: Text(
+                      StringConstant.deleteAccount,
+                      style:
+                          TextStyle(color: blackColor, fontSize: 15, fontWeight: FontWeight.w600, fontFamily: 'Montserrat'),
+                    ),
+                    onTap: () {
+                      // Navigator.of(context).pop();
+                      showDeleteAccountDialog(context);
+                      // Navigator.of(context).push(MaterialPageRoute(builder: (context) => new About(isDrawerOpen: false,onOpen: ()=>null, onClose: ()=>null) ));
+                    },
+                  )),
+            ),
+              ],
+            ),
+           
+            Visibility(
+              visible: PreferenceUtils.getlogin(AppConstant.isLoggedIn) == true,
+              child: Container(
+                  alignment: Alignment.centerLeft,
+                  margin: EdgeInsets.only(left: 20.0, top: 0.0),
+                  child: ListTile(
+                    title: Text(
+                      StringConstant.logout,
+                      style:
+                          TextStyle(color: blackColor, fontSize: 15, fontWeight: FontWeight.w600, fontFamily: 'Montserrat'),
+                    ),
+                    onTap: () async {
+                      showAlertDialog(context);
+                    },
+                  )),
+            ),
+          ])
+        ),
       ),
     );
   }

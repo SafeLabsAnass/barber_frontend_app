@@ -26,7 +26,8 @@ class MyApp extends StatelessWidget {
     return GestureDetector(
       onTap: () {
         FocusScopeNode currentFocus = FocusScope.of(context);
-      if ( !currentFocus.hasPrimaryFocus && currentFocus.focusedChild != null) {
+        if (!currentFocus.hasPrimaryFocus &&
+            currentFocus.focusedChild != null) {
           FocusManager.instance.primaryFocus!.unfocus();
         }
       },
@@ -35,7 +36,6 @@ class MyApp extends StatelessWidget {
         navigatorKey: NavigationService.navigatorKey,
         home: new SplashScreen(),
         routes: <String, WidgetBuilder>{
-          
           '/HomeScreen': (BuildContext context) => new HomeScreen(1),
         },
       ),
@@ -61,8 +61,10 @@ class _SplashScreenState extends State<SplashScreen> {
   void navigationPage() {
     var isLogin = PreferenceUtils.getlogin(AppConstant.isLoggedIn);
     isLogin == true
-        ? Navigator.of(context).push(MaterialPageRoute(builder: (context) => new HomeScreen(0)))
-        : Navigator.of(context).push(MaterialPageRoute(builder: (context) => LoginScreen(0)));
+        ? Navigator.of(context)
+            .push(MaterialPageRoute(builder: (context) => new HomeScreen(0)))
+        : Navigator.of(context)
+            .push(MaterialPageRoute(builder: (context) => LoginScreen(0)));
   }
 
   @override
@@ -70,7 +72,9 @@ class _SplashScreenState extends State<SplashScreen> {
     super.initState();
     WidgetsFlutterBinding.ensureInitialized();
     PreferenceUtils.init();
-    PreferenceUtils.getBool(AppConstant.disclaimerDialog) == true ? checkforpermission() : startTime();
+    PreferenceUtils.getBool(AppConstant.disclaimerDialog) == true
+        ? checkforpermission()
+        : startTime();
   }
 
   void checkforpermission() async {
@@ -108,3 +112,8 @@ class _SplashScreenState extends State<SplashScreen> {
     );
   }
 }
+
+var xOffset = 0.0.obs;
+var yOffset = 0.0.obs;
+var scaleFactor = 1.0.obs;
+var isDrawerOpen = false.obs;
