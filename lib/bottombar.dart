@@ -11,8 +11,6 @@ import 'package:flutter/material.dart';
 import 'package:persistent_bottom_nav_bar_ccc/persistent-tab-view.dart';
 
 class BottomBar extends StatefulWidget {
-
- final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
   final int index;
   final int savePrevIndex = 2;
  
