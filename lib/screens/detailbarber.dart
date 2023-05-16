@@ -1,4 +1,3 @@
-import 'package:barber_app/ResponseModel/WorkingHourDisplayModel.dart';
 import 'package:barber_app/ResponseModel/salonDetailResponse.dart';
 import 'package:barber_app/appbar/app_bar_only.dart';
 import 'package:barber_app/common/common_view.dart';
@@ -16,9 +15,7 @@ import 'package:barber_app/detailtabscreen/servicetab.dart';
 import 'package:barber_app/detailtabscreen/tababout.dart';
 import 'package:barber_app/drawer/drawer_only.dart';
 import 'package:barber_app/network/Apiservice.dart';
-import 'package:barber_app/network/BaseModel.dart';
 import 'package:barber_app/network/Retro_Api.dart';
-import 'package:barber_app/network/ServerError.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:flutter_svg/svg.dart';
@@ -349,9 +346,8 @@ class _DetailBarber extends State<DetailBarber>
         progressIndicator: SpinKitFadingCircle(color: pinkColor),
         child: SafeArea(
           child: Scaffold(
-            backgroundColor: whiteColor,
             appBar: appbar(context, salonName!, _drawerScaffoldKey, false)
-            as PreferredSizeWidget?,
+                as PreferredSizeWidget?,
             body: Scaffold(
               resizeToAvoidBottomInset: true,
               extendBody: true,
@@ -368,48 +364,54 @@ class _DetailBarber extends State<DetailBarber>
                           children: <Widget>[
                             salonImage == ""
                                 ? Container(
-                              height: 200,
-                              width: double.infinity,
-                              alignment: Alignment.topCenter,
-                              child: Image.asset(
-                                DummyImage.loginBG,
-                                height: 170,
-                                width: double.infinity,
-                                fit: BoxFit.cover,
-                              ),
-                            )
+                                    height: 200,
+                                    padding: EdgeInsets.only(right: 95),
+                                    width: double.infinity,
+                                    alignment: Alignment.topCenter,
+                                    child: Image.asset(
+                                      DummyImage.loginBG,
+                                      height: 170,
+                                      width: double.infinity,
+                                      fit: BoxFit.cover,
+                                    ),
+                                  )
                                 : Container(
-                              height: 200,
-                              width: double.infinity,
-                              alignment: Alignment.topCenter,
-                              child: Image.network(
-                                salonImage,
-                                height: 170,
-                                width: double.infinity,
-                                fit: BoxFit.fill,
-                              ),
-                            ),
+                                    height: 200,
+                                    width: double.infinity,
+                                    padding: EdgeInsets.only(right: 95),
+                                    alignment: Alignment.topRight,
+                                    child: Image.network(
+                                      salonImage,
+                                      height: 130,
+                                      width: 130,
+                                      fit: BoxFit.cover,
+                                    ),
+                                  ),
                             ListView(
                               physics: NeverScrollableScrollPhysics(),
                               shrinkWrap: true,
                               children: [
                                 Container(
-                                    height: 70,
+                                    height: 72.5,
                                     child: RichText(
                                       text: TextSpan(
                                         children: [
                                           WidgetSpan(
                                             child: Container(
                                               margin: EdgeInsets.only(
-                                                  top: 50, left: 15),
+                                                top: 50,
+                                                left: 15,
+                                              ),
                                               child: Text(
                                                 salonName!,
                                                 style: TextStyle(
-                                                    color: whiteColor,
-                                                    fontFamily: ConstantFont
-                                                        .montserratSemiBold,
-                                                    fontWeight: FontWeight.w700,
-                                                    fontSize: 20),
+                                                  color: pinkColor,
+                                                  // color: whiteColor,
+                                                  fontFamily: ConstantFont
+                                                      .montserratSemiBold,
+                                                  fontWeight: FontWeight.w700,
+                                                  fontSize: 20,
+                                                ),
                                               ),
                                             ),
                                           ),
@@ -422,7 +424,8 @@ class _DetailBarber extends State<DetailBarber>
                                                 DummyImage.rightArrow,
                                                 width: 20,
                                                 height: 20,
-                                                color: whiteColor,
+                                                // color: whiteColor,
+                                                color: pinkColor,
                                               ),
                                             ),
                                           ),
@@ -433,22 +436,27 @@ class _DetailBarber extends State<DetailBarber>
                                   height: 15,
                                   color: Colors.transparent,
                                   margin: EdgeInsets.only(
-                                      top: 8, left: 15, right: 5),
+                                    top: 5,
+                                    left: 15,
+                                    right: 10,
+                                  ),
                                   child: Text(
                                     salonAddress!,
                                     style: TextStyle(
-                                        color: whiteColor,
-                                        fontFamily:
-                                        ConstantFont.montserratMedium,
-                                        fontWeight: FontWeight.w600,
-                                        fontSize: 12),
+                                      // color: whiteColor,
+                                      color: pinkColor,
+                                      fontFamily: ConstantFont.montserratMedium,
+                                      fontWeight: FontWeight.w600,
+                                      fontSize: 12,
+                                    ),
                                     overflow: TextOverflow.ellipsis,
                                     maxLines: 1,
                                   ),
                                 ),
                                 Container(
                                     height: 30,
-                                    width: MediaQuery.of(context).size.width,
+                                    width: MediaQuery.of(context).size.width *
+                                        0.01,
                                     child: RichText(
                                       text: TextSpan(
                                         children: [
@@ -457,28 +465,28 @@ class _DetailBarber extends State<DetailBarber>
                                               decoration: BoxDecoration(
                                                   color: greenColor,
                                                   borderRadius:
-                                                  BorderRadius.only(
-                                                      topLeft: Radius
-                                                          .circular(3),
-                                                      bottomLeft:
-                                                      Radius.circular(
-                                                          3),
-                                                      bottomRight:
-                                                      Radius.circular(
-                                                          3),
-                                                      topRight:
-                                                      Radius.circular(
-                                                          3)),
+                                                      BorderRadius.only(
+                                                          topLeft: Radius
+                                                              .circular(3),
+                                                          bottomLeft:
+                                                              Radius.circular(
+                                                                  3),
+                                                          bottomRight:
+                                                              Radius.circular(
+                                                                  3),
+                                                          topRight:
+                                                              Radius.circular(
+                                                                  3)),
                                                   border: Border.all(
                                                       width: 3,
                                                       color: greenColor,
                                                       style:
-                                                      BorderStyle.solid)),
+                                                          BorderStyle.solid)),
                                               height: 20,
                                               width: MediaQuery.of(context)
-                                                  .size
-                                                  .width *
-                                                  0.12,
+                                                      .size
+                                                      .width *
+                                                  0.1,
                                               alignment: Alignment.center,
                                               margin: EdgeInsets.only(
                                                   top: 10, left: 15),
@@ -490,7 +498,7 @@ class _DetailBarber extends State<DetailBarber>
                                                         .montserratBold,
                                                     fontSize: 11,
                                                     fontWeight:
-                                                    FontWeight.w600),
+                                                        FontWeight.w600),
                                               ),
                                             ),
                                           ),
@@ -498,9 +506,9 @@ class _DetailBarber extends State<DetailBarber>
                                             child: Container(
                                               height: 20,
                                               width: MediaQuery.of(context)
-                                                  .size
-                                                  .width *
-                                                  0.45,
+                                                      .size
+                                                      .width *
+                                                  0.21,
                                               alignment: Alignment.centerLeft,
                                               color: Colors.transparent,
                                               margin: EdgeInsets.only(
@@ -508,22 +516,23 @@ class _DetailBarber extends State<DetailBarber>
                                               child: Text(
                                                 "Till " + salonTime.toString(),
                                                 style: TextStyle(
-                                                    color: whiteColor,
+                                                    color: pinkColor,
+                                                    // color: whiteColor,
                                                     fontFamily: ConstantFont
                                                         .montserratMedium,
                                                     fontSize: 11,
                                                     fontWeight:
-                                                    FontWeight.w600),
+                                                        FontWeight.w600),
                                               ),
                                             ),
                                           ),
                                           WidgetSpan(
                                             child: Container(
-                                              height: 20,
+                                              height: 15,
                                               width: MediaQuery.of(context)
-                                                  .size
-                                                  .width *
-                                                  0.02,
+                                                      .size
+                                                      .width *
+                                                  0.01,
                                               alignment: Alignment.topLeft,
                                               color: Colors.transparent,
                                               margin: EdgeInsets.only(
@@ -531,12 +540,13 @@ class _DetailBarber extends State<DetailBarber>
                                               child: Text(
                                                 ".",
                                                 style: TextStyle(
+                                                    // color: pinkColor,
                                                     color: whiteColor,
                                                     fontFamily: ConstantFont
                                                         .montserratMedium,
                                                     fontSize: 18,
                                                     fontWeight:
-                                                    FontWeight.w800),
+                                                        FontWeight.w800),
                                               ),
                                             ),
                                           ),
@@ -544,14 +554,14 @@ class _DetailBarber extends State<DetailBarber>
                                             child: Container(
                                                 height: 20,
                                                 width: MediaQuery.of(context)
-                                                    .size
-                                                    .width *
+                                                        .size
+                                                        .width *
                                                     0.25,
                                                 alignment: Alignment.center,
                                                 color: Colors.transparent,
                                                 margin: EdgeInsets.only(
                                                     top: 5,
-                                                    left: 10,
+                                                    left: 2.5,
                                                     bottom: 0),
                                                 child: Row(
                                                   children: [
@@ -570,13 +580,14 @@ class _DetailBarber extends State<DetailBarber>
                                                         rating.toString() +
                                                             " Rating",
                                                         style: TextStyle(
-                                                            color: whiteColor,
+                                                            // color: whiteColor,
+                                                            color: pinkColor,
                                                             fontFamily: ConstantFont
                                                                 .montserratMedium,
                                                             fontSize: 11,
                                                             fontWeight:
-                                                            FontWeight
-                                                                .w800),
+                                                                FontWeight
+                                                                    .w800),
                                                       ),
                                                     ),
                                                   ],
@@ -628,7 +639,7 @@ class _DetailBarber extends State<DetailBarber>
                                       fontSize: 13,
                                       fontWeight: FontWeight.w600,
                                       fontFamily:
-                                      ConstantFont.montserratMedium),
+                                          ConstantFont.montserratMedium),
                                   labelStyle: TextStyle(
                                       fontSize: 13,
                                       fontWeight: FontWeight.w600,
@@ -695,7 +706,7 @@ class _DetailBarber extends State<DetailBarber>
                                     style: TextStyle(
                                         color: whiteA3,
                                         fontFamily:
-                                        ConstantFont.montserratMedium,
+                                            ConstantFont.montserratMedium,
                                         fontWeight: FontWeight.w600,
                                         fontSize: 16),
                                   ),

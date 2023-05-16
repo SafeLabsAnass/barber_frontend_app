@@ -26,7 +26,6 @@ class RegisterScreen extends StatefulWidget {
 
 class _RegisterScreen extends State<RegisterScreen> {
   String? _selectedCountryCode = ' +91';
-  List<String> _countryCodes = [' +91', ' +23', ' +8'];
   final _formKey = GlobalKey<FormState>();
   bool _loading = false;
 
