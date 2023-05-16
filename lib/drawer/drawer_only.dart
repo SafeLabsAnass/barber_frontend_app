@@ -6,10 +6,6 @@ import 'package:barber_app/constant/preferenceutils.dart';
 import 'package:barber_app/constant/string_constant.dart';
 import 'package:barber_app/constant/toast_message.dart';
 import 'package:barber_app/constant/transaction.dart';
-import 'package:barber_app/drawerscreen/about.dart';
-import 'package:barber_app/drawerscreen/privacypolicy.dart';
-import 'package:barber_app/drawerscreen/tems_condition.dart';
-import 'package:barber_app/drawerscreen/top_offers.dart';
 import 'package:barber_app/main.dart';
 import 'package:barber_app/network/Apiservice.dart';
 import 'package:barber_app/network/BaseModel.dart';
@@ -17,7 +13,6 @@ import 'package:barber_app/network/Retro_Api.dart';
 import 'package:barber_app/network/ServerError.dart';
 import 'package:barber_app/screens/loginscreen.dart';
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:dotted_line/dotted_line.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_share/flutter_share.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
@@ -49,9 +44,10 @@ class _DrawerOnlyState extends State<DrawerOnly> {
       child: Container(
         color: Color.fromARGB(255, 253, 237, 242),
         child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children:[
           Container(
-            padding: EdgeInsets.only(left: 10.0, top: 10.0, bottom: 10),
+            padding: EdgeInsets.only(left: 15.0, top: 10.0, bottom: 10),
             alignment: Alignment.center,
             height: 80,
             width: double.infinity,
@@ -80,13 +76,32 @@ class _DrawerOnlyState extends State<DrawerOnly> {
                       Expanded(
                         child: Padding(
                           padding: EdgeInsets.only(left: 8.0),
-                          child: Text(
-                            'Hi, ' + name!,
-                            overflow: TextOverflow.ellipsis,
-                            maxLines: 1,
-                            style: TextStyle(
-                                color: blackColor, fontSize: 15, fontWeight: FontWeight.w600, fontFamily: 'Montserrat'),
-                          ),
+                           child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text('Cindy beauty',
+                              overflow: TextOverflow.ellipsis,
+                              maxLines: 1,
+                              style: TextStyle(
+                              color: blackColor, fontSize: 16, fontWeight: FontWeight.w600, fontFamily: 'Montserrat'),
+                              ),
+                                Text(name!,
+                              overflow: TextOverflow.ellipsis,
+                              maxLines: 1,
+                              style: TextStyle(
+                              color: grey99, fontSize: 15, fontWeight: FontWeight.w600, fontFamily: 'Montserrat'),
+                              ),
+                            ],
+                           ) 
+                           
+                           //Text(
+                          //   'Hi, ' + name!,
+                          //   overflow: TextOverflow.ellipsis,
+                          //   maxLines: 1,
+                          //   style: TextStyle(
+                          //       color: blackColor, fontSize: 15, fontWeight: FontWeight.w600, fontFamily: 'Montserrat'),
+                          // ),
                         ),
                       ),
                     ],
@@ -104,21 +119,23 @@ class _DrawerOnlyState extends State<DrawerOnly> {
               ],
             ),
           ),
-          Container(
-              height: 0,
-              padding: EdgeInsets.only(top: 10, bottom: 10, left: 5, right: 5),
-              child: DottedLine(
-                direction: Axis.horizontal,
-                lineLength: double.infinity,
-                lineThickness: 1.0,
-                dashLength: 5.0,
-                dashColor: blackColor,
-                dashRadius: 0.0,
-                dashGapLength: 8.0,
-                dashGapColor: Colors.transparent,
-                dashGapRadius: 0.0,
-              )),
-          Container(
+          // Container(
+          //     height: 0,
+          //     padding: EdgeInsets.only(top: 10, bottom: 10, left: 5, right: 5),
+          //     child: DottedLine(
+          //       direction: Axis.horizontal,
+          //       lineLength: double.infinity,
+          //       lineThickness: 1.0,
+          //       dashLength: 5.0,
+          //       dashColor: blackColor,
+          //       dashRadius: 0.0,
+          //       dashGapLength: 8.0,
+          //       dashGapColor: Colors.transparent,
+          //       dashGapRadius: 0.0,
+          //     )),
+          Column(
+            children: [
+                Container(
               alignment: Alignment.centerLeft,
               margin: EdgeInsets.only(left: 20.0, top: 10.0),
               child: ListTile(
@@ -189,7 +206,7 @@ class _DrawerOnlyState extends State<DrawerOnly> {
                   Navigator.of(context).push(MaterialPageRoute(builder: (context) => Text("About") ));
                 },
               )),
-          Visibility(
+               Visibility(
             visible: PreferenceUtils.getlogin(AppConstant.isLoggedIn) == true,
             child: Container(
                 alignment: Alignment.centerLeft,
@@ -207,6 +224,9 @@ class _DrawerOnlyState extends State<DrawerOnly> {
                   },
                 )),
           ),
+            ],
+          ),
+         
           Visibility(
             visible: PreferenceUtils.getlogin(AppConstant.isLoggedIn) == true,
             child: Container(
