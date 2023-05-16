@@ -102,7 +102,7 @@ class _DetailBarber extends State<DetailBarber>
   bool _loading = false;
   String name = "User";
   String distance = "0";
-  String salonImage="";
+  String salonImage = "";
   var salonTime;
   String openLabel = "OPEN";
   var day;
@@ -149,8 +149,9 @@ class _DetailBarber extends State<DetailBarber>
           salonName = response.data!.salon!.name;
           salonAddress = response.data!.salon!.address;
           rating = response.data!.salon!.rate.toString();
-          salonImage=response.data!.salon!.imagePath!+response.data!.salon!.image!;
-          salonTime=response.data!.salon!.endTime!;
+          salonImage =
+              response.data!.salon!.imagePath! + response.data!.salon!.image!;
+          salonTime = response.data!.salon!.endTime!;
           salonData = response.data!.salon!;
 
           // if (day == "Sunday") {
@@ -321,7 +322,6 @@ class _DetailBarber extends State<DetailBarber>
             reviewList.addAll(response.data!.review!);
           }
 
-
           print(response.data!.salon!.ownerId);
 
           int catSize = categoryList.length;
@@ -346,7 +346,6 @@ class _DetailBarber extends State<DetailBarber>
   final GlobalKey<ScaffoldState> _drawerScaffoldKey =
       new GlobalKey<ScaffoldState>();
 
-
   @override
   Widget build(BuildContext context) {
     return WillPopScope(
@@ -358,375 +357,380 @@ class _DetailBarber extends State<DetailBarber>
         progressIndicator: SpinKitFadingCircle(color: pinkColor),
         child: SafeArea(
           child: Scaffold(
-            backgroundColor: whiteColor,
             appBar: appbar(context, salonName!, _drawerScaffoldKey, false, widget.isDrawerOpen, widget.onOpen, widget.onClose, drawer: true)
                 as PreferredSizeWidget?,
             body: Scaffold(
-                resizeToAvoidBottomInset: true,
-                key: _drawerScaffoldKey,
-                drawer: new DrawerOnly(),
-                body: new Stack(
-                  children: <Widget>[
-                    Visibility(
-                      visible: dataVisible,
-                      child: Column(
-                        children: <Widget>[
-                          Stack(
-                            clipBehavior: Clip.none,
-                            children: <Widget>[
-                              salonImage==""?
-                              Container(
-                                height: 200,
-                                width: double.infinity,
-                                alignment: Alignment.topCenter,
-                                child: Image.asset(
-                                  DummyImage.loginBG,
-                                  height: 170,
-                                  width: double.infinity,
-                                  fit: BoxFit.cover,
-                                ),
-                              ):Container(
-                                height: 200,
-                                width: double.infinity,
-                                alignment: Alignment.center,
-                                child: Align(
-                                  alignment: Alignment.centerRight,
-                                  child: Image.network(
-                                    
-                                    salonImage,
-                                    height: 170,
+              resizeToAvoidBottomInset: true,
+              extendBody: true,
+              key: _drawerScaffoldKey,
+              drawer: new DrawerOnly(),
+              body: new Stack(
+                children: <Widget>[
+                  Visibility(
+                    visible: dataVisible,
+                    child: Column(
+                      children: <Widget>[
+                        Stack(
+                          clipBehavior: Clip.none,
+                          children: <Widget>[
+                            salonImage == ""
+                                ? Container(
+                                    height: 200,
+                                    padding: EdgeInsets.only(right: 95),
                                     width: double.infinity,
-                                    fit: BoxFit.contain,
-                                  ),
-                                ),
-                              ),
-                              ListView(
-                                physics: NeverScrollableScrollPhysics(),
-                                shrinkWrap: true,
-                                children: [
-                                  Container(
-                                      height: 70,
-                                      child: RichText(
-                                        text: TextSpan(
-                                          children: [
-                                            WidgetSpan(
-                                              child: Container(
-                                                margin: EdgeInsets.only(
-                                                    top: 50, left: 15),
-                                                child: Text(
-                                                  salonName!,
-                                                  style: TextStyle(
-                                                      color: black1E,
-                                                      fontFamily: ConstantFont
-                                                          .montserratSemiBold,
-                                                      fontWeight:
-                                                          FontWeight.w700,
-                                                      fontSize: 20),
-                                                ),
-                                              ),
-                                            ),
-                                            WidgetSpan(
-                                              child: Container(
-                                                margin: EdgeInsets.only(
-                                                    top: 5, left: 5),
-                                                padding: EdgeInsets.all(1),
-                                                child: Image.asset(
-                                                  DummyImage.rightArrow,
-                                                  width: 20,
-                                                  height: 20,
-                                                  color: black1E,
-                                                ),
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                      )),
-                                  Container(
-                                    height: 15,
-                                    color: Colors.transparent,
-                                    margin: EdgeInsets.only(
-                                        top: 8, left: 15, right: 5),
-                                    child: Text(
-                                      salonAddress!,
-                                      style: TextStyle(
-                                          color: black1E,
-                                          fontFamily:
-                                              ConstantFont.montserratMedium,
-                                          fontWeight: FontWeight.w600,
-                                          fontSize: 12),
-                                      overflow: TextOverflow.ellipsis,
-                                      maxLines: 1,
+                                    alignment: Alignment.topCenter,
+                                    child: Image.asset(
+                                      DummyImage.loginBG,
+                                      height: 170,
+                                      width: double.infinity,
+                                      fit: BoxFit.cover,
+                                    ),
+                                  )
+                                : Container(
+                                    height: 200,
+                                    width: double.infinity,
+                                    padding: EdgeInsets.only(right: 95),
+                                    alignment: Alignment.topRight,
+                                    child: Image.network(
+                                      salonImage,
+                                      height: 130,
+                                      width: 130,
+                                      fit: BoxFit.cover,
                                     ),
                                   ),
-                                  Container(
-                                      height: 30,
-                                      width: MediaQuery.of(context).size.width,
-                                      child: RichText(
-                                        text: TextSpan(
-                                          children: [
-                                            WidgetSpan(
-                                              child: Container(
-                                                decoration: BoxDecoration(
-                                                    color: mustardColor,
-                                                    borderRadius:
-                                                        BorderRadius.only(
-                                                            topLeft:
-                                                                Radius.circular(
-                                                                    3),
-                                                            bottomLeft:
-                                                                Radius.circular(
-                                                                    3),
-                                                            bottomRight:
-                                                                Radius.circular(
-                                                                    3),
-                                                            topRight:
-                                                                Radius.circular(
-                                                                    3)),
-                                                    border: Border.all(
-                                                        width: 3,
-                                                        color: mustardColor,
-                                                        style:
-                                                            BorderStyle.solid)),
+                            ListView(
+                              physics: NeverScrollableScrollPhysics(),
+                              shrinkWrap: true,
+                              children: [
+                                Container(
+                                    height: 72.5,
+                                    child: RichText(
+                                      text: TextSpan(
+                                        children: [
+                                          WidgetSpan(
+                                            child: Container(
+                                              margin: EdgeInsets.only(
+                                                top: 50,
+                                                left: 15,
+                                              ),
+                                              child: Text(
+                                                salonName!,
+                                                style: TextStyle(
+                                                  color: pinkColor,
+                                                  // color: whiteColor,
+                                                  fontFamily: ConstantFont
+                                                      .montserratSemiBold,
+                                                  fontWeight: FontWeight.w700,
+                                                  fontSize: 20,
+                                                ),
+                                              ),
+                                            ),
+                                          ),
+                                          WidgetSpan(
+                                            child: Container(
+                                              margin: EdgeInsets.only(
+                                                  top: 5, left: 5),
+                                              padding: EdgeInsets.all(1),
+                                              child: Image.asset(
+                                                DummyImage.rightArrow,
+                                                width: 20,
+                                                height: 20,
+                                                // color: whiteColor,
+                                                color: pinkColor,
+                                              ),
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    )),
+                                Container(
+                                  height: 15,
+                                  color: Colors.transparent,
+                                  margin: EdgeInsets.only(
+                                    top: 5,
+                                    left: 15,
+                                    right: 10,
+                                  ),
+                                  child: Text(
+                                    salonAddress!,
+                                    style: TextStyle(
+                                      // color: whiteColor,
+                                      color: pinkColor,
+                                      fontFamily: ConstantFont.montserratMedium,
+                                      fontWeight: FontWeight.w600,
+                                      fontSize: 12,
+                                    ),
+                                    overflow: TextOverflow.ellipsis,
+                                    maxLines: 1,
+                                  ),
+                                ),
+                                Container(
+                                    height: 30,
+                                    width: MediaQuery.of(context).size.width *
+                                        0.01,
+                                    child: RichText(
+                                      text: TextSpan(
+                                        children: [
+                                          WidgetSpan(
+                                            child: Container(
+                                              decoration: BoxDecoration(
+                                                  color: greenColor,
+                                                  borderRadius:
+                                                      BorderRadius.only(
+                                                          topLeft: Radius
+                                                              .circular(3),
+                                                          bottomLeft:
+                                                              Radius.circular(
+                                                                  3),
+                                                          bottomRight:
+                                                              Radius.circular(
+                                                                  3),
+                                                          topRight:
+                                                              Radius.circular(
+                                                                  3)),
+                                                  border: Border.all(
+                                                      width: 3,
+                                                      color: greenColor,
+                                                      style:
+                                                          BorderStyle.solid)),
+                                              height: 20,
+                                              width: MediaQuery.of(context)
+                                                      .size
+                                                      .width *
+                                                  0.1,
+                                              alignment: Alignment.center,
+                                              margin: EdgeInsets.only(
+                                                  top: 10, left: 15),
+                                              child: Text(
+                                                openLabel,
+                                                style: TextStyle(
+                                                    color: whiteColor,
+                                                    fontFamily: ConstantFont
+                                                        .montserratBold,
+                                                    fontSize: 11,
+                                                    fontWeight:
+                                                        FontWeight.w600),
+                                              ),
+                                            ),
+                                          ),
+                                          WidgetSpan(
+                                            child: Container(
+                                              height: 20,
+                                              width: MediaQuery.of(context)
+                                                      .size
+                                                      .width *
+                                                  0.21,
+                                              alignment: Alignment.centerLeft,
+                                              color: Colors.transparent,
+                                              margin: EdgeInsets.only(
+                                                  top: 10, left: 5),
+                                              child: Text(
+                                                "Till " + salonTime.toString(),
+                                                style: TextStyle(
+                                                    color: pinkColor,
+                                                    // color: whiteColor,
+                                                    fontFamily: ConstantFont
+                                                        .montserratMedium,
+                                                    fontSize: 11,
+                                                    fontWeight:
+                                                        FontWeight.w600),
+                                              ),
+                                            ),
+                                          ),
+                                          WidgetSpan(
+                                            child: Container(
+                                              height: 15,
+                                              width: MediaQuery.of(context)
+                                                      .size
+                                                      .width *
+                                                  0.01,
+                                              alignment: Alignment.topLeft,
+                                              color: Colors.transparent,
+                                              margin: EdgeInsets.only(
+                                                  top: 5, left: 0, bottom: 5),
+                                              child: Text(
+                                                ".",
+                                                style: TextStyle(
+                                                    // color: pinkColor,
+                                                    color: whiteColor,
+                                                    fontFamily: ConstantFont
+                                                        .montserratMedium,
+                                                    fontSize: 18,
+                                                    fontWeight:
+                                                        FontWeight.w800),
+                                              ),
+                                            ),
+                                          ),
+                                          WidgetSpan(
+                                            child: Container(
                                                 height: 20,
                                                 width: MediaQuery.of(context)
                                                         .size
                                                         .width *
-                                                    0.12,
+                                                    0.25,
                                                 alignment: Alignment.center,
-                                                margin: EdgeInsets.only(
-                                                    top: 10, left: 15),
-                                                child: Text(
-                                                  openLabel,
-                                                  style: TextStyle(
-                                                      color: whiteColor,
-                                                      fontFamily: ConstantFont
-                                                          .montserratBold,
-                                                      fontSize: 11,
-                                                      fontWeight:
-                                                          FontWeight.w600),
-                                                ),
-                                              ),
-                                            ),
-                                            WidgetSpan(
-                                              child: Container(
-                                                height: 20,
-                                                width: MediaQuery.of(context)
-                                                        .size
-                                                        .width *
-                                                    0.45,
-                                                alignment: Alignment.centerLeft,
                                                 color: Colors.transparent,
                                                 margin: EdgeInsets.only(
-                                                    top: 10, left: 5),
-                                                child: Text(
-                                                  "Till " +
-                                                      salonTime.toString(),
-                                                  style: TextStyle(
-                                                      color: whiteColor,
-                                                      fontFamily: ConstantFont
-                                                          .montserratMedium,
-                                                      fontSize: 11,
-                                                      fontWeight:
-                                                          FontWeight.w600),
-                                                ),
-                                              ),
-                                            ),
-                                            WidgetSpan(
-                                              child: Container(
-                                                height: 20,
-                                                width: MediaQuery.of(context)
-                                                        .size
-                                                        .width *
-                                                    0.02,
-                                                alignment: Alignment.topLeft,
-                                                color: Colors.transparent,
-                                                margin: EdgeInsets.only(
-                                                    top: 5, left: 0, bottom: 2),
-                                                child: Text(
-                                                  ".",
-                                                  style: TextStyle(
-                                                      color: whiteColor,
-                                                      fontFamily: ConstantFont
-                                                          .montserratMedium,
-                                                      fontSize: 18,
-                                                      fontWeight:
-                                                          FontWeight.w800),
-                                                ),
-                                              ),
-                                            ),
-                                            WidgetSpan(
-                                              child: Container(
-                                                  height: 20,
-                                                  width: MediaQuery.of(context)
-                                                          .size
-                                                          .width *
-                                                      0.25,
-                                                  alignment: Alignment.center,
-                                                  color: Colors.transparent,
-                                                  margin: EdgeInsets.only(
-                                                      top: 5,
-                                                      left: 10,
-                                                      bottom: 0),
-                                                  child: Row(
-                                                    children: [
-                                                      Container(
-                                                          margin:
-                                                              EdgeInsets.only(
-                                                                  left: 0,
-                                                                  top: 5),
-                                                          child:
-                                                              SvgPicture.asset(
-                                                            DummyImage.star,
-                                                            width: 10,
-                                                            height: 10,
-                                                          )),
-                                                      Container(
+                                                    top: 5,
+                                                    left: 2.5,
+                                                    bottom: 0),
+                                                child: Row(
+                                                  children: [
+                                                    Container(
                                                         margin: EdgeInsets.only(
-                                                            left: 5, top: 5),
-                                                        child: Text(
-                                                          rating.toString() +
-                                                              " Rating",
-                                                          style: TextStyle(
-                                                              color: whiteColor,
-                                                              fontFamily:
-                                                                  ConstantFont
-                                                                      .montserratMedium,
-                                                              fontSize: 11,
-                                                              fontWeight:
-                                                                  FontWeight
-                                                                      .w800),
-                                                        ),
+                                                            left: 0, top: 5),
+                                                        child: SvgPicture.asset(
+                                                          DummyImage.star,
+                                                          width: 10,
+                                                          height: 10,
+                                                        )),
+                                                    Container(
+                                                      margin: EdgeInsets.only(
+                                                          left: 5, top: 5),
+                                                      child: Text(
+                                                        rating.toString() +
+                                                            " Rating",
+                                                        style: TextStyle(
+                                                            // color: whiteColor,
+                                                            color: pinkColor,
+                                                            fontFamily: ConstantFont
+                                                                .montserratMedium,
+                                                            fontSize: 11,
+                                                            fontWeight:
+                                                                FontWeight
+                                                                    .w800),
                                                       ),
-                                                    ],
-                                                  )),
-                                            ),
-                                          ],
-                                        ),
-                                      )),
-                                ],
-                              ),
-                              Positioned(
-                                right: 0,
-                                left: 0,
-                                bottom: 10,
-                                child: Container(
-                                  margin: EdgeInsets.only(left: 15, right: 15),
-                                  width: double.infinity,
-                                  height: 50,
-                                  decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(8.0),
-                                    color: whiteColor,
-                                    boxShadow: [
-                                      BoxShadow(
-                                        color: greyColor,
-                                        offset: Offset(0.0, 1.0), //(x,y)
-                                        blurRadius: 10.0,
+                                                    ),
+                                                  ],
+                                                )),
+                                          ),
+                                        ],
                                       ),
-                                    ],
-                                  ),
-                                  child: TabBar(
-                                    controller: _controller,
-                                    tabs: [
-                                      new Tab(
-                                        text: StringConstant.about,
-                                      ),
-                                      new Tab(
-                                        text: StringConstant.gallery,
-                                      ),
-                                      new Tab(
-                                        text: StringConstant.service,
-                                      ),
-                                      new Tab(
-                                        text: StringConstant.review,
-                                      ),
-                                    ],
-                                    labelColor: pinkColor,
-                                    unselectedLabelColor: greyColor,
-                                    unselectedLabelStyle: TextStyle(
-                                        fontSize: 13,
-                                        fontWeight: FontWeight.w600,
-                                        fontFamily:
-                                            ConstantFont.montserratMedium),
-                                    labelStyle: TextStyle(
-                                        fontSize: 13,
-                                        fontWeight: FontWeight.w600,
-                                        fontFamily:
-                                            ConstantFont.montserratBold),
-                                    indicatorSize: TabBarIndicatorSize.label,
-                                    indicatorPadding: EdgeInsets.all(0.0),
-                                    indicatorColor: pinkColor,
-                                    indicatorWeight: 5.0,
-                                    indicator: MD2Indicator(
-                                      indicatorSize: MD2IndicatorSize.full,
-                                      indicatorHeight: 8.0,
-                                      indicatorColor: pinkColor,
+                                    )),
+                              ],
+                            ),
+                            Positioned(
+                              right: 0,
+                              left: 0,
+                              bottom: 10,
+                              child: Container(
+                                margin: EdgeInsets.only(left: 15, right: 15),
+                                width: double.infinity,
+                                height: 50,
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(8.0),
+                                  color: whiteColor,
+                                  boxShadow: [
+                                    BoxShadow(
+                                      color: greyColor,
+                                      offset: Offset(0.0, 1.0), //(x,y)
+                                      blurRadius: 10.0,
                                     ),
+                                  ],
+                                ),
+                                child: TabBar(
+                                  controller: _controller,
+                                  tabs: [
+                                    new Tab(
+                                      text: StringConstant.about,
+                                    ),
+                                    new Tab(
+                                      text: StringConstant.gallery,
+                                    ),
+                                    new Tab(
+                                      text: StringConstant.service,
+                                    ),
+                                    new Tab(
+                                      text: StringConstant.review,
+                                    ),
+                                  ],
+                                  labelColor: pinkColor,
+                                  unselectedLabelColor: greyColor,
+                                  unselectedLabelStyle: TextStyle(
+                                      fontSize: 13,
+                                      fontWeight: FontWeight.w600,
+                                      fontFamily:
+                                          ConstantFont.montserratMedium),
+                                  labelStyle: TextStyle(
+                                      fontSize: 13,
+                                      fontWeight: FontWeight.w600,
+                                      fontFamily: ConstantFont.montserratBold),
+                                  indicatorSize: TabBarIndicatorSize.label,
+                                  indicatorPadding: EdgeInsets.all(0.0),
+                                  indicatorColor: pinkColor,
+                                  indicatorWeight: 5.0,
+                                  indicator: MD2Indicator(
+                                    indicatorSize: MD2IndicatorSize.full,
+                                    indicatorHeight: 8.0,
+                                    indicatorColor: pinkColor,
                                   ),
                                 ),
-                              ),
-                            ],
-                          ),
-                          SizedBox(
-                            height: 1,
-                          ),
-                          Expanded(
-                            flex: 6,
-                            child: Container(
-                              color: whiteColor,
-                              child: new TabBarView(
-                                controller: _controller,
-                                children: <Widget>[
-                                  TabAbout(salonData, widget.catId, distance),
-                                  GalleryView(galleyDataList),
-                                  ServiceTab(categoryList, salonId, salonData),
-                                  ReViewTab(reviewList),
-                                ],
                               ),
                             ),
-                          ),
-                        ],
-                      ),
-                    ),
-                    Visibility(
-                      visible: noDataVisible,
-                      child: Container(
-                        margin: EdgeInsets.only(
-                            left: 15, right: 15, top: 10, bottom: 60),
-                        child: Center(
-                          child: Container(
-                              width: MediaQuery.of(context).size.width,
-                              height: MediaQuery.of(context).size.height * 0.75,
-                              alignment: Alignment.center,
-                              child: ListView(
-                                shrinkWrap: true,
-                                physics: NeverScrollableScrollPhysics(),
-                                children: <Widget>[
-                                  Image.asset(
-                                    DummyImage.noData,
-                                    alignment: Alignment.center,
-                                    width: 150,
-                                    height: 100,
-                                  ),
-                                  Align(
-                                    alignment: Alignment.center,
-                                    child: Text(
-                                      StringConstant.noData,
-                                      style: TextStyle(
-                                          color: whiteA3,
-                                          fontFamily:
-                                              ConstantFont.montserratMedium,
-                                          fontWeight: FontWeight.w600,
-                                          fontSize: 16),
-                                    ),
-                                  ),
-                                ],
-                              )),
+                          ],
                         ),
+                        SizedBox(
+                          height: 1,
+                        ),
+                        Expanded(
+                          flex: 6,
+                          child: Container(
+                            color: whiteColor,
+                            child: new TabBarView(
+                              controller: _controller,
+                              children: <Widget>[
+                                TabAbout(salonData, widget.catId, distance),
+                                GalleryView(galleyDataList),
+                                ServiceTab(categoryList, salonId, salonData),
+                                ReViewTab(reviewList),
+                              ],
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  Visibility(
+                    visible: noDataVisible,
+                    child: Container(
+                      margin: EdgeInsets.only(
+                          left: 15, right: 15, top: 10, bottom: 40),
+                      child: Center(
+                        child: Container(
+                            width: MediaQuery.of(context).size.width,
+                            height: MediaQuery.of(context).size.height * 0.75,
+                            alignment: Alignment.center,
+                            child: ListView(
+                              shrinkWrap: true,
+                              physics: NeverScrollableScrollPhysics(),
+                              children: <Widget>[
+                                Image.asset(
+                                  DummyImage.noData,
+                                  alignment: Alignment.center,
+                                  width: 150,
+                                  height: 100,
+                                ),
+                                Align(
+                                  alignment: Alignment.center,
+                                  child: Text(
+                                    StringConstant.noData,
+                                    style: TextStyle(
+                                        color: whiteA3,
+                                        fontFamily:
+                                            ConstantFont.montserratMedium,
+                                        fontWeight: FontWeight.w600,
+                                        fontSize: 16),
+                                  ),
+                                ),
+                              ],
+                            )),
                       ),
                     ),
-                    new Container(child: Body())
-                  ],
-                )),
+                  ),
+                  // new Container(child: Body())
+                ],
+              ),
+            ),
           ),
         ),
       ),

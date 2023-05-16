@@ -1,17 +1,14 @@
 import 'dart:collection';
 
 import 'package:barber_app/constant/appconstant.dart';
-import 'package:barber_app/constant/dymmyimages.dart';
+import 'package:barber_app/constant/color_constant.dart';
 import 'package:barber_app/constant/preferenceutils.dart';
 import 'package:barber_app/fragments/appoinment.dart';
 import 'package:barber_app/fragments/fghome.dart';
 import 'package:barber_app/fragments/notification.dart';
+import 'package:barber_app/fragments/profile.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
-
-import 'common/inndicator.dart';
-import 'constant/color_constant.dart';
-import 'fragments/profile.dart';
+import 'package:persistent_bottom_nav_bar_ccc/persistent-tab-view.dart';
 
 class BottomBar extends StatefulWidget {
 
@@ -29,7 +26,7 @@ class BottomBar extends StatefulWidget {
   }
 }
 
- class BottomBar1 extends State<BottomBar> {
+class BottomBar1 extends State<BottomBar> {
   ListQueue<int> _navigationQueue = ListQueue();
   int index = 0;
   bool? login = false;
@@ -64,74 +61,54 @@ class BottomBar extends StatefulWidget {
     });
    }
 
-    return  AnimatedContainer(
+    return AnimatedContainer(
       transform: Matrix4.translationValues(xOffset, yOffset, 0)..scale(scaleFactor),
       duration: const Duration(milliseconds: 400) ,
-      child: ClipRRect(
-        borderRadius: BorderRadius.circular(isDrawerOpen? 30: 0.0),
-        child: DefaultTabController(
-          length: 4,
-          initialIndex: widget.index,
-          child: new Scaffold(
-            body: TabBarView(
-              physics: NeverScrollableScrollPhysics(),
-              children: [
-                FgHome(onOpen: onOpen, onClose:onClose,isDrawerOpen: isDrawerOpen),
-                Appoinment(onOpen: onOpen, onClose:onClose, isDrawerOpen: isDrawerOpen,),
-               Notification1(onOpen: onOpen, onClose:onClose ,isDrawerOpen: isDrawerOpen,),
-                Profile(onOpen: onOpen, onClose:onClose, isDrawerOpen: isDrawerOpen, ),
-              ],
-            ),
-            bottomNavigationBar: new TabBar(
-              tabs: [
-                Tab(
-                  icon: Container(
-                      width: 20,
-                      height: 20,
-                      child: new SvgPicture.asset(DummyImage.homeWhite)),
-                ),
-                Tab(
-                  icon: GestureDetector(
-                    child: Container(
-                        width: 20,
-                        height: 20,
-                        child: new SvgPicture.asset(DummyImage.calenderWhite)),
-                  ),
-                ),
-                Tab(
-                  icon: Container(
-                    width: 20,
-                    height: 20,
-                    child: Icon(Icons.notifications),
-                  ),
-                ),
-                Tab(
-                  icon: Container(
-                      width: 20,
-                      height: 20,
-                      child: new SvgPicture.asset(DummyImage.profileWhite)),
-                ),
-              ],
-              labelColor: whiteColor,
-              unselectedLabelColor: whiteColor,
-              indicatorSize: TabBarIndicatorSize.label,
-              indicatorPadding: EdgeInsets.all(0.0),
-              indicatorColor: whiteColor,
-              indicatorWeight: 3.0,
-              indicator: MD2Indicator(
-                indicatorSize: MD2IndicatorSize.full,
-                indicatorHeight: 5.0,
-                indicatorColor: whiteColor,
-              ),
-              onTap: (value) {
-                _navigationQueue.addLast(index);
-                setState(() => index = value);
-                print(value);
-              },
-            ),
-            backgroundColor:pinkColor,
+      child: PersistentTabView(
+        context,
+        backgroundColor: whiteColor,
+        screens: [
+          FgHome(isDrawerOpen: isDrawerOpen, onClose: onClose, onOpen: onOpen,),
+          Appoinment(isDrawerOpen: isDrawerOpen, onClose: onClose, onOpen: onOpen,),
+          Notification1(isDrawerOpen: isDrawerOpen, onClose: onClose, onOpen: onOpen,),
+          Profile(isDrawerOpen: isDrawerOpen, onClose: onClose, onOpen: onOpen,),
+        ],
+        hideNavigationBarWhenKeyboardShows: true,
+        handleAndroidBackButtonPress: true,
+        stateManagement: true,
+        navBarHeight: 60,
+        confineInSafeArea: true,
+        resizeToAvoidBottomInset: true,
+        items: [
+          PersistentBottomNavBarItem(
+            icon: Icon(Icons.home),
+            title: "Home",
+            activeColorPrimary: pinkColor,
+            inactiveColorPrimary: Colors.grey.shade700,
+            iconSize: 20,
           ),
-        ),
+          PersistentBottomNavBarItem(
+            icon: Icon(Icons.calendar_today),
+            title: "Schedule",
+            activeColorPrimary: pinkColor,
+            inactiveColorPrimary: Colors.grey.shade700,
+            iconSize: 20,
+          ),
+          PersistentBottomNavBarItem(
+            icon: Icon(Icons.notifications),
+            title: "Notification",
+            activeColorPrimary: pinkColor,
+            inactiveColorPrimary: Colors.grey.shade700,
+            iconSize: 20,
+          ),
+          PersistentBottomNavBarItem(
+            icon: Icon(Icons.person),
+            title: "Profile",
+            activeColorPrimary: pinkColor,
+            inactiveColorPrimary: Colors.grey.shade700,
+            iconSize: 20,
+          ),
+        ],
       ),
     );
   }

@@ -1,7 +1,6 @@
 import 'package:barber_app/ResponseModel/empResponse.dart';
 import 'package:barber_app/ResponseModel/salonDetailResponse.dart';
 import 'package:barber_app/ResponseModel/timedataResponseModel.dart';
-import 'package:barber_app/common/common_view.dart';
 import 'package:barber_app/constant/appconstant.dart';
 import 'package:barber_app/constant/color_constant.dart';
 import 'package:barber_app/constant/constant_font.dart';
@@ -728,7 +727,7 @@ class _BookAppointment extends State<BookAppoitment> with TickerProviderStateMix
                             ),
                           ),
                         ),
-                        CustomView(),
+                        // CustomView(),
                       ],
                     ),
                   ),

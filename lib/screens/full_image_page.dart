@@ -1,5 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+
 class FullImagePage extends StatefulWidget {
   final String? image;
   FullImagePage({Key? key,this.image}) : super(key: key);
@@ -17,6 +18,7 @@ class _FullImagePageState extends State<FullImagePage> {
         width: MediaQuery.of(context).size.width,
         child: CachedNetworkImage(
           imageUrl:widget.image!,
+          height: MediaQuery.of(context).size.height,
         ),
       ),
     );

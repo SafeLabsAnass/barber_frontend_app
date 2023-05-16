@@ -6,9 +6,6 @@ import 'package:barber_app/constant/string_constant.dart';
 import 'package:barber_app/screens/full_image_page.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_spinkit/flutter_spinkit.dart';
-import 'package:staggered_grid_view_flutter/widgets/staggered_grid_view.dart';
-import 'package:staggered_grid_view_flutter/widgets/staggered_tile.dart';
 
 class GalleryView extends StatefulWidget {
   final List<SalonGallery> galleyDataList;
@@ -58,8 +55,11 @@ class _GalleryView extends State<GalleryView> {
     dynamic screenWidth = MediaQuery.of(context).size.width;
     return SafeArea(
       child: Scaffold(
+        primary: true,
+        extendBody: true,
+        resizeToAvoidBottomInset: true,
         body: Container(
-          margin: EdgeInsets.only(top: 0, left: 15, right: 15, bottom: 45),
+          margin: EdgeInsets.only(top: 0, left: 15, right: 15, bottom: 5),
           color: whiteColor,
           height: double.infinity,
           width: double.infinity,
@@ -69,47 +69,52 @@ class _GalleryView extends State<GalleryView> {
               Visibility(
                 visible: dataVisible,
                 child: SizedBox(
-                  width: screenWidth * 0.8,
-                  height: screenHeight * 0.8,
+                  width: screenWidth * 0.49,
+                  height: screenHeight * 0.49,
                   child: Container(
                     color: Colors.transparent,
-                    child: StaggeredGridView.countBuilder(
-                      physics: NeverScrollableScrollPhysics(),
-                      crossAxisCount: 4,
+                    child: GridView.builder(
+                      gridDelegate:
+                          SliverGridDelegateWithFixedCrossAxisCount(
+                        crossAxisCount: 2,
+                        crossAxisSpacing: 5,
+                        mainAxisSpacing: 5,
+                        mainAxisExtent: screenHeight * 0.27,
+                      ),
                       itemCount: imageList.length,
-                      itemBuilder: (BuildContext context, int index) => GestureDetector(
-                        onTap: () {
-                          Navigator.of(context).push(MaterialPageRoute(
-                              builder: (context) => FullImagePage(
-                                    image: imageList[index],
-                                  )));
-                        },
-                        child: new Container(
+                      itemBuilder: (BuildContext context, int index) {
+                        return GestureDetector(
+                          onTap: () =>
+                              Navigator.of(context).push(MaterialPageRoute(
+                                  builder: (context) => FullImagePage(
+                                        image: imageList[index],
+                                      ))),
+                          child: Container(
                             padding: EdgeInsets.all(4),
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(10.0),
                             ),
-                            child: new Container(
+                            child: Container(
                               child: CachedNetworkImage(
                                 imageUrl: imageList[index],
-                                imageBuilder: (context, imageProvider) => Container(
+                                imageBuilder: (context, imageProvider) =>
+                                    Container(
+                                  width: screenWidth,
+                                  height: screenHeight,
                                   decoration: BoxDecoration(
                                     borderRadius: BorderRadius.circular(10.0),
                                     image: DecorationImage(
                                       image: imageProvider,
                                       fit: BoxFit.fill,
-                                      alignment: Alignment.topCenter,
+                                      alignment: Alignment.center,
                                     ),
                                   ),
                                 ),
-                                placeholder: (context, url) => SpinKitFadingCircle(color: pinkColor),
-                                errorWidget: (context, url, error) => Image.asset(DummyImage.noImage),
                               ),
-                            )),
-                      ),
-                      staggeredTileBuilder: (int index) => new StaggeredTile.count(2, index.isEven ? 2 : 1),
-                      mainAxisSpacing: 4.0,
-                      crossAxisSpacing: 4.0,
+                            ),
+                          ),
+                        );
+                      },
                     ),
                   ),
                 ),
@@ -118,36 +123,37 @@ class _GalleryView extends State<GalleryView> {
                 visible: noDataVisible,
                 child: SizedBox(
                   width: screenWidth,
-                  height: screenHeight * 0.5,
+                  height: screenHeight * 0.8,
                   child: Container(
                     child: Center(
                       child: Container(
-                          width: screenWidth,
-                          height: screenHeight,
-                          alignment: Alignment.center,
-                          child: ListView(
-                            shrinkWrap: true,
-                            physics: NeverScrollableScrollPhysics(),
-                            children: <Widget>[
-                              Image.asset(
-                                DummyImage.noData,
-                                alignment: Alignment.center,
-                                width: 150,
-                                height: 100,
+                        width: screenWidth,
+                        height: screenHeight,
+                        alignment: Alignment.center,
+                        child: ListView(
+                          shrinkWrap: true,
+                          physics: NeverScrollableScrollPhysics(),
+                          children: <Widget>[
+                            Image.asset(
+                              DummyImage.noData,
+                              alignment: Alignment.center,
+                              width: 150,
+                              height: 100,
+                            ),
+                            Align(
+                              alignment: Alignment.center,
+                              child: Text(
+                                StringConstant.noImagesAvailable,
+                                style: TextStyle(
+                                    color: whiteA3,
+                                    fontFamily: ConstantFont.montserratMedium,
+                                    fontWeight: FontWeight.w600,
+                                    fontSize: 16),
                               ),
-                              Align(
-                                alignment: Alignment.center,
-                                child: Text(
-                                  StringConstant.noImagesAvailable,
-                                  style: TextStyle(
-                                      color: whiteA3,
-                                      fontFamily: ConstantFont.montserratMedium,
-                                      fontWeight: FontWeight.w600,
-                                      fontSize: 16),
-                                ),
-                              ),
-                            ],
-                          )),
+                            ),
+                          ],
+                        ),
+                      ),
                     ),
                   ),
                 ),

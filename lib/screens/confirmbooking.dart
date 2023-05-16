@@ -2,7 +2,6 @@ import 'dart:async';
 
 import 'package:barber_app/ResponseModel/paymentGatwayResponse.dart';
 import 'package:barber_app/ResponseModel/salonDetailResponse.dart';
-import 'package:barber_app/common/common_view.dart';
 import 'package:barber_app/constant/appconstant.dart';
 import 'package:barber_app/constant/color_constant.dart';
 import 'package:barber_app/constant/constant_font.dart';
@@ -787,10 +786,10 @@ class _ConfirmBooking extends State<ConfirmBooking> {
                       ),
                     ),
                   ),
-                  Align(
-                    alignment: Alignment.bottomCenter,
-                    child: CustomView(),
-                  ),
+                  // Align(
+                  //   alignment: Alignment.bottomCenter,
+                  //   child: CustomView(),
+                  // ),
                 ],
               )),
         ),
