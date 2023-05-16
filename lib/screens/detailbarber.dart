@@ -29,7 +29,7 @@ import 'homescreen.dart';
 
 class DetailBarber extends StatefulWidget {
 
-   DetailBarber({Key? key,this.title, isDrawerOpen, this.catId, required this.onOpen, required this.onClose}) : 
+   DetailBarber({Key? key,this.title,required isDrawerOpen, this.catId, required this.onOpen, required this.onClose}) : 
    isDrawerOpen = isDrawerOpen,
    super(key: key);
 
@@ -97,7 +97,7 @@ class _DetailBarber extends State<DetailBarber>
           verify: 0));
 
   var salonId;
-  String? salonName = "The Barber";
+  String? salonName = "Cindy Beauty";
   String? salonAddress = "No Address found";
   bool dataVisible = false;
   bool noDataVisible = true;
@@ -361,7 +361,7 @@ class _DetailBarber extends State<DetailBarber>
         child: SafeArea(
           child: Scaffold(
             backgroundColor: whiteColor,
-            appBar: appbar(context, salonName!, _drawerScaffoldKey, false,widget.isDrawerOpen,widget.onOpen, widget.onClose)
+            appBar: appbar(context, salonName!, _drawerScaffoldKey, false, widget.isDrawerOpen,widget.onOpen, widget.onClose)
                 as PreferredSizeWidget?,
             body: Scaffold(
                 resizeToAvoidBottomInset: true,
