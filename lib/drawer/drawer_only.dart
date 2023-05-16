@@ -89,7 +89,7 @@ class _DrawerOnlyState extends State<DrawerOnly> {
                                 overflow: TextOverflow.ellipsis,
                                 maxLines: 1,
                                 style: TextStyle(
-                                color: blackColor, fontSize: 16, fontWeight: FontWeight.w600, fontFamily: 'Montserrat'),
+                                color: pinkColor, fontSize: 16, fontWeight: FontWeight.w600, fontFamily: 'Montserrat'),
                                 ),
                                   Text(name!,
                                 overflow: TextOverflow.ellipsis,

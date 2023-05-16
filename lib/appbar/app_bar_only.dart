@@ -23,7 +23,7 @@ Widget appbar(
     iconTheme: IconThemeData(color: blackColor),
     title: drawer
         ? Text(
-            'Cindyyyy Beauty',
+            'Cindy Beauty',
             textAlign: TextAlign.center,
             style: TextStyle(
               color: blackColor,
