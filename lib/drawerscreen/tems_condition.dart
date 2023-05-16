@@ -193,7 +193,7 @@ class _TermsCondition extends State<TermsCondition> {
                                   )),
                             ),
                           ),
-                    // new Container(alignment: Alignment.bottomCenter, child: Body())
+                    new Container(alignment: Alignment.bottomCenter, child: Body())
                   ]),
                 ),
               ),

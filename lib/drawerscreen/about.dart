@@ -234,7 +234,7 @@ class _About extends State<About> {
                     ),
                   ),
                 ),
-                // new Container(alignment: Alignment.bottomCenter, child: Body()),
+                new Container(alignment: Alignment.bottomCenter, child: Body()),
               ]),
             ),
           ),)  
