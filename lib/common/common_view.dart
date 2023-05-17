@@ -12,6 +12,7 @@ class CustomView extends StatefulWidget {
 }
 
 class _CustomView extends State<CustomView> {
+
   @override
   void initState() {
     super.initState();
@@ -22,47 +23,74 @@ class _CustomView extends State<CustomView> {
     return Align(
         alignment: Alignment.bottomCenter,
         child: Container(
-          color: pinkColor,
+          color: whiteColor,
           alignment: FractionalOffset.center,
-          height: 50,
+          height: 45,
+          padding: EdgeInsets.symmetric(horizontal: 40),
           child: Row(
             children: <Widget>[
               Expanded(
                 child: GestureDetector(
                   onTap: () {
-                    Navigator.of(context).push(MaterialPageRoute(builder: (context) => HomeScreen(0)));
-                  },
-                  child: Container(width: 20, height: 20, child: new SvgPicture.asset(DummyImage.homeWhite)),
-                ),
-              ),
-              Expanded(
-                child: GestureDetector(
-                  onTap: () {
-                    Navigator.of(context).push(MaterialPageRoute(builder: (context) => HomeScreen(1)));
-                  },
-                  child: Container(width: 20, height: 20, child: new SvgPicture.asset(DummyImage.calenderWhite)),
-                ),
-              ),
-              Expanded(
-                child: GestureDetector(
-                  onTap: () {
-                    Navigator.of(context).push(MaterialPageRoute(builder: (context) => HomeScreen(2)));
+                    Navigator.of(context).push(
+                      MaterialPageRoute(
+                        builder: (context) => HomeScreen(0),
+                      ),
+                    );
                   },
                   child: Container(
-                      width: 20,
-                      height: 20,
-                      child: Icon(
-                        Icons.notifications,
-                        color: Colors.white,
+                    width: 17.5,
+                    height: 17.5,
+                    child: new SvgPicture.asset(
+                      DummyImage.homeWhite,
+                      color: Colors.grey.shade700,
+                    ),
+                  ),
+                ),
+              ),
+              Expanded(
+                child: GestureDetector(
+                  onTap: () {
+                    Navigator.of(context).push(
+                        MaterialPageRoute(builder: (context) => HomeScreen(1)));
+                  },
+                  child: Container(
+                      width: 17.5,
+                      height: 17.5,
+                      child: new SvgPicture.asset(
+                        DummyImage.calenderWhite,
+                        color: Colors.grey.shade700,
                       )),
                 ),
               ),
               Expanded(
                 child: GestureDetector(
                   onTap: () {
-                    Navigator.of(context).push(MaterialPageRoute(builder: (context) => HomeScreen(3)));
+                    Navigator.of(context).push(
+                        MaterialPageRoute(builder: (context) => HomeScreen(2)));
                   },
-                  child: Container(width: 20, height: 20, child: new SvgPicture.asset(DummyImage.profileWhite)),
+                  child: Container(
+                      width: 17.5,
+                      height: 17.5,
+                      child: Icon(
+                        Icons.notifications,
+                        color: Colors.grey.shade700,
+                      )),
+                ),
+              ),
+              Expanded(
+                child: GestureDetector(
+                  onTap: () {
+                    Navigator.of(context).push(
+                        MaterialPageRoute(builder: (context) => HomeScreen(3)));
+                  },
+                  child: Container(
+                      width: 17.5,
+                      height: 17.5,
+                      child: new SvgPicture.asset(
+                        DummyImage.profileWhite,
+                        color: Colors.grey.shade700,
+                      )),
                 ),
               ),
             ],
