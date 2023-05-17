@@ -9,6 +9,7 @@ class DefaultPage extends StatelessWidget {
   final double xOffset;
   final double scaleFactor;
   final bool isDrawerOpen;
+  final VoidCallback onClose;
   const DefaultPage(
       {super.key,
       required this.child,
@@ -16,7 +17,10 @@ class DefaultPage extends StatelessWidget {
       required this.yOffset,
       required this.xOffset,
       required this.scaleFactor,
-      required this.isDrawerOpen});
+      required this.isDrawerOpen,
+       required this.onClose}
+     );
+      
 
   @override
   Widget build(BuildContext context) {
@@ -26,10 +30,26 @@ class DefaultPage extends StatelessWidget {
       duration: const Duration(milliseconds: 400),
       child: ClipRRect(
         borderRadius: BorderRadius.circular(isDrawerOpen ? 30 : 0.0),
-        child: DefaultTabController(
-          length: 4,
-          initialIndex: index,
-          child: child,
+        child: Stack(
+          children: [
+            DefaultTabController(
+            length: 4,
+            initialIndex: index,
+            child: child,
+          ),
+              if (isDrawerOpen)
+      GestureDetector(
+        onTap: () {
+         
+          onClose(); 
+        },
+        child: Container(
+          width: double.infinity,
+          height: double.infinity,
+          color: Colors.transparent,
+        ),
+      ),
+          ]
         ),
       ),
     );

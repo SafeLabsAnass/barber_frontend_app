@@ -62,51 +62,70 @@ class BottomBar1 extends State<BottomBar> {
     return AnimatedContainer(
       transform: Matrix4.translationValues(xOffset, yOffset, 0)..scale(scaleFactor),
       duration: const Duration(milliseconds: 400) ,
-      child: PersistentTabView(
-        context,
-        backgroundColor: whiteColor,
-        screens: [
-          FgHome(isDrawerOpen: isDrawerOpen, onClose: onClose, onOpen: onOpen,),
-          Appoinment(isDrawerOpen: isDrawerOpen, onClose: onClose, onOpen: onOpen,),
-          Notification1(isDrawerOpen: isDrawerOpen, onClose: onClose, onOpen: onOpen,),
-          Profile(isDrawerOpen: isDrawerOpen, onClose: onClose, onOpen: onOpen,),
-        ],
-        hideNavigationBarWhenKeyboardShows: true,
-        handleAndroidBackButtonPress: true,
-        stateManagement: true,
-        navBarHeight: 60,
-        confineInSafeArea: true,
-        resizeToAvoidBottomInset: true,
-        items: [
-          PersistentBottomNavBarItem(
-            icon: Icon(Icons.home),
-            title: "Home",
-            activeColorPrimary: pinkColor,
-            inactiveColorPrimary: Colors.grey.shade700,
-            iconSize: 20,
+      child: ClipRRect(
+        borderRadius: BorderRadius.circular(isDrawerOpen? 30.0 : 0.0),
+        child: Stack(
+          children: [
+            PersistentTabView(
+            context,
+            backgroundColor: whiteColor,
+            screens: [
+              FgHome(isDrawerOpen: isDrawerOpen, onClose: onClose, onOpen: onOpen,),
+              Appoinment(isDrawerOpen: isDrawerOpen, onClose: onClose, onOpen: onOpen,),
+              Notification1(isDrawerOpen: isDrawerOpen, onClose: onClose, onOpen: onOpen,),
+              Profile(isDrawerOpen: isDrawerOpen, onClose: onClose, onOpen: onOpen,),
+            ],
+            hideNavigationBarWhenKeyboardShows: true,
+            handleAndroidBackButtonPress: true,
+            stateManagement: true,
+            navBarHeight: 60,
+            confineInSafeArea: true,
+            resizeToAvoidBottomInset: true,
+            items: [
+              PersistentBottomNavBarItem(
+                icon: Icon(Icons.home),
+                title: "Home",
+                activeColorPrimary: pinkColor,
+                inactiveColorPrimary: Colors.grey.shade700,
+                iconSize: 20,
+              ),
+              PersistentBottomNavBarItem(
+                icon: Icon(Icons.calendar_today),
+                title: "Schedule",
+                activeColorPrimary: pinkColor,
+                inactiveColorPrimary: Colors.grey.shade700,
+                iconSize: 20,
+              ),
+              PersistentBottomNavBarItem(
+                icon: Icon(Icons.notifications),
+                title: "Notification",
+                activeColorPrimary: pinkColor,
+                inactiveColorPrimary: Colors.grey.shade700,
+                iconSize: 20,
+              ),
+              PersistentBottomNavBarItem(
+                icon: Icon(Icons.person),
+                title: "Profile",
+                activeColorPrimary: pinkColor,
+                inactiveColorPrimary: Colors.grey.shade700,
+                iconSize: 20,
+              ),
+            ],
           ),
-          PersistentBottomNavBarItem(
-            icon: Icon(Icons.calendar_today),
-            title: "Schedule",
-            activeColorPrimary: pinkColor,
-            inactiveColorPrimary: Colors.grey.shade700,
-            iconSize: 20,
-          ),
-          PersistentBottomNavBarItem(
-            icon: Icon(Icons.notifications),
-            title: "Notification",
-            activeColorPrimary: pinkColor,
-            inactiveColorPrimary: Colors.grey.shade700,
-            iconSize: 20,
-          ),
-          PersistentBottomNavBarItem(
-            icon: Icon(Icons.person),
-            title: "Profile",
-            activeColorPrimary: pinkColor,
-            inactiveColorPrimary: Colors.grey.shade700,
-            iconSize: 20,
-          ),
-        ],
+           if (isDrawerOpen)
+      GestureDetector(
+        onTap: () {
+          // Toggle the value of isDrawerOpen when the container is tapped
+          onClose(); // Assuming this function updates the value of isDrawerOpen to false
+        },
+        child: Container(
+          width: double.infinity,
+          height: double.infinity,
+          color: Colors.transparent,
+        ),
+      ),
+          ],
+        ),
       ),
     );
   }
