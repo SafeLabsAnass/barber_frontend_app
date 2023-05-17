@@ -33,7 +33,7 @@ class _GalleryView extends State<GalleryView> {
       dataVisible = true;
       noDataVisible = false;
 
-      print(galleyDataList[0].imagePath);
+      print(galleyDataList.length);
 
       for (int i = 0; i < galleyDataList.length; i++) {
         imageList.add(galleyDataList[i].imagePath! + galleyDataList[i].image!);
@@ -49,79 +49,74 @@ class _GalleryView extends State<GalleryView> {
   int? currentSelectedIndex;
   String? categoryName;
 
-  @override
-  Widget build(BuildContext context) {
-    dynamic screenHeight = MediaQuery.of(context).size.height;
-    dynamic screenWidth = MediaQuery.of(context).size.width;
-    return SafeArea(
-      child: Scaffold(
-        primary: true,
-        extendBody: true,
-        resizeToAvoidBottomInset: true,
-        body: Container(
-          margin: EdgeInsets.only(top: 0, left: 15, right: 15, bottom: 5),
-          color: whiteColor,
-          height: double.infinity,
-          width: double.infinity,
-          child: ListView(
-            physics: AlwaysScrollableScrollPhysics(),
+@override
+Widget build(BuildContext context) {
+  dynamic screenHeight = MediaQuery.of(context).size.height;
+  dynamic screenWidth = MediaQuery.of(context).size.width;
+  dynamic ratio = MediaQuery.of(context).size.aspectRatio;
+  
+  return SafeArea(
+    child: Scaffold(
+      primary: true,
+      extendBody: true,
+      resizeToAvoidBottomInset: true,
+      body: Container(
+        margin: EdgeInsets.only(top: 0, left: 15, right: 15, bottom: 5),
+        color: whiteColor,
+        height: double.infinity,
+        width: double.infinity,
+        child: SingleChildScrollView(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
             children: <Widget>[
-              Visibility(
-                visible: dataVisible,
-                child: SizedBox(
-                  width: screenWidth * 0.49,
-                  height: screenHeight * 0.49,
-                  child: Container(
-                    color: Colors.transparent,
-                    child: GridView.builder(
-                      gridDelegate:
-                          SliverGridDelegateWithFixedCrossAxisCount(
-                        crossAxisCount: 2,
-                        crossAxisSpacing: 5,
-                        mainAxisSpacing: 5,
-                        mainAxisExtent: screenHeight * 0.27,
-                      ),
-                      itemCount: imageList.length,
-                      itemBuilder: (BuildContext context, int index) {
-                        return GestureDetector(
-                          onTap: () =>
-                              Navigator.of(context).push(MaterialPageRoute(
-                                  builder: (context) => FullImagePage(
-                                        image: imageList[index],
-                                      ))),
-                          child: Container(
-                            padding: EdgeInsets.all(4),
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(10.0),
-                            ),
-                            child: Container(
-                              child: CachedNetworkImage(
-                                imageUrl: imageList[index],
-                                imageBuilder: (context, imageProvider) =>
-                                    Container(
-                                  width: screenWidth,
-                                  height: screenHeight,
-                                  decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(10.0),
-                                    image: DecorationImage(
-                                      image: imageProvider,
-                                      fit: BoxFit.fill,
-                                      alignment: Alignment.center,
-                                    ),
-                                  ),
+              if (dataVisible)
+                GridView.builder(
+                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 2,
+                    crossAxisSpacing: 5,
+                    mainAxisSpacing: 5,
+                    mainAxisExtent: screenHeight * 0.27,
+                  ),
+                  itemCount: imageList.length,
+                  shrinkWrap: true,
+                  physics: NeverScrollableScrollPhysics(),
+                  itemBuilder: (BuildContext context, int index) {
+                    return GestureDetector(
+                      onTap: () {
+                        Navigator.of(context).push(MaterialPageRoute(
+                          builder: (context) => FullImagePage(
+                            image: imageList[index],
+                          ),
+                        ));
+                      },
+                      child: Container(
+                        padding: EdgeInsets.all(4),
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(10.0),
+                        ),
+                        child: Container(
+                          child: CachedNetworkImage(
+                            imageUrl: imageList[index],
+                            imageBuilder: (context, imageProvider) => Container(
+                              width: screenWidth,
+                              height: screenHeight,
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(10.0),
+                                image: DecorationImage(
+                                  image: imageProvider,
+                                  fit: BoxFit.fill,
+                                  alignment: Alignment.center,
                                 ),
                               ),
                             ),
                           ),
-                        );
-                      },
-                    ),
-                  ),
+                        ),
+                      ),
+                    );
+                  },
                 ),
-              ),
-              Visibility(
-                visible: noDataVisible,
-                child: SizedBox(
+              if (noDataVisible)
+                SizedBox(
                   width: screenWidth,
                   height: screenHeight * 0.8,
                   child: Container(
@@ -130,9 +125,7 @@ class _GalleryView extends State<GalleryView> {
                         width: screenWidth,
                         height: screenHeight,
                         alignment: Alignment.center,
-                        child: ListView(
-                          shrinkWrap: true,
-                          physics: NeverScrollableScrollPhysics(),
+                        child: Column(
                           children: <Widget>[
                             Image.asset(
                               DummyImage.noData,
@@ -145,10 +138,11 @@ class _GalleryView extends State<GalleryView> {
                               child: Text(
                                 StringConstant.noImagesAvailable,
                                 style: TextStyle(
-                                    color: whiteA3,
-                                    fontFamily: ConstantFont.montserratMedium,
-                                    fontWeight: FontWeight.w600,
-                                    fontSize: 16),
+                                  color: whiteA3,
+                                  fontFamily: ConstantFont.montserratMedium,
+                                  fontWeight: FontWeight.w600,
+                                  fontSize: 16,
+                                ),
                               ),
                             ),
                           ],
@@ -157,11 +151,11 @@ class _GalleryView extends State<GalleryView> {
                     ),
                   ),
                 ),
-              ),
             ],
           ),
         ),
       ),
-    );
-  }
+    ),
+  );
+}
 }

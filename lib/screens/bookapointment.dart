@@ -20,11 +20,7 @@ import 'package:table_calendar/table_calendar.dart';
 
 import 'confirmbooking.dart';
 
-void main() {
-  runApp(new MaterialApp(
-    debugShowCheckedModeBanner: false,
-  ));
-}
+
 
 class BookAppoitment extends StatefulWidget {
   final double totalprice;
@@ -634,7 +630,7 @@ class _BookAppointment extends State<BookAppoitment> with TickerProviderStateMix
                           maintainState: true,
                           visible: viewVisible1,
                           child: Container(
-                            margin: EdgeInsets.only(top: 10, bottom: 50),
+                            margin: EdgeInsets.only(top: 10, bottom: 0),
                             color: whiteColor,
                             height: 60,
                             child: Row(

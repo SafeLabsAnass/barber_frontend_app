@@ -94,7 +94,7 @@ class _ServiceTab extends State<ServiceTab> {
       child: Scaffold(
         body: new Container(
             color: whiteColor,
-            margin: EdgeInsets.only(bottom: 50),
+            margin: EdgeInsets.only(bottom: 0),
             child: Stack(
               children: <Widget>[
                 Column(

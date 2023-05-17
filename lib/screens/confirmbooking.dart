@@ -9,6 +9,7 @@ import 'package:barber_app/constant/dymmyimages.dart';
 import 'package:barber_app/constant/preferenceutils.dart';
 import 'package:barber_app/constant/string_constant.dart';
 import 'package:barber_app/constant/toast_message.dart';
+import 'package:barber_app/fragments/fghome.dart';
 import 'package:barber_app/network/Apiservice.dart';
 import 'package:barber_app/network/BaseModel.dart';
 import 'package:barber_app/network/Retro_Api.dart';
@@ -58,6 +59,29 @@ class _ConfirmBooking extends State<ConfirmBooking> {
   int? selectedEmpId;
   List? _totalprice = [];
   var rating = 1.0;
+  
+  double xOffset = 0;
+  double yOffset = 0;
+  double scaleFactor = 1;
+     bool isDrawerOpen = false;
+
+    void onOpen(){
+    setState(() {
+      xOffset=220;
+      yOffset=130;
+      scaleFactor=0.7;
+      isDrawerOpen=true;
+    });
+    }
+
+   void onClose(){
+    setState(() {
+      xOffset=0;
+      yOffset=0;
+      scaleFactor=1;
+      isDrawerOpen=false;
+    });
+   }
 
   List<String>? _selectedServicesName = <String>[];
   late var parsedDate;
@@ -589,7 +613,7 @@ class _ConfirmBooking extends State<ConfirmBooking> {
                             alignment: Alignment.center,
                             margin: EdgeInsets.only(left: 25, right: 15),
                             decoration: BoxDecoration(
-                                color: mustardColor, borderRadius: BorderRadius.all(Radius.circular(10))),
+                                color: pinkColor, borderRadius: BorderRadius.all(Radius.circular(10))),
                             child: Column(
                               children: [
                                 Visibility(
@@ -821,8 +845,8 @@ class _ConfirmBooking extends State<ConfirmBooking> {
                           alignment: FractionalOffset.center,
                           child: Image.asset(
                             DummyImage.changePasswordDone,
-                            width: 100,
-                            height: 100,
+                            width: 75,
+                            height: 75,
                             alignment: Alignment.center,
                           ),
                         ),
@@ -862,8 +886,7 @@ class _ConfirmBooking extends State<ConfirmBooking> {
                       GestureDetector(
                         onTap: () {
                           _radioValue = -1;
-
-                          Navigator.push(context, new MaterialPageRoute(builder: (context) => new HomeScreen(1)));
+                          Navigator.push(context, new MaterialPageRoute(builder: (context) =>  HomeScreen(1) ));
                         },
                         child: Align(
                           alignment: Alignment.center,

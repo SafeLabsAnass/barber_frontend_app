@@ -41,6 +41,7 @@ class BottomBar1 extends State<BottomBar> {
 
   login = PreferenceUtils.getlogin(AppConstant.isLoggedIn);
 
+
     void onOpen(){
     setState(() {
       xOffset=220;
@@ -77,9 +78,10 @@ class BottomBar1 extends State<BottomBar> {
             ],
             hideNavigationBarWhenKeyboardShows: true,
             handleAndroidBackButtonPress: true,
-            stateManagement: true,
-            navBarHeight: 60,
-            confineInSafeArea: true,
+             stateManagement: false,
+            navBarHeight: 70,
+            padding: NavBarPadding.only(left: 1, right: 1),
+             confineInSafeArea: true,
             resizeToAvoidBottomInset: true,
             items: [
               PersistentBottomNavBarItem(

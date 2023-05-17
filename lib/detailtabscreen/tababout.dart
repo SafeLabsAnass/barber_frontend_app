@@ -65,8 +65,11 @@ class _TabAbout extends State<TabAbout> {
         // ignore: unnecessary_type_check
         assert(salonLong is double);
 
-        double distanceInMeters =
-            Geolocator.distanceBetween(AppConstant.currentlat, AppConstant.currentlong, salonLat, salonLong);
+        double distanceInMeters = Geolocator.distanceBetween(
+            AppConstant.currentlat,
+            AppConstant.currentlong,
+            salonLat,
+            salonLong);
         double distanceinkm = distanceInMeters / 1000;
         print("current_distanceInMeters:$distanceInMeters");
         print("current_distanceinkm:$distanceinkm");
@@ -175,8 +178,8 @@ class _TabAbout extends State<TabAbout> {
         // ignore: unnecessary_type_check
         assert(salonLong is double);
 
-        AppConstant.getDistance(salonLat, salonLong)
-            .whenComplete(() => AppConstant.getDistance(salonLat, salonLong).then((value) {
+        AppConstant.getDistance(salonLat, salonLong).whenComplete(
+            () => AppConstant.getDistance(salonLat, salonLong).then((value) {
                   distance = value;
                   print("Distance123:$distance");
                 }));
@@ -191,8 +194,8 @@ class _TabAbout extends State<TabAbout> {
         // ignore: unnecessary_type_check
         assert(salonLong is double);
 
-        AppConstant.getDistance(salonLat, salonLong)
-            .whenComplete(() => AppConstant.getDistance(salonLat, salonLong).then((value) {
+        AppConstant.getDistance(salonLat, salonLong).whenComplete(
+            () => AppConstant.getDistance(salonLat, salonLong).then((value) {
                   distance = value;
                   print("Distance123:$distance");
                 }));
@@ -239,20 +242,22 @@ class _TabAbout extends State<TabAbout> {
           resizeToAvoidBottomInset: false,
           backgroundColor: whiteColor,
           body: Padding(
-              padding: EdgeInsets.only(top: 0, left: 20, right: 15, bottom: 50),
+              padding:
+                  EdgeInsets.only(top: 0, left: 20, right: 15, bottom: 0.0),
               child: ListView(
                 shrinkWrap: true,
                 children: <Widget>[
                   Container(
-                    margin: EdgeInsets.only(left: 0, top: 1),
+                    margin: EdgeInsets.only(left: 0, top: 15, bottom: 10),
                     alignment: Alignment.topLeft,
                     child: Text(
-                      "About " + " " + salonData1.name,
+                      salonData1.name,
                       style: TextStyle(
-                          color: blackColor,
-                          fontWeight: FontWeight.w600,
-                          fontSize: 18,
-                          fontFamily: ConstantFont.montserratSemiBold),
+                        color: blackColor,
+                        fontWeight: FontWeight.w600,
+                        fontSize: 18,
+                        fontFamily: ConstantFont.montserratSemiBold,
+                      ),
                     ),
                   ),
                   Container(
@@ -268,15 +273,16 @@ class _TabAbout extends State<TabAbout> {
                     ),
                   ),
                   Container(
-                    margin: EdgeInsets.only(left: 0, top: 15),
+                    margin: EdgeInsets.only(left: 0, top: 20, bottom: 10),
                     alignment: Alignment.topLeft,
                     child: Text(
                       StringConstant.serviceOnDays,
                       style: TextStyle(
-                          color: blackColor,
-                          fontWeight: FontWeight.w600,
-                          fontSize: 18,
-                          fontFamily: ConstantFont.montserratSemiBold),
+                        color: blackColor,
+                        fontWeight: FontWeight.w600,
+                        fontSize: 18,
+                        fontFamily: ConstantFont.montserratSemiBold,
+                      ),
                     ),
                   ),
                   ListView.separated(
@@ -288,64 +294,75 @@ class _TabAbout extends State<TabAbout> {
                     itemCount: serviceDataList.length,
                     itemBuilder: (context, index) {
                       List<HourPeriod> decodeAmount = [];
-                      var deliveryCharge = json.decode(serviceDataList[index].periodList!);
-                      decodeAmount = (deliveryCharge as List).map((i) => HourPeriod.fromJson(i)).toList();
-                      return Row(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            serviceDataList[index].dayIndex!,
-                            style: TextStyle(
+                      var deliveryCharge =
+                          json.decode(serviceDataList[index].periodList!);
+                      decodeAmount = (deliveryCharge as List)
+                          .map((i) => HourPeriod.fromJson(i))
+                          .toList();
+                      return Container(
+                        margin: const EdgeInsets.only(bottom: 1),
+                        child: Row(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              serviceDataList[index].dayIndex!,
+                              style: TextStyle(
                                 color: grey99,
                                 fontWeight: FontWeight.w600,
                                 fontSize: 14,
-                                fontFamily: ConstantFont.montserratRegular),
-                          ),
-                          Expanded(
-                            child: serviceDataList[index].status == 0
-                                ? Row(
-                                    mainAxisAlignment: MainAxisAlignment.end,
-                                    children: [
-                                      Text(
-                                        "Close",
-                                        style: TextStyle(
-                                            color: grey99,
-                                            fontWeight: FontWeight.w600,
-                                            fontSize: 14,
-                                            fontFamily: ConstantFont.montserratRegular),
-                                      ),
-                                    ],
-                                  )
-                                : ListView.builder(
-                                    shrinkWrap: true,
-                                    physics: NeverScrollableScrollPhysics(),
-                                    itemCount: decodeAmount.length,
-                                    itemBuilder: (context, day) {
-                                      return Row(
-                                        mainAxisAlignment: MainAxisAlignment.end,
-                                        children: [
-                                          Text(
-                                            decodeAmount[day].startTime!,
-                                            style: TextStyle(
-                                                color: grey99,
-                                                fontWeight: FontWeight.w600,
-                                                fontSize: 14,
-                                                fontFamily: ConstantFont.montserratRegular),
-                                          ),
-                                          Text(
-                                            "-" + decodeAmount[day].endTime!,
-                                            style: TextStyle(
-                                                color: grey99,
-                                                fontWeight: FontWeight.w600,
-                                                fontSize: 14,
-                                                fontFamily: ConstantFont.montserratRegular),
-                                          ),
-                                        ],
-                                      );
-                                    },
-                                  ),
-                          )
-                        ],
+                                fontFamily: ConstantFont.montserratRegular,
+                              ),
+                            ),
+                            Expanded(
+                              child: serviceDataList[index].status == 0
+                                  ? Row(
+                                      mainAxisAlignment: MainAxisAlignment.end,
+                                      children: [
+                                        Text(
+                                          "Close",
+                                          style: TextStyle(
+                                              color: grey99,
+                                              fontWeight: FontWeight.w600,
+                                              fontSize: 14,
+                                              fontFamily:
+                                                  ConstantFont.montserratRegular),
+                                        ),
+                                      ],
+                                    )
+                                  : ListView.builder(
+                                      shrinkWrap: true,
+                                      physics: NeverScrollableScrollPhysics(),
+                                      itemCount: decodeAmount.length,
+                                      itemBuilder: (context, day) {
+                                        return Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.end,
+                                          children: [
+                                            Text(
+                                              decodeAmount[day].startTime!,
+                                              style: TextStyle(
+                                                  color: grey99,
+                                                  fontWeight: FontWeight.w600,
+                                                  fontSize: 14,
+                                                  fontFamily: ConstantFont
+                                                      .montserratRegular),
+                                            ),
+                                            Text(
+                                              "-" + decodeAmount[day].endTime!,
+                                              style: TextStyle(
+                                                  color: grey99,
+                                                  fontWeight: FontWeight.w600,
+                                                  fontSize: 14,
+                                                  fontFamily: ConstantFont
+                                                      .montserratRegular),
+                                            ),
+                                          ],
+                                        );
+                                      },
+                                    ),
+                            )
+                          ],
+                        ),
                       );
                     },
                   ),
@@ -611,7 +628,7 @@ class _TabAbout extends State<TabAbout> {
                     ),
                   ),*/
                   Container(
-                    margin: EdgeInsets.only(left: 00, top: 15),
+                    margin: EdgeInsets.only(left: 00, top: 20, ),
                     alignment: Alignment.topLeft,
                     child: Text(
                       StringConstant.location,
@@ -623,12 +640,12 @@ class _TabAbout extends State<TabAbout> {
                     ),
                   ),
                   Container(
-                    margin: EdgeInsets.only(top: 5, left: 00, right: 10),
+                    margin: EdgeInsets.only(left: 00, right: 10,top:0.0),
                     width: double.infinity,
                     height: 110,
                     color: whiteColor,
                     child: Row(
-                      mainAxisAlignment: MainAxisAlignment.start,
+                      mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         new Container(
                           height: 70,
@@ -638,18 +655,20 @@ class _TabAbout extends State<TabAbout> {
                             borderRadius: BorderRadius.circular(10.0),
                             image: DecorationImage(
                               image: AssetImage(DummyImage.mapLocation),
-                              fit: BoxFit.fitWidth,
-                              alignment: Alignment.topCenter,
+                              fit: BoxFit.fitHeight,
+                              alignment: Alignment.topRight,
                             ),
                           ),
                         ),
                         Expanded(
                           child: Container(
+                           
                             child: Column(
-                              mainAxisAlignment: MainAxisAlignment.start,
+                              mainAxisAlignment: MainAxisAlignment.center,
                               children: <Widget>[
                                 Container(
-                                  margin: EdgeInsets.only(top: 20, left: 10, right: 20),
+                                  margin: EdgeInsets.only(
+                                       left: 10, right: 20),
                                   alignment: Alignment.topLeft,
                                   child: Text(
                                     widget.salonData.address!,
@@ -659,31 +678,37 @@ class _TabAbout extends State<TabAbout> {
                                         color: grey99,
                                         fontWeight: FontWeight.w600,
                                         fontSize: 13,
-                                        fontFamily: ConstantFont.montserratMedium),
+                                        fontFamily:
+                                            ConstantFont.montserratMedium),
                                   ),
                                 ),
                                 Container(
-                                    margin: EdgeInsets.only(top: 10, left: 10, right: 10),
+                                    margin: EdgeInsets.only(
+                                        top: 10, left: 10, right: 10),
                                     alignment: Alignment.topCenter,
                                     child: Container(
                                       height: 2,
                                       child: MySeparator(),
                                     )),
                                 Container(
-                                  margin: EdgeInsets.only(top: 5, left: 10, right: 00),
+                                  margin: EdgeInsets.only(
+                                      top: 5, left: 10, right: 00),
                                   child: Row(
-                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
                                     children: [
                                       Container(
                                         color: whiteColor,
                                         alignment: Alignment.topRight,
                                         child: Row(
-                                          mainAxisAlignment: MainAxisAlignment.start,
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.start,
                                           children: <Widget>[
                                             Container(
                                               margin: EdgeInsets.only(top: 1),
                                               child: Container(
-                                                margin: EdgeInsets.only(top: 2, left: 0),
+                                                margin: EdgeInsets.only(
+                                                    top: 2, left: 0),
                                                 child: SvgPicture.asset(
                                                   DummyImage.locationIcon,
                                                   width: 10,
@@ -693,13 +718,17 @@ class _TabAbout extends State<TabAbout> {
                                             ),
                                             Container(
                                               child: Container(
-                                                margin: EdgeInsets.only(top: 2, left: 5),
+                                                margin: EdgeInsets.only(
+                                                    top: 2, left: 5),
                                                 child: Text(distance + " km",
                                                     style: TextStyle(
-                                                        color: const Color(0xFF999999),
+                                                        color: const Color(
+                                                            0xFF999999),
                                                         fontSize: 12,
-                                                        fontWeight: FontWeight.w600,
-                                                        fontFamily: ConstantFont.montserratMedium)),
+                                                        fontWeight:
+                                                            FontWeight.w600,
+                                                        fontFamily: ConstantFont
+                                                            .montserratMedium)),
                                               ),
                                             ),
                                           ],
@@ -707,19 +736,24 @@ class _TabAbout extends State<TabAbout> {
                                       ),
                                       GestureDetector(
                                         onTap: () {
-                                          Navigator.of(context).push(MaterialPageRoute(
-                                              builder: (context) => new DirectionDest(widget.salonData)));
+                                          Navigator.of(context).push(
+                                              MaterialPageRoute(
+                                                  builder: (context) =>
+                                                      new DirectionDest(
+                                                          widget.salonData)));
                                         },
                                         child: Container(
                                           color: whiteColor,
                                           alignment: Alignment.topRight,
                                           child: Row(
-                                            mainAxisAlignment: MainAxisAlignment.start,
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.start,
                                             children: <Widget>[
                                               Container(
                                                 margin: EdgeInsets.only(top: 2),
                                                 child: Container(
-                                                  margin: EdgeInsets.only(top: 2, left: 5),
+                                                  margin: EdgeInsets.only(
+                                                      top: 2, left: 5),
                                                   child: SvgPicture.asset(
                                                     DummyImage.direction,
                                                     width: 10,
@@ -729,13 +763,18 @@ class _TabAbout extends State<TabAbout> {
                                               ),
                                               Container(
                                                 child: Container(
-                                                  margin: EdgeInsets.only(top: 2, left: 5),
-                                                  child: Text(StringConstant.seeTheDirection,
+                                                  margin: EdgeInsets.only(
+                                                      top: 2, left: 5),
+                                                  child: Text(
+                                                      StringConstant
+                                                          .seeTheDirection,
                                                       style: TextStyle(
                                                           color: blue4a,
                                                           fontSize: 12,
-                                                          fontWeight: FontWeight.w600,
-                                                          fontFamily: ConstantFont.montserratMedium)),
+                                                          fontWeight:
+                                                              FontWeight.w600,
+                                                          fontFamily: ConstantFont
+                                                              .montserratMedium)),
                                                 ),
                                               ),
                                             ],
@@ -783,6 +822,7 @@ class _TabAbout extends State<TabAbout> {
                                     DummyImage.website,
                                     width: 12,
                                     height: 12,
+                                    color: grey99,
                                   ),
                                 ),
                               ),
@@ -791,10 +831,11 @@ class _TabAbout extends State<TabAbout> {
                                   margin: EdgeInsets.only(top: 2, left: 5),
                                   child: Text(StringConstant.Website,
                                       style: TextStyle(
-                                          color: pinkColor,
+                                          color: grey99,
                                           fontSize: 13,
                                           fontWeight: FontWeight.w600,
-                                          fontFamily: ConstantFont.montserratMedium)),
+                                          fontFamily:
+                                              ConstantFont.montserratMedium)),
                                 ),
                               ),
                             ],
@@ -804,9 +845,11 @@ class _TabAbout extends State<TabAbout> {
                             child: GestureDetector(
                           onTap: () {
                             if (widget.salonData.website != null) {
-                              Navigator.of(context).push(MaterialPageRoute(builder: (context) => new WebSite()));
+                              Navigator.of(context).push(MaterialPageRoute(
+                                  builder: (context) => new WebSite()));
                             } else {
-                              ToastMessage.toastMessage('Website not available.');
+                              ToastMessage.toastMessage(
+                                  'Website not available.');
                             }
                           },
                           child: Text(
@@ -840,6 +883,7 @@ class _TabAbout extends State<TabAbout> {
                                     DummyImage.phone,
                                     width: 12,
                                     height: 12,
+                                    color: grey99,
                                   ),
                                 ),
                               ),
@@ -848,10 +892,11 @@ class _TabAbout extends State<TabAbout> {
                                   margin: EdgeInsets.only(top: 2, left: 5),
                                   child: Text("Call",
                                       style: TextStyle(
-                                          color: pinkColor,
+                                          color: grey99,
                                           fontSize: 13,
                                           fontWeight: FontWeight.w600,
-                                          fontFamily: ConstantFont.montserratMedium)),
+                                          fontFamily:
+                                              ConstantFont.montserratMedium)),
                                 ),
                               ),
                             ],
@@ -860,7 +905,8 @@ class _TabAbout extends State<TabAbout> {
                         Container(
                           child: GestureDetector(
                             onTap: () {
-                              launchUrl(Uri.parse('tel://' + widget.salonData.phone.toString()));
+                              launchUrl(Uri.parse('tel://' +
+                                  widget.salonData.phone.toString()));
                               // launch(('tel://' + widget.salonData.phone.toString()));
                             },
                             child: Text(
@@ -901,6 +947,7 @@ class HourPeriod {
   HourPeriod({this.startTime, this.endTime});
 
   factory HourPeriod.fromJson(Map<String, dynamic> persiod) {
-    return HourPeriod(startTime: persiod["start_time"], endTime: persiod["end_time"]);
+    return HourPeriod(
+        startTime: persiod["start_time"], endTime: persiod["end_time"]);
   }
 }
