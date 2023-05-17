@@ -132,6 +132,7 @@ class _TermsCondition extends State<TermsCondition> {
               xOffset: xOffset,
               scaleFactor: scaleFactor,
               isDrawerOpen: isDrawerOpen,
+              onClose:onClose,
               child: Scaffold(
                 appBar: appbar(
                     context,

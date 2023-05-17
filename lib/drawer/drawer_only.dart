@@ -20,13 +20,10 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_share/flutter_share.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:get/get.dart';
 
 // ignore: must_be_immutable
 class DrawerOnly extends StatefulWidget {
-
-
-
-  
   @override
   State<DrawerOnly> createState() => _DrawerOnlyState();
 }
@@ -44,212 +41,311 @@ class _DrawerOnlyState extends State<DrawerOnly> {
     } else {
       name = "User";
     }
-    return  Material(
+    return Material(
       child: SafeArea(
         child: Container(
-          color: Color.fromARGB(255, 253, 237, 242),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children:[
-            Container(
-              padding: EdgeInsets.only(left: 15.0, top: 10.0, bottom: 10),
-              alignment: Alignment.center,
-              height: 80,
-              width: double.infinity,
-              child: Row(
+            color: Color.fromARGB(255, 253, 237, 242),
+            child: Column(
+
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Expanded(
+
+                  Container(
+                    padding: EdgeInsets.only(left: 15.0, top: 10.0, bottom: 10),
+                    alignment: Alignment.center,
+                    height: 80,
+                    width: double.infinity,
                     child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        CachedNetworkImage(
-                          height: 60,
-                          width: 60,
-                          imageUrl: PreferenceUtils.getString(AppConstant.fullImage),
-                          imageBuilder: (context, imageProvider) => ClipOval(
-                            child: Image(
-                              image: imageProvider,
-                              fit: BoxFit.fill,
-                            ),
-                          ),
-                          placeholder: (context, url) => SpinKitFadingCircle(
-                            color: pinkColor,
-                            size: 5,
-                          ),
-                          errorWidget: (context, url, error) => Image.asset(DummyImage.noImage),
-                        ),
                         Expanded(
-                          child: Padding(
-                            padding: EdgeInsets.only(left: 8.0),
-                             child: Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text('Cindy beauty',
-                                overflow: TextOverflow.ellipsis,
-                                maxLines: 1,
-                                style: TextStyle(
-                                color: pinkColor, fontSize: 16, fontWeight: FontWeight.w600, fontFamily: 'Montserrat'),
+                          child: Row(
+                            children: [
+                              CachedNetworkImage(
+                                height: 60,
+                                width: 60,
+                                imageUrl: PreferenceUtils.getString(
+                                    AppConstant.fullImage),
+                                imageBuilder: (context, imageProvider) =>
+                                    ClipOval(
+                                  child: Image(
+                                    image: imageProvider,
+                                    fit: BoxFit.fill,
+                                  ),
                                 ),
-                                  Text(name!,
-                                overflow: TextOverflow.ellipsis,
-                                maxLines: 1,
-                                style: TextStyle(
-                                color: grey99, fontSize: 15, fontWeight: FontWeight.w600, fontFamily: 'Montserrat'),
+                                placeholder: (context, url) =>
+                                    SpinKitFadingCircle(
+                                  color: pinkColor,
+                                  size: 5,
                                 ),
-                              ],
-                             ) 
-                             
-                             //Text(
-                            //   'Hi, ' + name!,
-                            //   overflow: TextOverflow.ellipsis,
-                            //   maxLines: 1,
-                            //   style: TextStyle(
-                            //       color: blackColor, fontSize: 15, fontWeight: FontWeight.w600, fontFamily: 'Montserrat'),
-                            // ),
+                                errorWidget: (context, url, error) =>
+                                    Image.asset(DummyImage.noImage),
+                              ),
+                              Expanded(
+                                child: Padding(
+                                    padding: EdgeInsets.only(left: 12.0),
+                                    child:   Text(
+                                          name![0].toUpperCase() + name!.substring(1).toLowerCase(),
+                                          overflow: TextOverflow.ellipsis,
+                                          maxLines: 1,
+                                          style: TextStyle(
+                                              color: pinkColor,
+                                              fontSize: 14,
+
+                                              fontWeight: FontWeight.w600,
+                                              fontFamily: 'Montserrat'),
+                                        ),
+                                    
+
+                                    //Text(
+                                    //   'Hi, ' + name!,
+                                    //   overflow: TextOverflow.ellipsis,
+                                    //   maxLines: 1,
+                                    //   style: TextStyle(
+                                    //       color: blackColor, fontSize: 15, fontWeight: FontWeight.w600, fontFamily: 'Montserrat'),
+                                    // ),
+                                    ),
+                              ),
+                            ],
                           ),
                         ),
+                        // IconButton(
+                        //   onPressed: () {
+                        //     Navigator.of(context).pop();
+                        //   },
+                        //   icon: Icon(
+                        //     Icons.arrow_back_ios,
+                        //     color: Colors.black,
+                        //   ),
+                        // ),
                       ],
                     ),
                   ),
-                  // IconButton(
-                  //   onPressed: () {
-                  //     Navigator.of(context).pop();
-                  //   },
-                  //   icon: Icon(
-                  //     Icons.arrow_back_ios,
-                  //     color: Colors.black,
-                  //   ),
-                  // ),
-                ],
-              ),
-            ),
-            // Container(
-            //     height: 0,
-            //     padding: EdgeInsets.only(top: 10, bottom: 10, left: 5, right: 5),
-            //     child: DottedLine(
-            //       direction: Axis.horizontal,
-            //       lineLength: double.infinity,
-            //       lineThickness: 1.0,
-            //       dashLength: 5.0,
-            //       dashColor: blackColor,
-            //       dashRadius: 0.0,
-            //       dashGapLength: 8.0,
-            //       dashGapColor: Colors.transparent,
-            //       dashGapRadius: 0.0,
-            //     )),
-            Column(
-              children: [
-                  Container(
-                alignment: Alignment.centerLeft,
-                margin: EdgeInsets.only(left: 20.0, top: 10.0),
-                child: ListTile(
-                  title: Text(
-                    StringConstant.topOffers,
-                    style:
-                        TextStyle(color: blackColor, fontSize: 15, fontWeight: FontWeight.w600, fontFamily: 'Montserrat'),
-                  ),
-                  onTap: () {
-                    Navigator.of(context).pop();
-                    Navigator.of(context).push(MaterialPageRoute(
-                        builder: (context) => new TopOffers(-1, null, null, null, null, null, null, null, null, null,()=>null,()=>null, false)));
-                  },
-                )),
-            Container(
-                alignment: Alignment.centerLeft,
-                margin: EdgeInsets.only(left: 20.0, top: 0.0),
-                child: ListTile(
-                  title: Text(
-                    StringConstant.termsAndConditions,
-                    style:
-                        TextStyle(color: blackColor, fontSize: 15, fontWeight: FontWeight.w600, fontFamily: 'Montserrat'),
-                  ),
-                  onTap: () {
-                    Navigator.of(context).pop();
-                    Navigator.of(context).push(MaterialPageRoute(builder: (context) => new TermsCondition(isDrawerOpen: false,onOpen: () => null, onClose: () => null)));
-                  },
-                )),
-            Container(
-                alignment: Alignment.centerLeft,
-                margin: EdgeInsets.only(left: 20.0, top: 0.0),
-                child: ListTile(
-                  title: Text(
-                    StringConstant.privacyAndPolicy,
-                    style:
-                        TextStyle(color: blackColor, fontSize: 15, fontWeight: FontWeight.w600, fontFamily: 'Montserrat'),
-                  ),
-                  onTap: () {
-                    Navigator.of(context).pop();
-                    Navigator.of(context).push(MaterialPageRoute(builder: (context) =>new PrivacyPolicy(isDrawerOpen: false,onOpen: () => null, onClose: () => null)));
-                  },
-                )),
-            Container(
-                alignment: Alignment.centerLeft,
-                margin: EdgeInsets.only(left: 20.0, top: 0.0),
-                child: ListTile(
-                  title: Text(
-                    StringConstant.inviteAFriends,
-                    style:
-                        TextStyle(color: blackColor, fontSize: 15, fontWeight: FontWeight.w600, fontFamily: 'Montserrat'),
-                  ),
-                  onTap: () {
-                    // Navigator.pop(context);
-                    share();
-                  },
-                )),
-            Container(
-                alignment: Alignment.centerLeft,
-                margin: EdgeInsets.only(left: 20.0, top: 0.0),
-                child: ListTile(
-                  title: Text(
-                    StringConstant.about,
-                    style:
-                        TextStyle(color: blackColor, fontSize: 15, fontWeight: FontWeight.w600, fontFamily: 'Montserrat'),
-                  ),
-                  onTap: () {
-                    Navigator.of(context).pop();
-                    Navigator.of(context).push(MaterialPageRoute(builder: (context) => new About(isDrawerOpen: false,onOpen: ()=>null, onClose: ()=>null) ));
-                  },
-                )),
-                 Visibility(
-              visible: PreferenceUtils.getlogin(AppConstant.isLoggedIn) == true,
-              child: Container(
-                  alignment: Alignment.centerLeft,
-                  margin: EdgeInsets.only(left: 20.0, top: 0.0),
-                  child: ListTile(
-                    title: Text(
-                      StringConstant.deleteAccount,
-                      style:
-                          TextStyle(color: blackColor, fontSize: 15, fontWeight: FontWeight.w600, fontFamily: 'Montserrat'),
+                 
+                  Column(
+                    
+                    
+                    children: [
+                    Container(
+                      alignment: Alignment.centerLeft,
+                      margin: EdgeInsets.only(left: 20.0, top: 10.0),
+                      child: GestureDetector(
+                        onTap: () {
+                          Navigator.of(context).pop();
+                          Navigator.of(context).push(MaterialPageRoute(
+                            builder: (context) => new TopOffers(
+                              -1,
+                              null,
+                              null,
+                              null,
+                              null,
+                              null,
+                              null,
+                              null,
+                              null,
+                              null,
+                              () => null,
+                              () => null,
+                              false,
+                            ),
+                          ));
+                        },
+                        child: Row(
+                          children: [
+                            Icon(Icons.card_giftcard_rounded, size: 25.0),
+                            SizedBox(width: 8.0), // Adjust the width as desired
+                            Text(
+                              StringConstant.topOffers,
+                              style: TextStyle(
+                                color: blackColor,
+                                fontSize: 15,
+                                fontWeight: FontWeight.w600,
+                                fontFamily: 'Montserrat',
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
                     ),
-                    onTap: () {
-                      // Navigator.of(context).pop();
-                      showDeleteAccountDialog(context);
-                      // Navigator.of(context).push(MaterialPageRoute(builder: (context) => new About(isDrawerOpen: false,onOpen: ()=>null, onClose: ()=>null) ));
-                    },
-                  )),
-            ),
-              ],
-            ),
-           
-            Visibility(
-              visible: PreferenceUtils.getlogin(AppConstant.isLoggedIn) == true,
-              child: Container(
-                  alignment: Alignment.centerLeft,
-                  margin: EdgeInsets.only(left: 20.0, top: 0.0),
-                  child: ListTile(
-                    title: Text(
-                      StringConstant.logout,
-                      style:
-                          TextStyle(color: blackColor, fontSize: 15, fontWeight: FontWeight.w600, fontFamily: 'Montserrat'),
+                    Container(
+                        alignment: Alignment.centerLeft,
+                        margin: EdgeInsets.only(left: 20.0, top: 40.0),
+                        child: GestureDetector(
+                          onTap: () {
+                            Navigator.of(context).pop();
+                            Navigator.of(context).push(MaterialPageRoute(
+                                builder: (context) => new TermsCondition(
+                                    isDrawerOpen: false,
+                                    onOpen: () => null,
+                                    onClose: () => null)));
+                          },
+                          child: Row(
+                            children: [
+                              Icon(
+                                //
+                                Icons.list_alt_outlined,
+                                size: 25.0,
+                              ),
+                              SizedBox(width: 8.0),
+                              Text(
+                                StringConstant.termsAndConditions,
+                                style: TextStyle(
+                                    color: blackColor,
+                                    fontSize: 15,
+                                    fontWeight: FontWeight.w600,
+                                    fontFamily: 'Montserrat'),
+                              ),
+                            ],
+                          ),
+                        )),
+                    Container(
+                        alignment: Alignment.centerLeft,
+                        margin: EdgeInsets.only(left: 20.0, top: 40.0),
+                        child: GestureDetector(
+                          onTap: () {
+                            Navigator.of(context).pop();
+                            Navigator.of(context).push(MaterialPageRoute(
+                                builder: (context) => new PrivacyPolicy(
+                                    isDrawerOpen: false,
+                                    onOpen: () => null,
+                                    onClose: () => null)));
+                          },
+                          child: Row(
+                            children: [
+                              Icon(
+                                Icons.inventory_outlined,
+                                size: 25.0,
+                              ),
+                              SizedBox(width: 8.0),
+                              Text(
+                                StringConstant.privacyAndPolicy,
+                                style: TextStyle(
+                                    color: blackColor,
+                                    fontSize: 15,
+                                    fontWeight: FontWeight.w600,
+                                    fontFamily: 'Montserrat'),
+                              ),
+                            ],
+                          ),
+                        )),
+                    Container(
+                      alignment: Alignment.centerLeft,
+                      margin: EdgeInsets.only(left: 20.0, top: 40.0),
+                      child: GestureDetector(
+                        onTap: () {
+                          // Navigator.pop(context);
+                          share();
+                        },
+                        child: Row(
+                          children: [
+                            Icon(
+                              Icons.group_add_outlined ,
+                              size: 25.0,
+                            ),
+                            SizedBox(width: 8.0),
+                            Text(
+                              StringConstant.inviteAFriends,
+                              style: TextStyle(
+                                  color: blackColor,
+                                  fontSize: 15,
+                                  fontWeight: FontWeight.w600,
+                                  fontFamily: 'Montserrat'),
+                            )
+                          ],
+                        ),
+                      ),
                     ),
-                    onTap: () async {
-                      showAlertDialog(context);
-                    },
-                  )),
-            ),
-          ])
-        ),
+                    Container(
+                      alignment: Alignment.centerLeft,
+                      margin: EdgeInsets.only(left: 20.0, top: 40.0),
+                      child: GestureDetector(
+                        onTap: () {
+                          Navigator.of(context).pop();
+                          Navigator.of(context).push(MaterialPageRoute(
+                              builder: (context) => new About(
+                                  isDrawerOpen: false,
+                                  onOpen: () => null,
+                                  onClose: () => null)));
+                        },
+                        child: Row(children: [
+                          Icon(
+                            Icons.info_outline_rounded,
+                            size: 25.0,
+                          ),
+                          SizedBox(width: 8.0),
+                          Text(
+                            StringConstant.about,
+                            style: TextStyle(
+                                color: blackColor,
+                                fontSize: 15,
+                                fontWeight: FontWeight.w600,
+                                fontFamily: 'Montserrat'),
+                          ),
+                        ]),
+                      ),
+                    ),
+                    Visibility(
+                      visible:
+                          PreferenceUtils.getlogin(AppConstant.isLoggedIn) ==
+                              true,
+                      child: Container(
+                          alignment: Alignment.centerLeft,
+                          margin: EdgeInsets.only(left: 20.0, top: 40.0),
+                          child: GestureDetector(
+                            onTap: () {
+                              // Navigator.of(context).pop();
+                              showDeleteAccountDialog(context);
+                              // Navigator.of(context).push(MaterialPageRoute(builder: (context) => new About(isDrawerOpen: false,onOpen: ()=>null, onClose: ()=>null) ));
+                            },
+                            child: Row(
+                              children: [
+                                Icon(
+                                  Icons.delete_outline,
+                                  size: 25.0,
+                                ),
+                                SizedBox(width: 8.0),
+                                Text(
+                                  StringConstant.deleteAccount,
+                                  style: TextStyle(
+                                      color: blackColor,
+                                      fontSize: 15,
+                                      fontWeight: FontWeight.w600,
+                                      fontFamily: 'Montserrat'),
+                                ),
+                              ],
+                            ),
+                          )),
+                    )
+                  ]),
+
+                  Visibility(
+                    visible: PreferenceUtils.getlogin(AppConstant.isLoggedIn) ==
+                        true,
+                    child: Container(
+                        alignment: Alignment.centerLeft,
+                        margin: EdgeInsets.only(left: 20.0, top: 40.0, bottom:10.0),
+                        child: GestureDetector(
+                          onTap: () async {
+                            showAlertDialog(context);
+                          },
+                          child: Row(children: [
+                            Icon(
+                              Icons.logout,
+                              size: 25.0,
+                            ),
+                            SizedBox(width: 8.0),
+                            Text(
+                              StringConstant.logout,
+                              style: TextStyle(
+                                  color: blackColor,
+                                  fontSize: 15,
+                                  fontWeight: FontWeight.w600,
+                                  fontFamily: 'Montserrat'),
+                            ),
+                          ]),
+                        )),
+                  ),
+                ])),
       ),
     );
   }
@@ -334,7 +430,9 @@ class _DrawerOnlyState extends State<DrawerOnly> {
                   style: TextStyle(color: grey99),
                 ),
                 style: ElevatedButton.styleFrom(
-                    elevation: 0, backgroundColor: whiteColor, side: BorderSide(color: grey99)),
+                    elevation: 0,
+                    backgroundColor: whiteColor,
+                    side: BorderSide(color: grey99)),
               ),
               ElevatedButton(
                 onPressed: () {
@@ -398,13 +496,14 @@ class _DrawerOnlyState extends State<DrawerOnly> {
         PreferenceUtils.remove(AppConstant.sharedUrl);
         PreferenceUtils.remove(AppConstant.sharedImage);
         PreferenceUtils.setlogin(AppConstant.isLoggedIn, false);
-        Navigator.of(NavigationService.navigatorKey.currentState!.context).pushAndRemoveUntil(
-            Transitions(
-                transitionType: TransitionType.slideUp,
-                curve: Curves.bounceInOut,
-                reverseCurve: Curves.fastLinearToSlowEaseIn,
-                widget: LoginScreen(0)),
-            (route) => false);
+        Navigator.of(NavigationService.navigatorKey.currentState!.context)
+            .pushAndRemoveUntil(
+                Transitions(
+                    transitionType: TransitionType.slideUp,
+                    curve: Curves.bounceInOut,
+                    reverseCurve: Curves.fastLinearToSlowEaseIn,
+                    widget: LoginScreen(0)),
+                (route) => false);
       } else {
         if (response.message != null) {
           ToastMessage.toastMessage(response.message!);

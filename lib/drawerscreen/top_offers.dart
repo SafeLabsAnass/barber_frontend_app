@@ -302,6 +302,7 @@ class _TopOffers extends State<TopOffers> {
             scaleFactor: scaleFactor,
             xOffset: xOffset,
             yOffset: yOffset,
+            onClose:onClose,
             child: Scaffold(
               backgroundColor: whiteColor,
               appBar: appbar(

@@ -126,6 +126,7 @@ class _PrivacyPolicy extends State<PrivacyPolicy> {
               xOffset: xOffset,
               scaleFactor: scaleFactor,
               isDrawerOpen: isDrawerOpen,
+              onClose:onClose,
               child: Scaffold(
                 backgroundColor: whiteColor,
                 appBar: appbar(
