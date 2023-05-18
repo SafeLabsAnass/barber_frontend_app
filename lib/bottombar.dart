@@ -81,8 +81,8 @@ class BottomBar1 extends State<BottomBar> {
              stateManagement: false,
             navBarHeight: 70,
             padding: NavBarPadding.only(left: 1, right: 1),
-             confineInSafeArea: true,
-            resizeToAvoidBottomInset: true,
+             confineInSafeArea: false,
+            resizeToAvoidBottomInset: false,
             items: [
               PersistentBottomNavBarItem(
                 icon: Icon(Icons.home),
