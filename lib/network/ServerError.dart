@@ -22,16 +22,16 @@ class ServerError implements Exception {
     Logger().e(error.response);
     switch (error.type) {
       case DioErrorType.connectTimeout:
-        _errorMessage = "Connection timeout";
-        ToastMessage.toastMessage('Connection timeout');
+        _errorMessage = "expiration du délai de connexion";
+        ToastMessage.toastMessage('expiration du délai de connexion');
         break;
       case DioErrorType.sendTimeout:
         _errorMessage = "Receive timeout in send request";
-        ToastMessage.toastMessage('Receive timeout in send request');
+        ToastMessage.toastMessage( 'Délai de réception expiré lors de l envoi de la demande.');
         break;
       case DioErrorType.receiveTimeout:
-        _errorMessage = "Receive timeout in connection";
-        ToastMessage.toastMessage('Receive timeout in connection');
+        _errorMessage = "Délai de réception expiré lors de la connexion.";
+        ToastMessage.toastMessage('Délai de réception expiré lors de la connexion.');
         break;
       case DioErrorType.response:
         _errorMessage = "Received invalid status code: ${error.response!.data}";
@@ -72,13 +72,13 @@ class ServerError implements Exception {
         }
         break;
       case DioErrorType.cancel:
-        _errorMessage = "Request was cancelled";
-        ToastMessage.toastMessage('Request was cancelled');
+        _errorMessage = "La demande a été annulée.";
+        ToastMessage.toastMessage('La demande a été annulée.');
         break;
       case DioErrorType.other:
-        _errorMessage = "Connection failed due to internet connection";
+        _errorMessage = "La connexion a échoué en raison de connexion Internet.";
         ToastMessage.toastMessage(
-            'Connection failed due to internet connection');
+            'La connexion a échoué en raison de connexion Internet.');
         break;
     }
     return _errorMessage;

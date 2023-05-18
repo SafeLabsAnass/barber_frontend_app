@@ -849,7 +849,7 @@ class _TabAbout extends State<TabAbout> {
                                   builder: (context) => new WebSite()));
                             } else {
                               ToastMessage.toastMessage(
-                                  'Website not available.');
+                                  'Application non disponible.');
                             }
                           },
                           child: Text(
@@ -890,7 +890,7 @@ class _TabAbout extends State<TabAbout> {
                               Container(
                                 child: Container(
                                   margin: EdgeInsets.only(top: 2, left: 5),
-                                  child: Text("Call",
+                                  child: Text("Téléphone",
                                       style: TextStyle(
                                           color: grey99,
                                           fontSize: 13,

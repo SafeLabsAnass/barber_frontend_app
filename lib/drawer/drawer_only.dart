@@ -10,6 +10,7 @@ import 'package:barber_app/drawerscreen/about.dart';
 import 'package:barber_app/drawerscreen/privacypolicy.dart';
 import 'package:barber_app/drawerscreen/tems_condition.dart';
 import 'package:barber_app/drawerscreen/top_offers.dart';
+import 'package:barber_app/fragments/profile.dart';
 import 'package:barber_app/main.dart';
 import 'package:barber_app/network/Apiservice.dart';
 import 'package:barber_app/network/BaseModel.dart';
@@ -31,6 +32,30 @@ class DrawerOnly extends StatefulWidget {
 class _DrawerOnlyState extends State<DrawerOnly> {
   late String? name = "User";
 
+  double xOffset = 0;
+  double yOffset = 0;
+  double scaleFactor = 1;
+  bool isDrawerOpen = false;
+  void onOpen(){
+    setState(() {
+      xOffset=220;
+      yOffset=130;
+      scaleFactor=0.7;
+      isDrawerOpen=true;
+    });
+    }
+
+   void onClose(){
+    setState(() {
+      xOffset=0;
+      yOffset=0;
+      scaleFactor=1;
+      isDrawerOpen=false;
+    });
+   }
+
+
+
   @override
   Widget build(BuildContext context) {
     PreferenceUtils.init();
@@ -46,79 +71,89 @@ class _DrawerOnlyState extends State<DrawerOnly> {
         child: Container(
             color: drawerColor,
             child: Column(
-
+                
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
 
-                  Container(
-                    padding: EdgeInsets.only(left: 15.0, top: 10.0, bottom: 10),
-                    alignment: Alignment.center,
-                    height: 80,
-                    width: double.infinity,
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Expanded(
-                          child: Row(
-                            children: [
-                              CachedNetworkImage(
-                                height: 60,
-                                width: 60,
-                                imageUrl: PreferenceUtils.getString(
-                                    AppConstant.fullImage),
-                                imageBuilder: (context, imageProvider) =>
-                                    ClipOval(
-                                  child: Image(
-                                    image: imageProvider,
-                                    fit: BoxFit.fill,
+                  Padding(
+                    padding: EdgeInsets.only(top: 20),
+                    child: Container(
+                      padding: EdgeInsets.only(left: 15.0, top: 10.0, bottom: 10),
+                      alignment: Alignment.center,
+                      height: 80,
+                      width: double.infinity,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Expanded(
+                            child: Row(
+                              children: [
+                                GestureDetector(
+                                  onTap: () {
+                                    Navigator.of(context).push(
+                                      MaterialPageRoute(builder: (context) => Profile(isDrawerOpen: isDrawerOpen,onOpen: onOpen, onClose: onClose))
+                                    );
+                                  },
+                                  child: CachedNetworkImage(
+                                    height: 60,
+                                    width: 60,
+                                    imageUrl: PreferenceUtils.getString(
+                                        AppConstant.fullImage),
+                                    imageBuilder: (context, imageProvider) =>
+                                        ClipOval(
+                                      child: Image(
+                                        image: imageProvider,
+                                        fit: BoxFit.cover,
+                                      ),
+                                    ),
+                                    placeholder: (context, url) =>
+                                        SpinKitFadingCircle(
+                                      color: pinkColor,
+                                      size: 5,
+                                    ),
+                                    errorWidget: (context, url, error) =>
+                                        Image.asset(DummyImage.noImage),
                                   ),
                                 ),
-                                placeholder: (context, url) =>
-                                    SpinKitFadingCircle(
-                                  color: pinkColor,
-                                  size: 5,
+                                Expanded(
+                                  child: Padding(
+                                      padding: EdgeInsets.only(left: 12.0),
+                                      child:   Text(
+                                            name![0].toUpperCase() + name!.substring(1).toLowerCase(),
+                                            overflow: TextOverflow.ellipsis,
+                                            maxLines: 1,
+                                            style: TextStyle(
+                                                color: beigeColor,
+                                                fontSize: 15,
+                  
+                                                fontWeight: FontWeight.w500,
+                                                fontFamily: 'Montserrat'),
+                                          ),
+                                      
+                  
+                                      //Text(
+                                      //   'Hi, ' + name!,
+                                      //   overflow: TextOverflow.ellipsis,
+                                      //   maxLines: 1,
+                                      //   style: TextStyle(
+                                      //       color: beigeColor , fontSize: 15, fontWeight: FontWeight.w600, fontFamily: 'Montserrat'),
+                                      // ),
+                                      ),
                                 ),
-                                errorWidget: (context, url, error) =>
-                                    Image.asset(DummyImage.noImage),
-                              ),
-                              Expanded(
-                                child: Padding(
-                                    padding: EdgeInsets.only(left: 12.0),
-                                    child:   Text(
-                                          name![0].toUpperCase() + name!.substring(1).toLowerCase(),
-                                          overflow: TextOverflow.ellipsis,
-                                          maxLines: 1,
-                                          style: TextStyle(
-                                              color: beigeColor,
-                                              fontSize: 14,
-
-                                              fontWeight: FontWeight.w500,
-                                              fontFamily: 'Montserrat'),
-                                        ),
-                                    
-
-                                    //Text(
-                                    //   'Hi, ' + name!,
-                                    //   overflow: TextOverflow.ellipsis,
-                                    //   maxLines: 1,
-                                    //   style: TextStyle(
-                                    //       color: beigeColor , fontSize: 15, fontWeight: FontWeight.w600, fontFamily: 'Montserrat'),
-                                    // ),
-                                    ),
-                              ),
-                            ],
+                              ],
+                            ),
                           ),
-                        ),
-                        // IconButton(
-                        //   onPressed: () {
-                        //     Navigator.of(context).pop();
-                        //   },
-                        //   icon: Icon(
-                        //     Icons.arrow_back_ios,
-                        //     color: Colors.black,
-                        //   ),
-                        // ),
-                      ],
+                          // IconButton(
+                          //   onPressed: () {
+                          //     Navigator.of(context).pop();
+                          //   },
+                          //   icon: Icon(
+                          //     Icons.arrow_back_ios,
+                          //     color: Colors.black,
+                          //   ),
+                          // ),
+                        ],
+                      ),
                     ),
                   ),
                  
@@ -158,7 +193,7 @@ class _DrawerOnlyState extends State<DrawerOnly> {
                               StringConstant.topOffers,
                               style: TextStyle(
                                 color: beigeColor ,
-                                fontSize: 15,
+                                fontSize: 13.5,
                                 fontWeight: FontWeight.w500,
                                 fontFamily: 'Montserrat',
                               ),
@@ -192,7 +227,7 @@ class _DrawerOnlyState extends State<DrawerOnly> {
                                 StringConstant.termsAndConditions,
                                 style: TextStyle(
                                     color: beigeColor ,
-                                    fontSize: 15,
+                                    fontSize: 13.5,
                                     fontWeight: FontWeight.w500,
                                     fontFamily: 'Montserrat'),
                               ),
@@ -223,7 +258,7 @@ class _DrawerOnlyState extends State<DrawerOnly> {
                                 StringConstant.privacyAndPolicy,
                                 style: TextStyle(
                                     color: beigeColor ,
-                                    fontSize: 15,
+                                    fontSize: 13.5,
                                     fontWeight: FontWeight.w500,
                                     fontFamily: 'Montserrat'),
                               ),
@@ -252,7 +287,7 @@ class _DrawerOnlyState extends State<DrawerOnly> {
                               StringConstant.inviteAFriends,
                               style: TextStyle(
                                   color: beigeColor ,
-                                  fontSize: 15,
+                                  fontSize: 13.5,
                                   fontWeight: FontWeight.w500,
                                   fontFamily: 'Montserrat'),
                             )
@@ -283,7 +318,7 @@ class _DrawerOnlyState extends State<DrawerOnly> {
                             StringConstant.about,
                             style: TextStyle(
                                 color: beigeColor ,
-                                fontSize: 15,
+                                fontSize: 13.5,
                                 fontWeight: FontWeight.w500,
                                 fontFamily: 'Montserrat'),
                           ),
@@ -315,7 +350,7 @@ class _DrawerOnlyState extends State<DrawerOnly> {
                                   StringConstant.deleteAccount,
                                   style: TextStyle(
                                       color: beigeColor ,
-                                      fontSize: 15,
+                                      fontSize: 13.5,
                                       fontWeight: FontWeight.w500,
                                       fontFamily: 'Montserrat'),
                                 ),
@@ -346,8 +381,8 @@ class _DrawerOnlyState extends State<DrawerOnly> {
                               StringConstant.logout,
                               style: TextStyle(
                                   color: beigeColor ,
-                                  fontSize: 15,
-                                  fontWeight: FontWeight.w500,
+                                  fontSize: 14,
+                                  fontWeight: FontWeight.w900,
                                   fontFamily: 'Montserrat'),
                             ),
                           ]),

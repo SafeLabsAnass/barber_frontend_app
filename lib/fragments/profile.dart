@@ -27,12 +27,11 @@ import 'package:intl/intl.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 
 class Profile extends StatefulWidget {
-  Profile({Key? key, isDrawerOpen,  required this.onOpen, required this.onClose}) : 
+  Profile({Key? key, isDrawerOpen, required this.onOpen, required this.onClose})
+      : isDrawerOpen = isDrawerOpen,
+        super(key: key);
 
-   isDrawerOpen = isDrawerOpen,
-  super(key: key);
-
-    final bool isDrawerOpen;
+  final bool isDrawerOpen;
   final VoidCallback onOpen;
   final VoidCallback onClose;
 
@@ -69,9 +68,12 @@ class _Profile extends State<Profile> {
 
   String? oldPasswordString, newpassword, confirmPasswordString = "";
 
-  TextEditingController _textEditingControllerOldPassword = new TextEditingController();
-  TextEditingController _textEditingControllerNewPassword = new TextEditingController();
-  TextEditingController _textEditingControllerConfPassword = new TextEditingController();
+  TextEditingController _textEditingControllerOldPassword =
+      new TextEditingController();
+  TextEditingController _textEditingControllerNewPassword =
+      new TextEditingController();
+  TextEditingController _textEditingControllerConfPassword =
+      new TextEditingController();
 
   String? kValidatePassword(String? value) {
     Pattern pattern = r'^(?=.*?[a-z])(?=.*?[0-9]).{8,}$';
@@ -103,15 +105,18 @@ class _Profile extends State<Profile> {
 
     if (mounted) {
       setState(() {
-        print("Login Status:${PreferenceUtils.getlogin(AppConstant.isLoggedIn)}");
+        print(
+            "Login Status:${PreferenceUtils.getlogin(AppConstant.isLoggedIn)}");
 
         if (PreferenceUtils.getlogin(AppConstant.isLoggedIn) == true) {
           AppConstant.checkNetwork().whenComplete(() => callApiForGetProfile());
-          AppConstant.checkNetwork().whenComplete(() => callApiForAppointment());
+          AppConstant.checkNetwork()
+              .whenComplete(() => callApiForAppointment());
         } else {
           Future.delayed(
             Duration(seconds: 0),
-            () => Navigator.of(context).push(MaterialPageRoute(builder: (context) => LoginScreen(3))),
+            () => Navigator.of(context)
+                .push(MaterialPageRoute(builder: (context) => LoginScreen(3))),
           );
         }
       });
@@ -122,15 +127,18 @@ class _Profile extends State<Profile> {
     await Future.delayed(Duration(milliseconds: 500));
     if (mounted) {
       setState(() {
-        print("Login Status:${PreferenceUtils.getlogin(AppConstant.isLoggedIn)}");
+        print(
+            "Login Status:${PreferenceUtils.getlogin(AppConstant.isLoggedIn)}");
 
         if (PreferenceUtils.getlogin(AppConstant.isLoggedIn) == true) {
           AppConstant.checkNetwork().whenComplete(() => callApiForGetProfile());
-          AppConstant.checkNetwork().whenComplete(() => callApiForAppointment());
+          AppConstant.checkNetwork()
+              .whenComplete(() => callApiForAppointment());
         } else {
           Future.delayed(
             Duration(seconds: 0),
-            () => Navigator.of(context).push(MaterialPageRoute(builder: (context) => LoginScreen(3))),
+            () => Navigator.of(context)
+                .push(MaterialPageRoute(builder: (context) => LoginScreen(3))),
           );
         }
       });
@@ -151,14 +159,16 @@ class _Profile extends State<Profile> {
           if (response.success = true) {
             showProfile = response.data;
 
-            PreferenceUtils.setString(AppConstant.username, response.data!.name!);
-            PreferenceUtils.setString(AppConstant.fullImage, response.data!.imagePath! + response.data!.image!);
+            PreferenceUtils.setString(
+                AppConstant.username, response.data!.name!);
+            PreferenceUtils.setString(AppConstant.fullImage,
+                response.data!.imagePath! + response.data!.image!);
 
             profileName = showProfile!.name;
             imageUrl = showProfile!.imagePath! + showProfile!.image!;
             print("Profile Image:$imageUrl");
           } else {
-            ToastMessage.toastMessage("No Data");
+            ToastMessage.toastMessage("Pas de données disponibles.");
           }
         });
       }
@@ -168,7 +178,7 @@ class _Profile extends State<Profile> {
       });
       print("error:$obj");
       print(obj.runtimeType);
-      ToastMessage.toastMessage("Internal Server Error__123");
+      ToastMessage.toastMessage("Erreur interne du serveur (Code 123)");
     });
   }
 
@@ -203,7 +213,7 @@ class _Profile extends State<Profile> {
               noCompleteDataVisible = true;
             }
           } else {
-            ToastMessage.toastMessage("No Data");
+            ToastMessage.toastMessage("Pas de données disponibles.");
           }
         });
       }
@@ -213,7 +223,7 @@ class _Profile extends State<Profile> {
       });
       print("error:$obj");
       print(obj.runtimeType);
-      ToastMessage.toastMessage("Internal Server Error_ _456");
+      ToastMessage.toastMessage("Erreur interne du serveur (Code 456).");
     });
   }
 
@@ -227,9 +237,10 @@ class _Profile extends State<Profile> {
         if (response.success = true) {
           ToastMessage.toastMessage(response.msg!);
 
-          AppConstant.checkNetwork().whenComplete(() => callApiForAppointment());
+          AppConstant.checkNetwork()
+              .whenComplete(() => callApiForAppointment());
         } else {
-          ToastMessage.toastMessage("No Data");
+          ToastMessage.toastMessage("Pas de données disponibles.");
         }
       });
     }).catchError((Object obj) {
@@ -241,7 +252,8 @@ class _Profile extends State<Profile> {
     });
   }
 
-  void callApiForChangePassword(String? oldPassword, String? newpassword, String? confirmPassword) {
+  void callApiForChangePassword(
+      String? oldPassword, String? newpassword, String? confirmPassword) {
     Map<String, String> body = {
       "oldPassword": oldPassword!,
       "new_Password": newpassword!,
@@ -257,7 +269,7 @@ class _Profile extends State<Profile> {
           _textEditingControllerOldPassword.clear();
           _textEditingControllerNewPassword.clear();
           _textEditingControllerConfPassword.clear();
-          ToastMessage.toastMessage("Password Change Successfully");
+          ToastMessage.toastMessage("Changement de mot de passe réussi.");
         } else {
           ToastMessage.toastMessage(response.msg!);
         }
@@ -274,11 +286,12 @@ class _Profile extends State<Profile> {
           var msg = res.statusMessage;
 
           if (responseCode == 401) {
-            ToastMessage.toastMessage("Invalid Data");
+            ToastMessage.toastMessage("Données invalides");
             print(responseCode);
             print(res.statusMessage);
           } else if (responseCode == 422) {
-            ToastMessage.toastMessage("The new  password must be at least 8 characters.");
+            ToastMessage.toastMessage(
+                "Le nouveau mot de passe doit comporter au moins 8 caractères.");
             print("code:$responseCode");
             print("msg:$msg");
           }
@@ -290,7 +303,8 @@ class _Profile extends State<Profile> {
 
   final _formKey = GlobalKey<FormState>();
 
-  final GlobalKey<ScaffoldState> _drawerScaffoldKey = new GlobalKey<ScaffoldState>();
+  final GlobalKey<ScaffoldState> _drawerScaffoldKey =
+      new GlobalKey<ScaffoldState>();
   final picker = ImagePicker();
   bool oldPassword = true;
   bool newPassword = true;
@@ -311,7 +325,14 @@ class _Profile extends State<Profile> {
             resizeToAvoidBottomInset: false,
             key: _drawerScaffoldKey,
             backgroundColor: whiteColor,
-            appBar: appbar(context, StringConstant.profile, _drawerScaffoldKey, false, widget.isDrawerOpen,widget.onOpen, widget.onClose) as PreferredSizeWidget?,
+            appBar: appbar(
+                context,
+                StringConstant.profile,
+                _drawerScaffoldKey,
+                false,
+                widget.isDrawerOpen,
+                widget.onOpen,
+                widget.onClose) as PreferredSizeWidget?,
             drawer: new DrawerOnly(),
             body: Form(
               key: _formKey,
@@ -325,64 +346,83 @@ class _Profile extends State<Profile> {
                         children: <Widget>[
                           ///profile image,user name, edit profile icon
                           Container(
-                            margin: EdgeInsets.only(left: 15, right: 15, top: 10),
-                            height: 100,
+                            margin:
+                                EdgeInsets.only(left: 0.0, right: 0.0, top: 10, bottom: 10),
+                                padding: 
+                                EdgeInsets.only( bottom: 20),
+
+                            height: 160,
                             width: double.infinity,
                             decoration: BoxDecoration(
-                              border: Border.all(color: whiteF1, width: 2),
-                              borderRadius: BorderRadius.all(Radius.circular(10)),
+                              border: Border(
+                                bottom: BorderSide(width: 1.0, color: grey99),
+                              ),
                             ),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.spaceAround,
+
                               children: [
+                                Padding(
+                                  padding: const EdgeInsets.only(left: 0.0,),
+                                  child: imageUrl == null
+                                      ? Image.asset(DummyImage.noImage,
+                                      height: 100,
+                                      width: 100,
+                                      )
+                                      : CachedNetworkImage(
+                                          imageUrl: imageUrl!,
+                                          width: 100,
+                                          height: 100,
+                                          fit: BoxFit.fill,
+                                          imageBuilder:
+                                              (context, imageProvider) =>
+                                                  ClipOval(
+                                            child: Image(
+                                              image: imageProvider,
+                                              fit: BoxFit.cover,
+                                            ),
+                                          ),
+                                          placeholder: (context, url) =>
+                                              SpinKitFadingCircle(
+                                                  color: pinkColor),
+                                          errorWidget: (context, url, error) =>
+                                              Image.asset(DummyImage.noImage),
+                                        ),
+                                ),
                                 Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
                                     Padding(
-                                      padding: const EdgeInsets.only(left: 20),
-                                      child: imageUrl == null
-                                          ? Image.asset(DummyImage.noImage)
-                                          : CachedNetworkImage(
-                                              imageUrl: imageUrl!,
-                                              width: 60,
-                                              height: 60,
-                                              fit: BoxFit.fill,
-                                              imageBuilder: (context, imageProvider) => ClipOval(
-                                                child: Image(
-                                                  image: imageProvider,
-                                                  fit: BoxFit.cover,
-                                                ),
-                                              ),
-                                              placeholder: (context, url) => SpinKitFadingCircle(color: pinkColor),
-                                              errorWidget: (context, url, error) => Image.asset(DummyImage.noImage),
-                                            ),
-                                    ),
-                                    Padding(
-                                      padding: const EdgeInsets.only(left: 15),
+                                      padding: const EdgeInsets.only(left:10,right: 15),
                                       child: Text(
                                         profileName!,
                                         style: TextStyle(
                                             color: blackColor,
                                             fontWeight: FontWeight.w600,
                                             fontSize: 16,
-                                            fontFamily: ConstantFont.montserratBold),
+                                            fontFamily:
+                                                ConstantFont.montserratBold),
                                       ),
                                     ),
+                                    InkWell(
+                                      onTap: () {
+                                        Navigator.push(
+                                            context,
+                                            new MaterialPageRoute(
+                                                builder: (context) =>
+                                                    new EditProfile(
+                                                        showProfile)));
+                                      },
+                                      child: Container(
+                                          margin: EdgeInsets.only(right:0.0),
+                                          child: SvgPicture.asset(
+                                            DummyImage.edit,
+                                            width: 20,
+                                            height: 20,
+                                          )),
+                                    ),
                                   ],
-                                ),
-                                InkWell(
-                                  onTap: () {
-                                    Navigator.push(context,
-                                        new MaterialPageRoute(builder: (context) => new EditProfile(showProfile)));
-                                  },
-                                  child: Container(
-                                      margin: EdgeInsets.only(right: 15),
-                                      child: SvgPicture.asset(
-                                        DummyImage.edit,
-                                        
-                                        width: 30,
-                                        height: 30,
-                                      )),
-                                ),
+                                )
                               ],
                             ),
                           ),
@@ -418,7 +458,8 @@ class _Profile extends State<Profile> {
                           ///old password text field
                           Container(
                             height: 45,
-                            margin: EdgeInsets.only(left: 20, top: 5, right: 20),
+                            margin:
+                                EdgeInsets.only(left: 20, top: 5, right: 20),
                             child: TextFormField(
                               autofocus: false,
                               obscureText: oldPassword,
@@ -426,7 +467,8 @@ class _Profile extends State<Profile> {
                               textInputAction: TextInputAction.next,
                               controller: _textEditingControllerOldPassword,
                               validator: (name) {
-                                Pattern pattern = r'^[A-Za-z0-9]+(?:[ _-][A-Za-z0-9]+)*$';
+                                Pattern pattern =
+                                    r'^[A-Za-z0-9]+(?:[ _-][A-Za-z0-9]+)*$';
                                 RegExp regex = new RegExp(pattern as String);
                                 if (!regex.hasMatch(name!))
                                   return 'Invalid Password';
@@ -435,7 +477,8 @@ class _Profile extends State<Profile> {
                               },
                               onSaved: (name) => oldPasswordString = name,
                               onFieldSubmitted: (_) {
-                                fieldFocusChange(context, _oldPasswordFocusNode, _newpasswordFocusNode);
+                                fieldFocusChange(context, _oldPasswordFocusNode,
+                                    _newpasswordFocusNode);
                               },
                               style: TextStyle(
                                   fontSize: 14.0,
@@ -446,7 +489,8 @@ class _Profile extends State<Profile> {
                                 filled: true,
                                 fillColor: whiteF1,
                                 hintText: 'Enter your old Password',
-                                contentPadding: const EdgeInsets.only(left: 14.0, bottom: 8.0, top: 8.0),
+                                contentPadding: const EdgeInsets.only(
+                                    left: 14.0, bottom: 8.0, top: 8.0),
                                 focusedBorder: OutlineInputBorder(
                                   borderSide: BorderSide(color: whiteF1),
                                   borderRadius: BorderRadius.circular(8),
@@ -462,7 +506,9 @@ class _Profile extends State<Profile> {
                                     });
                                   },
                                   child: new Icon(
-                                    oldPassword ? Icons.visibility : Icons.visibility_off,
+                                    oldPassword
+                                        ? Icons.visibility
+                                        : Icons.visibility_off,
                                     color: blackColor,
                                     size: 18,
                                   ),
@@ -488,7 +534,8 @@ class _Profile extends State<Profile> {
                           ///new password controller
                           Container(
                             height: 45,
-                            margin: EdgeInsets.only(left: 20, top: 5, right: 20),
+                            margin:
+                                EdgeInsets.only(left: 20, top: 5, right: 20),
                             child: TextFormField(
                               autofocus: false,
                               obscureText: newPassword,
@@ -498,7 +545,8 @@ class _Profile extends State<Profile> {
                               validator: kValidatePassword,
                               onSaved: (name) => newpassword = name,
                               onFieldSubmitted: (_) {
-                                fieldFocusChange(context, _newpasswordFocusNode, _confirmPasswordFocusNode);
+                                fieldFocusChange(context, _newpasswordFocusNode,
+                                    _confirmPasswordFocusNode);
                               },
                               style: TextStyle(
                                   fontSize: 14.0,
@@ -509,7 +557,8 @@ class _Profile extends State<Profile> {
                                 filled: true,
                                 fillColor: whiteF1,
                                 hintText: 'Enter your new Password',
-                                contentPadding: const EdgeInsets.only(left: 14.0, bottom: 8.0, top: 8.0),
+                                contentPadding: const EdgeInsets.only(
+                                    left: 14.0, bottom: 8.0, top: 8.0),
                                 focusedBorder: OutlineInputBorder(
                                   borderSide: BorderSide(color: whiteF1),
                                   borderRadius: BorderRadius.circular(8),
@@ -525,7 +574,9 @@ class _Profile extends State<Profile> {
                                     });
                                   },
                                   child: new Icon(
-                                    newPassword ? Icons.visibility : Icons.visibility_off,
+                                    newPassword
+                                        ? Icons.visibility
+                                        : Icons.visibility_off,
                                     color: blackColor,
                                     size: 18,
                                   ),
@@ -551,7 +602,8 @@ class _Profile extends State<Profile> {
                           ///confirm password text field
                           Container(
                             height: 45,
-                            margin: EdgeInsets.only(left: 20, top: 5, right: 20),
+                            margin:
+                                EdgeInsets.only(left: 20, top: 5, right: 20),
                             child: TextFormField(
                               autofocus: false,
                               obscureText: confirmPassword,
@@ -569,7 +621,8 @@ class _Profile extends State<Profile> {
                                 filled: true,
                                 fillColor: whiteF1,
                                 hintText: 'Enter your confirm Password',
-                                contentPadding: const EdgeInsets.only(left: 14.0, bottom: 8.0, top: 8.0),
+                                contentPadding: const EdgeInsets.only(
+                                    left: 14.0, bottom: 8.0, top: 8.0),
                                 focusedBorder: OutlineInputBorder(
                                   borderSide: BorderSide(color: whiteF1),
                                   borderRadius: BorderRadius.circular(8),
@@ -585,7 +638,9 @@ class _Profile extends State<Profile> {
                                     });
                                   },
                                   child: new Icon(
-                                    confirmPassword ? Icons.visibility : Icons.visibility_off,
+                                    confirmPassword
+                                        ? Icons.visibility
+                                        : Icons.visibility_off,
                                     color: blackColor,
                                     size: 18,
                                   ),
@@ -596,7 +651,8 @@ class _Profile extends State<Profile> {
 
                           ///change password button
                           Container(
-                              margin: const EdgeInsets.only(top: 20.0, left: 20, right: 20),
+                              margin: const EdgeInsets.only(
+                                  top: 20.0, left: 20, right: 20),
                               alignment: FractionalOffset.center,
                               child: MaterialButton(
                                 minWidth: screenWidth,
@@ -610,13 +666,18 @@ class _Profile extends State<Profile> {
                                     _formKey.currentState!.save();
 
                                     print("pass_newpassword:$newpassword");
-                                    print("pass_confirmPassword:$confirmPasswordString");
+                                    print(
+                                        "pass_confirmPassword:$confirmPasswordString");
 
                                     if (newpassword == confirmPasswordString) {
-                                      AppConstant.checkNetwork().whenComplete(() => callApiForChangePassword(
-                                          oldPasswordString, newpassword, confirmPasswordString));
+                                      AppConstant.checkNetwork().whenComplete(
+                                          () => callApiForChangePassword(
+                                              oldPasswordString,
+                                              newpassword,
+                                              confirmPasswordString));
                                     } else {
-                                      ToastMessage.toastMessage("Password not Match");
+                                      ToastMessage.toastMessage(
+                                          "Mot de passe incorrect.");
                                     }
                                   }
                                 },
@@ -651,7 +712,9 @@ class _Profile extends State<Profile> {
                               ? Center(
                                   child: Container(
                                       width: screenWidth,
-                                      height: MediaQuery.of(context).size.height * 0.2,
+                                      height:
+                                          MediaQuery.of(context).size.height *
+                                              0.2,
                                       alignment: Alignment.center,
                                       child: ListView(
                                         shrinkWrap: true,
@@ -666,10 +729,12 @@ class _Profile extends State<Profile> {
                                           Align(
                                             alignment: Alignment.center,
                                             child: Text(
-                                              StringConstant.youHavenAnyAppointmentSet,
+                                              StringConstant
+                                                  .youHavenAnyAppointmentSet,
                                               style: TextStyle(
                                                   color: whiteA3,
-                                                  fontFamily: ConstantFont.montserratMedium,
+                                                  fontFamily: ConstantFont
+                                                      .montserratMedium,
                                                   fontWeight: FontWeight.w600,
                                                   fontSize: 16),
                                             ),
@@ -681,162 +746,273 @@ class _Profile extends State<Profile> {
                                   shrinkWrap: true,
                                   physics: NeverScrollableScrollPhysics(),
                                   itemCount: upcomingOrderDataList.length,
-                                  itemBuilder: (BuildContext context, int index) {
+                                  itemBuilder:
+                                      (BuildContext context, int index) {
                                     var parsedDate;
-                                    parsedDate = DateTime.parse(upcomingOrderDataList[index].date!);
+                                    parsedDate = DateTime.parse(
+                                        upcomingOrderDataList[index].date!);
                                     var df = new DateFormat('MMM dd,yyyy');
                                     parsedDate = df.format(parsedDate);
 
                                     upcomingServiceList.clear();
-                                    for (int i = 0; i < upcomingOrderDataList[index].services!.length; i++) {
-                                      upcomingServiceList.add(upcomingOrderDataList[index].services![i].name);
+                                    for (int i = 0;
+                                        i <
+                                            upcomingOrderDataList[index]
+                                                .services!
+                                                .length;
+                                        i++) {
+                                      upcomingServiceList.add(
+                                          upcomingOrderDataList[index]
+                                              .services![i]
+                                              .name);
                                     }
 
                                     return InkWell(
                                       onTap: () {
-                                        Navigator.of(context).push(MaterialPageRoute(
-                                            builder: (context) => SingleAppoitmentScreen(
-                                                  appoitmentId: upcomingOrderDataList[index].id!,
-                                                )));
+                                        Navigator.of(context).push(
+                                            MaterialPageRoute(
+                                                builder: (context) =>
+                                                    SingleAppoitmentScreen(
+                                                      appoitmentId:
+                                                          upcomingOrderDataList[
+                                                                  index]
+                                                              .id!,
+                                                    )));
                                       },
                                       child: Container(
-                                        margin: EdgeInsets.only(left: 5, right: 5, top: 10),
+                                        margin: EdgeInsets.only(
+                                            left: 5, right: 5, top: 10),
                                         width: double.infinity,
                                         decoration: BoxDecoration(
-                                          border: Border.all(color: whiteF1, width: 3),
-                                          borderRadius: BorderRadius.all(Radius.circular(10)),
+                                          border: Border.all(
+                                              color: whiteF1, width: 3),
+                                          borderRadius: BorderRadius.all(
+                                              Radius.circular(10)),
                                         ),
-                                        padding: EdgeInsets.symmetric(horizontal: 10, vertical:20,),
+                                        padding: EdgeInsets.symmetric(
+                                          horizontal: 10,
+                                          vertical: 20,
+                                        ),
                                         child: Column(
-                                          crossAxisAlignment: CrossAxisAlignment.stretch,
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.stretch,
                                           children: [
                                             Padding(
-                                                padding: const EdgeInsets.only(left: 0.0),
+                                                padding: const EdgeInsets.only(
+                                                    left: 0.0),
                                                 child: Row(
                                                   children: <Widget>[
                                                     Expanded(
                                                       child: new Container(
                                                         height: 75,
-                                                        width: screenWidth * .35,
-                                                        alignment: Alignment.topLeft,
-                                                        margin: EdgeInsets.only(left: 10),
-                                                        child: PreferenceUtils.getString(AppConstant.salonImage)
+                                                        width:
+                                                            screenWidth * .35,
+                                                        alignment:
+                                                            Alignment.topLeft,
+                                                        margin: EdgeInsets.only(
+                                                            left: 10),
+                                                        child: PreferenceUtils
+                                                                    .getString(
+                                                                        AppConstant
+                                                                            .salonImage)
                                                                 .isNotEmpty
                                                             ? CachedNetworkImage(
-                                                                imageUrl:
-                                                                    PreferenceUtils.getString(AppConstant.salonImage),
-                                                                imageBuilder: (context, imageProvider) => Container(
-                                                                  decoration: BoxDecoration(
-                                                                    borderRadius: BorderRadius.circular(10.0),
-                                                                    image: DecorationImage(
-                                                                      image: imageProvider,
-                                                                      fit: BoxFit.contain,
-                                                                      alignment: Alignment.topCenter,
+                                                                imageUrl: PreferenceUtils
+                                                                    .getString(
+                                                                        AppConstant
+                                                                            .salonImage),
+                                                                imageBuilder:
+                                                                    (context,
+                                                                            imageProvider) =>
+                                                                        Container(
+                                                                  decoration:
+                                                                      BoxDecoration(
+                                                                    borderRadius:
+                                                                        BorderRadius.circular(
+                                                                            10.0),
+                                                                    image:
+                                                                        DecorationImage(
+                                                                      image:
+                                                                          imageProvider,
+                                                                      fit: BoxFit
+                                                                          .contain,
+                                                                      alignment:
+                                                                          Alignment
+                                                                              .topCenter,
                                                                     ),
                                                                   ),
                                                                 ),
-                                                                placeholder: (context, url) =>
-                                                                    SpinKitFadingCircle(color: pinkColor),
-                                                                fit: BoxFit.scaleDown,
+                                                                placeholder: (context,
+                                                                        url) =>
+                                                                    SpinKitFadingCircle(
+                                                                        color:
+                                                                            pinkColor),
+                                                                fit: BoxFit
+                                                                    .scaleDown,
                                                               )
-                                                            : Image.asset(DummyImage.noImage),
+                                                            : Image.asset(
+                                                                DummyImage
+                                                                    .noImage),
                                                       ),
                                                     ),
                                                     new Container(
-                                                        width: screenWidth * .65,
+                                                        width:
+                                                            screenWidth * .65,
                                                         height: 110,
-                                                        margin: EdgeInsets.only(left: 5.0, top: 0.0),
-                                                        alignment: Alignment.topLeft,
+                                                        margin: EdgeInsets.only(
+                                                            left: 5.0,
+                                                            top: 0.0),
+                                                        alignment:
+                                                            Alignment.topLeft,
                                                         color: whiteColor,
                                                         child: ListView(
-                                                          physics: NeverScrollableScrollPhysics(),
+                                                          physics:
+                                                              NeverScrollableScrollPhysics(),
                                                           children: <Widget>[
                                                             Container(
-                                                              margin: EdgeInsets.only(top: 25.0),
+                                                              margin: EdgeInsets
+                                                                  .only(
+                                                                      top:
+                                                                          25.0),
                                                               child: Text(
-                                                                PreferenceUtils.getString(AppConstant.singlesalonName),
+                                                                PreferenceUtils
+                                                                    .getString(
+                                                                        AppConstant
+                                                                            .singlesalonName),
                                                                 style: TextStyle(
-                                                                    color: black1E,
-                                                                    fontSize: 14,
-                                                                    fontWeight: FontWeight.w600,
-                                                                    fontFamily: ConstantFont.montserratMedium),
+                                                                    color:
+                                                                        black1E,
+                                                                    fontSize:
+                                                                        14,
+                                                                    fontWeight:
+                                                                        FontWeight
+                                                                            .w600,
+                                                                    fontFamily:
+                                                                        ConstantFont
+                                                                            .montserratMedium),
                                                               ),
                                                             ),
                                                             Container(
-                                                              margin: EdgeInsets.only(top: 5.0, left: 0.0),
+                                                              margin: EdgeInsets
+                                                                  .only(
+                                                                      top: 5.0,
+                                                                      left:
+                                                                          0.0),
                                                               child: Text(
-                                                                PreferenceUtils.getString(AppConstant.salonAddress),
-                                                                overflow: TextOverflow.ellipsis,
+                                                                PreferenceUtils
+                                                                    .getString(
+                                                                        AppConstant
+                                                                            .salonAddress),
+                                                                overflow:
+                                                                    TextOverflow
+                                                                        .ellipsis,
                                                                 maxLines: 1,
                                                                 style: TextStyle(
-                                                                    color: greyColor,
-                                                                    fontSize: 12,
-                                                                    fontWeight: FontWeight.w600,
-                                                                    fontFamily: ConstantFont.montserratMedium),
+                                                                    color:
+                                                                        greyColor,
+                                                                    fontSize:
+                                                                        12,
+                                                                    fontWeight:
+                                                                        FontWeight
+                                                                            .w600,
+                                                                    fontFamily:
+                                                                        ConstantFont
+                                                                            .montserratMedium),
                                                               ),
                                                             ),
                                                             Row(
-                                                              children: <Widget>[
+                                                              children: <
+                                                                  Widget>[
                                                                 Container(
-                                                                  margin: EdgeInsets.only(top: 2, left: 0),
-                                                                  child: SvgPicture.asset(
-                                                                    DummyImage.star,
+                                                                  margin: EdgeInsets
+                                                                      .only(
+                                                                          top:
+                                                                              2,
+                                                                          left:
+                                                                              0),
+                                                                  child:
+                                                                      SvgPicture
+                                                                          .asset(
+                                                                    DummyImage
+                                                                        .star,
                                                                     width: 10,
                                                                     height: 10,
                                                                   ),
                                                                 ),
                                                                 Container(
-                                                                  child: Container(
-                                                                    margin: EdgeInsets.only(top: 2, left: 2),
+                                                                  child:
+                                                                      Container(
+                                                                    margin: EdgeInsets.only(
+                                                                        top: 2,
+                                                                        left:
+                                                                            2),
                                                                     child: Text(
-                                                                        PreferenceUtils.getString(
-                                                                                AppConstant.salonRating) +
+                                                                        PreferenceUtils.getString(AppConstant.salonRating) +
                                                                             " Rating",
                                                                         style: TextStyle(
-                                                                            color: grey99,
-                                                                            fontSize: 11,
-                                                                            fontWeight: FontWeight.w600,
+                                                                            color:
+                                                                                grey99,
+                                                                            fontSize:
+                                                                                11,
+                                                                            fontWeight:
+                                                                                FontWeight.w600,
                                                                             fontFamily: ConstantFont.montserratMedium)),
                                                                   ),
                                                                 ),
                                                                 Container(
-                                                                  alignment: Alignment.center,
+                                                                  alignment:
+                                                                      Alignment
+                                                                          .center,
                                                                   width: 5.0,
                                                                   height: 5.0,
-                                                                  margin: EdgeInsets.only(left: 5.0, top: 5.0),
-                                                                  decoration: BoxDecoration(
-                                                                    shape: BoxShape.circle,
-                                                                    color: greyColor,
+                                                                  margin: EdgeInsets
+                                                                      .only(
+                                                                          left:
+                                                                              5.0,
+                                                                          top:
+                                                                              5.0),
+                                                                  decoration:
+                                                                      BoxDecoration(
+                                                                    shape: BoxShape
+                                                                        .circle,
+                                                                    color:
+                                                                        greyColor,
                                                                   ),
                                                                 ),
                                                                 Container(
-                                                                    margin:
-                                                                        EdgeInsets.only(left: 0.0, top: 5.0, right: 0),
-                                                                    child: RichText(
-                                                                      maxLines: 2,
-                                                                      overflow: TextOverflow.ellipsis,
-                                                                      textScaleFactor: 1,
-                                                                      textAlign: TextAlign.center,
-                                                                      text: TextSpan(
+                                                                    margin: EdgeInsets.only(
+                                                                        left:
+                                                                            0.0,
+                                                                        top:
+                                                                            5.0,
+                                                                        right:
+                                                                            0),
+                                                                    child:
+                                                                        RichText(
+                                                                      maxLines:
+                                                                          2,
+                                                                      overflow:
+                                                                          TextOverflow
+                                                                              .ellipsis,
+                                                                      textScaleFactor:
+                                                                          1,
+                                                                      textAlign:
+                                                                          TextAlign
+                                                                              .center,
+                                                                      text:
+                                                                          TextSpan(
                                                                         children: [
                                                                           WidgetSpan(
-                                                                            child: Icon(
+                                                                            child:
+                                                                                Icon(
                                                                               Icons.calendar_today,
                                                                               size: 14,
                                                                               color: pinkColor,
                                                                             ),
                                                                           ),
                                                                           TextSpan(
-                                                                              text: upcomingOrderDataList[index]
-                                                                                      .startTime! +
-                                                                                  " - " +
-                                                                                  parsedDate,
-                                                                              style: TextStyle(
-                                                                                  color: greyColor,
-                                                                                  fontSize: 11,
-                                                                                  fontWeight: FontWeight.w600,
-                                                                                  fontFamily:
-                                                                                      ConstantFont.montserratMedium)),
+                                                                              text: upcomingOrderDataList[index].startTime! + " - " + parsedDate,
+                                                                              style: TextStyle(color: greyColor, fontSize: 11, fontWeight: FontWeight.w600, fontFamily: ConstantFont.montserratMedium)),
                                                                         ],
                                                                       ),
                                                                     ))
@@ -848,53 +1024,86 @@ class _Profile extends State<Profile> {
                                                 )),
                                             Container(
                                               child: Container(
-                                                margin: const EdgeInsets.only(top: 1.0, bottom: 10.0),
-                                                padding: const EdgeInsets.only(left: 10.0, right: 10.0),
-                                                child: MySeparator(color: greyColor),
+                                                margin: const EdgeInsets.only(
+                                                    top: 1.0, bottom: 10.0),
+                                                padding: const EdgeInsets.only(
+                                                    left: 10.0, right: 10.0),
+                                                child: MySeparator(
+                                                    color: greyColor),
                                               ),
                                             ),
                                             Padding(
-                                                padding: const EdgeInsets.all(0),
+                                                padding:
+                                                    const EdgeInsets.all(0),
                                                 child: Container(
-                                                    width: MediaQuery.of(context).size.width,
-                                                    margin: EdgeInsets.only(left: 5.0, right: 5.0),
+                                                    width:
+                                                        MediaQuery.of(context)
+                                                            .size
+                                                            .width,
+                                                    margin: EdgeInsets.only(
+                                                        left: 5.0, right: 5.0),
                                                     color: whiteColor,
                                                     child: ListView(
                                                       shrinkWrap: true,
-                                                      physics: NeverScrollableScrollPhysics(),
+                                                      physics:
+                                                          NeverScrollableScrollPhysics(),
                                                       children: <Widget>[
                                                         Row(
-                                                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                                          mainAxisAlignment:
+                                                              MainAxisAlignment
+                                                                  .spaceBetween,
                                                           children: [
                                                             Expanded(
                                                               child: Text(
-                                                                StringConstant.serviceType,
+                                                                StringConstant
+                                                                    .serviceType,
                                                                 style: TextStyle(
-                                                                    color: whiteB3,
-                                                                    fontSize: 12,
-                                                                    fontWeight: FontWeight.w600,
-                                                                    fontFamily: ConstantFont.montserratMedium),
+                                                                    color:
+                                                                        whiteB3,
+                                                                    fontSize:
+                                                                        12,
+                                                                    fontWeight:
+                                                                        FontWeight
+                                                                            .w600,
+                                                                    fontFamily:
+                                                                        ConstantFont
+                                                                            .montserratMedium),
                                                               ),
                                                             ),
                                                             Expanded(
                                                               child: Row(
-                                                                mainAxisAlignment: MainAxisAlignment.end,
+                                                                mainAxisAlignment:
+                                                                    MainAxisAlignment
+                                                                        .end,
                                                                 children: [
                                                                   Text(
-                                                                    StringConstant.bookingStatus,
+                                                                    StringConstant
+                                                                        .bookingStatus,
                                                                     style: TextStyle(
-                                                                        color: whiteB3,
-                                                                        fontSize: 12,
-                                                                        fontWeight: FontWeight.w600,
-                                                                        fontFamily: ConstantFont.montserratMedium),
+                                                                        color:
+                                                                            whiteB3,
+                                                                        fontSize:
+                                                                            12,
+                                                                        fontWeight:
+                                                                            FontWeight
+                                                                                .w600,
+                                                                        fontFamily:
+                                                                            ConstantFont.montserratMedium),
                                                                   ),
                                                                   Text(
-                                                                    " : " + upcomingOrderDataList[index].bookingStatus!,
+                                                                    " : " +
+                                                                        upcomingOrderDataList[index]
+                                                                            .bookingStatus!,
                                                                     style: TextStyle(
-                                                                        color: whiteB3,
-                                                                        fontSize: 12,
-                                                                        fontWeight: FontWeight.w600,
-                                                                        fontFamily: ConstantFont.montserratMedium),
+                                                                        color:
+                                                                            whiteB3,
+                                                                        fontSize:
+                                                                            12,
+                                                                        fontWeight:
+                                                                            FontWeight
+                                                                                .w600,
+                                                                        fontFamily:
+                                                                            ConstantFont.montserratMedium),
                                                                   )
                                                                 ],
                                                               ),
@@ -902,30 +1111,53 @@ class _Profile extends State<Profile> {
                                                           ],
                                                         ),
                                                         Visibility(
-                                                          visible: upcomingOrderDataList[index].serListVisible,
+                                                          visible:
+                                                              upcomingOrderDataList[
+                                                                      index]
+                                                                  .serListVisible,
                                                           child: Container(
-                                                            margin: EdgeInsets.only(left: 5),
+                                                            margin:
+                                                                EdgeInsets.only(
+                                                                    left: 5),
                                                             child: Text(
-                                                              upcomingOrderDataList[index].services![0].name!,
+                                                              upcomingOrderDataList[
+                                                                      index]
+                                                                  .services![0]
+                                                                  .name!,
                                                               style: TextStyle(
-                                                                  color: white4B,
+                                                                  color:
+                                                                      white4B,
                                                                   fontSize: 12,
-                                                                  fontWeight: FontWeight.w600,
-                                                                  fontFamily: ConstantFont.montserratMedium),
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .w600,
+                                                                  fontFamily:
+                                                                      ConstantFont
+                                                                          .montserratMedium),
                                                             ),
                                                           ),
                                                         ),
-                                                        upcomingOrderDataList[index].services!.length == 1
+                                                        upcomingOrderDataList[
+                                                                        index]
+                                                                    .services!
+                                                                    .length ==
+                                                                1
                                                             ? Row(
-                                                                mainAxisAlignment: MainAxisAlignment.end,
+                                                                mainAxisAlignment:
+                                                                    MainAxisAlignment
+                                                                        .end,
                                                                 children: [
                                                                   GestureDetector(
-                                                                      onTap: () {
+                                                                      onTap:
+                                                                          () {
                                                                         showCancelDialog(
-                                                                            context, upcomingOrderDataList[index].id);
+                                                                            context,
+                                                                            upcomingOrderDataList[index].id);
                                                                       },
-                                                                      child: RichText(
-                                                                        text: TextSpan(
+                                                                      child:
+                                                                          RichText(
+                                                                        text:
+                                                                            TextSpan(
                                                                           children: [
                                                                             WidgetSpan(
                                                                               child: Container(
@@ -938,16 +1170,8 @@ class _Profile extends State<Profile> {
                                                                             ),
                                                                             WidgetSpan(
                                                                               child: Container(
-                                                                                margin:
-                                                                                    EdgeInsets.only(top: 5, left: 5),
-                                                                                child: Text(
-                                                                                    StringConstant.cancelBooking,
-                                                                                    style: TextStyle(
-                                                                                        color: redFF,
-                                                                                        fontSize: 12,
-                                                                                        fontWeight: FontWeight.w500,
-                                                                                        fontFamily: ConstantFont
-                                                                                            .montserratMedium)),
+                                                                                margin: EdgeInsets.only(top: 5, left: 5),
+                                                                                child: Text(StringConstant.cancelBooking, style: TextStyle(color: redFF, fontSize: 12, fontWeight: FontWeight.w500, fontFamily: ConstantFont.montserratMedium)),
                                                                               ),
                                                                             ),
                                                                           ],
@@ -956,33 +1180,43 @@ class _Profile extends State<Profile> {
                                                                 ],
                                                               )
                                                             : Row(
-                                                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                                                mainAxisAlignment:
+                                                                    MainAxisAlignment
+                                                                        .spaceBetween,
                                                                 children: [
                                                                   Expanded(
-                                                                    child: Visibility(
-                                                                      visible:
-                                                                          upcomingOrderDataList[index].seeAllVisible,
-                                                                      child: GestureDetector(
-                                                                        onTap: () {
-                                                                          setState(() {
+                                                                    child:
+                                                                        Visibility(
+                                                                      visible: upcomingOrderDataList[
+                                                                              index]
+                                                                          .seeAllVisible,
+                                                                      child:
+                                                                          GestureDetector(
+                                                                        onTap:
+                                                                            () {
+                                                                          setState(
+                                                                              () {
                                                                             upcomingOrderDataList[index].seeAllVisible =
                                                                                 false;
-                                                                            upcomingOrderDataList[index]
-                                                                                .serListVisible = false;
-                                                                            upcomingOrderDataList[index]
-                                                                                .newListVisible = true;
+                                                                            upcomingOrderDataList[index].serListVisible =
+                                                                                false;
+                                                                            upcomingOrderDataList[index].newListVisible =
+                                                                                true;
                                                                           });
                                                                         },
-                                                                        child: Container(
-                                                                          margin: EdgeInsets.only(left: 5, top: 5),
-                                                                          child: Text(
+                                                                        child:
+                                                                            Container(
+                                                                          margin: EdgeInsets.only(
+                                                                              left: 5,
+                                                                              top: 5),
+                                                                          child:
+                                                                              Text(
                                                                             StringConstant.seeAll,
                                                                             style: TextStyle(
                                                                                 color: blue4a,
                                                                                 fontSize: 12,
                                                                                 fontWeight: FontWeight.w600,
-                                                                                fontFamily:
-                                                                                    ConstantFont.montserratMedium),
+                                                                                fontFamily: ConstantFont.montserratMedium),
                                                                           ),
                                                                         ),
                                                                       ),
@@ -990,14 +1224,17 @@ class _Profile extends State<Profile> {
                                                                   ),
                                                                   Expanded(
                                                                     child: Row(
-                                                                      mainAxisAlignment: MainAxisAlignment.end,
+                                                                      mainAxisAlignment:
+                                                                          MainAxisAlignment
+                                                                              .end,
                                                                       children: [
                                                                         GestureDetector(
-                                                                            onTap: () {
-                                                                              showCancelDialog(context,
-                                                                                  upcomingOrderDataList[index].id);
+                                                                            onTap:
+                                                                                () {
+                                                                              showCancelDialog(context, upcomingOrderDataList[index].id);
                                                                             },
-                                                                            child: RichText(
+                                                                            child:
+                                                                                RichText(
                                                                               text: TextSpan(
                                                                                 children: [
                                                                                   WidgetSpan(
@@ -1011,17 +1248,8 @@ class _Profile extends State<Profile> {
                                                                                   ),
                                                                                   WidgetSpan(
                                                                                     child: Container(
-                                                                                      margin: EdgeInsets.only(
-                                                                                          top: 5, left: 5),
-                                                                                      child: Text(
-                                                                                          StringConstant.cancelBooking,
-                                                                                          style: TextStyle(
-                                                                                              color: redFF,
-                                                                                              fontSize: 12,
-                                                                                              fontWeight:
-                                                                                                  FontWeight.w500,
-                                                                                              fontFamily: ConstantFont
-                                                                                                  .montserratMedium)),
+                                                                                      margin: EdgeInsets.only(top: 5, left: 5),
+                                                                                      child: Text(StringConstant.cancelBooking, style: TextStyle(color: redFF, fontSize: 12, fontWeight: FontWeight.w500, fontFamily: ConstantFont.montserratMedium)),
                                                                                     ),
                                                                                   ),
                                                                                 ],
@@ -1033,31 +1261,59 @@ class _Profile extends State<Profile> {
                                                                 ],
                                                               ),
                                                         Visibility(
-                                                          visible: upcomingOrderDataList[index].newListVisible,
-                                                          child: GestureDetector(
+                                                          visible:
+                                                              upcomingOrderDataList[
+                                                                      index]
+                                                                  .newListVisible,
+                                                          child:
+                                                              GestureDetector(
                                                             onTap: () {
                                                               setState(() {
-                                                                print("SeeAllTapData");
-                                                                upcomingOrderDataList[index].seeAllVisible = true;
-                                                                upcomingOrderDataList[index].serListVisible = true;
-                                                                upcomingOrderDataList[index].newListVisible = false;
+                                                                print(
+                                                                    "SeeAllTapData");
+                                                                upcomingOrderDataList[
+                                                                        index]
+                                                                    .seeAllVisible = true;
+                                                                upcomingOrderDataList[
+                                                                        index]
+                                                                    .serListVisible = true;
+                                                                upcomingOrderDataList[
+                                                                            index]
+                                                                        .newListVisible =
+                                                                    false;
                                                               });
                                                             },
                                                             child: ListView(
                                                               shrinkWrap: true,
-                                                              physics: NeverScrollableScrollPhysics(),
-                                                              children: <Widget>[
+                                                              physics:
+                                                                  NeverScrollableScrollPhysics(),
+                                                              children: <
+                                                                  Widget>[
                                                                 Container(
-                                                                  margin: EdgeInsets.only(left: 5, top: 5),
+                                                                  margin: EdgeInsets
+                                                                      .only(
+                                                                          left:
+                                                                              5,
+                                                                          top:
+                                                                              5),
                                                                   child: Text(
-                                                                    upcomingServiceList.join(" , "),
+                                                                    upcomingServiceList
+                                                                        .join(
+                                                                            " , "),
                                                                     maxLines: 5,
-                                                                    overflow: TextOverflow.ellipsis,
+                                                                    overflow:
+                                                                        TextOverflow
+                                                                            .ellipsis,
                                                                     style: TextStyle(
-                                                                        color: white4B,
-                                                                        fontSize: 12,
-                                                                        fontWeight: FontWeight.w600,
-                                                                        fontFamily: ConstantFont.montserratMedium),
+                                                                        color:
+                                                                            white4B,
+                                                                        fontSize:
+                                                                            12,
+                                                                        fontWeight:
+                                                                            FontWeight
+                                                                                .w600,
+                                                                        fontFamily:
+                                                                            ConstantFont.montserratMedium),
                                                                   ),
                                                                 ),
                                                               ],
@@ -1095,7 +1351,8 @@ class _Profile extends State<Profile> {
                               ? Center(
                                   child: Container(
                                     width: screenWidth,
-                                    height: MediaQuery.of(context).size.height * 0.2,
+                                    height: MediaQuery.of(context).size.height *
+                                        0.2,
                                     alignment: Alignment.center,
                                     child: ListView(
                                       shrinkWrap: true,
@@ -1110,10 +1367,12 @@ class _Profile extends State<Profile> {
                                         Align(
                                           alignment: Alignment.center,
                                           child: Text(
-                                            StringConstant.youHavenAnyCompletedAppointment,
+                                            StringConstant
+                                                .youHavenAnyCompletedAppointment,
                                             style: TextStyle(
                                                 color: whiteA3,
-                                                fontFamily: ConstantFont.montserratMedium,
+                                                fontFamily: ConstantFont
+                                                    .montserratMedium,
                                                 fontWeight: FontWeight.w600,
                                                 fontSize: 16),
                                           ),
@@ -1126,167 +1385,274 @@ class _Profile extends State<Profile> {
                                   shrinkWrap: true,
                                   physics: NeverScrollableScrollPhysics(),
                                   itemCount: completedDataList.length,
-                                  padding: EdgeInsets.only(bottom: MediaQuery.of(context).size.height * 0.03),
-                                  itemBuilder: (BuildContext context, int index) {
+                                  padding: EdgeInsets.only(
+                                      bottom:
+                                          MediaQuery.of(context).size.height *
+                                              0.03),
+                                  itemBuilder:
+                                      (BuildContext context, int index) {
                                     var parsedDate;
-                                    parsedDate = DateTime.parse(completedDataList[index].date!);
+                                    parsedDate = DateTime.parse(
+                                        completedDataList[index].date!);
                                     var df = new DateFormat('MMM dd,yyyy');
                                     parsedDate = df.format(parsedDate);
 
                                     completedServiceList.clear();
-                                    for (int i = 0; i < completedDataList[index].services!.length; i++) {
-                                      completedServiceList.add(completedDataList[index].services![i].name);
+                                    for (int i = 0;
+                                        i <
+                                            completedDataList[index]
+                                                .services!
+                                                .length;
+                                        i++) {
+                                      completedServiceList.add(
+                                          completedDataList[index]
+                                              .services![i]
+                                              .name);
                                     }
 
                                     return InkWell(
                                       onTap: () {
-                                        Navigator.of(context).push(MaterialPageRoute(
-                                            builder: (context) => SingleAppoitmentScreen(
-                                                  appoitmentId: completedDataList[index].id!,
-                                                )));
+                                        Navigator.of(context).push(
+                                            MaterialPageRoute(
+                                                builder: (context) =>
+                                                    SingleAppoitmentScreen(
+                                                      appoitmentId:
+                                                          completedDataList[
+                                                                  index]
+                                                              .id!,
+                                                    )));
                                       },
                                       child: Container(
-                                        margin: EdgeInsets.only(left: 10, right: 10, top: 10),
-                                        padding: EdgeInsets.symmetric(horizontal: 10, vertical: 20),
+                                        margin: EdgeInsets.only(
+                                            left: 10, right: 10, top: 10),
+                                        padding: EdgeInsets.symmetric(
+                                            horizontal: 10, vertical: 20),
                                         width: double.infinity,
                                         decoration: BoxDecoration(
-                                          border: Border.all(color: whiteF1, width: 3),
-                                          borderRadius: BorderRadius.all(Radius.circular(12)),
+                                          border: Border.all(
+                                              color: whiteF1, width: 3),
+                                          borderRadius: BorderRadius.all(
+                                              Radius.circular(12)),
                                         ),
                                         child: Column(
-                                          crossAxisAlignment: CrossAxisAlignment.stretch,
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.stretch,
                                           children: [
                                             Padding(
-                                                padding: const EdgeInsets.only(left: 0.0),
+                                                padding: const EdgeInsets.only(
+                                                    left: 0.0),
                                                 child: Row(
                                                   children: <Widget>[
                                                     Expanded(
                                                       child: new Container(
                                                         height: 75,
-                                                        width: screenWidth * .33,
-                                                        alignment: Alignment.topLeft,
-                                                        margin: EdgeInsets.only(left: 5),
-                                                        child: CachedNetworkImage(
-                                                          imageUrl: PreferenceUtils.getString(AppConstant.salonImage),
-                                                          imageBuilder: (context, imageProvider) => Container(
-                                                            decoration: BoxDecoration(
-                                                              borderRadius: BorderRadius.circular(10.0),
-                                                              image: DecorationImage(
-                                                                image: imageProvider,
-                                                                fit: BoxFit.contain,
-                                                                alignment: Alignment.topCenter,
+                                                        width:
+                                                            screenWidth * .33,
+                                                        alignment:
+                                                            Alignment.topLeft,
+                                                        margin: EdgeInsets.only(
+                                                            left: 5),
+                                                        child:
+                                                            CachedNetworkImage(
+                                                          imageUrl: PreferenceUtils
+                                                              .getString(
+                                                                  AppConstant
+                                                                      .salonImage),
+                                                          imageBuilder: (context,
+                                                                  imageProvider) =>
+                                                              Container(
+                                                            decoration:
+                                                                BoxDecoration(
+                                                              borderRadius:
+                                                                  BorderRadius
+                                                                      .circular(
+                                                                          10.0),
+                                                              image:
+                                                                  DecorationImage(
+                                                                image:
+                                                                    imageProvider,
+                                                                fit: BoxFit
+                                                                    .contain,
+                                                                alignment:
+                                                                    Alignment
+                                                                        .topCenter,
                                                               ),
                                                             ),
                                                           ),
-                                                          placeholder: (context, url) =>
-                                                              SpinKitFadingCircle(color: pinkColor),
-                                                          errorWidget: (context, url, error) =>
-                                                              Image.asset(DummyImage.noImage),
+                                                          placeholder: (context,
+                                                                  url) =>
+                                                              SpinKitFadingCircle(
+                                                                  color:
+                                                                      pinkColor),
+                                                          errorWidget: (context,
+                                                                  url, error) =>
+                                                              Image.asset(
+                                                                  DummyImage
+                                                                      .noImage),
                                                         ),
                                                       ),
                                                     ),
                                                     new Container(
-                                                        width: screenWidth * .67,
+                                                        width:
+                                                            screenWidth * .67,
                                                         height: 110,
-                                                        margin: EdgeInsets.only(left: 5.0, top: 0.0),
-                                                        alignment: Alignment.topLeft,
+                                                        margin: EdgeInsets.only(
+                                                            left: 5.0,
+                                                            top: 0.0),
+                                                        alignment:
+                                                            Alignment.topLeft,
                                                         color: whiteColor,
                                                         child: ListView(
-                                                          physics: NeverScrollableScrollPhysics(),
+                                                          physics:
+                                                              NeverScrollableScrollPhysics(),
                                                           children: <Widget>[
                                                             Container(
-                                                              margin: EdgeInsets.only(top: 25.0),
+                                                              margin: EdgeInsets
+                                                                  .only(
+                                                                      top:
+                                                                          25.0),
                                                               child: Text(
-                                                                PreferenceUtils.getString(AppConstant.singlesalonName),
+                                                                PreferenceUtils
+                                                                    .getString(
+                                                                        AppConstant
+                                                                            .singlesalonName),
                                                                 style: TextStyle(
-                                                                    color: black1E,
-                                                                    fontSize: 14,
-                                                                    fontWeight: FontWeight.w600,
-                                                                    fontFamily: ConstantFont.montserratMedium),
+                                                                    color:
+                                                                        black1E,
+                                                                    fontSize:
+                                                                        14,
+                                                                    fontWeight:
+                                                                        FontWeight
+                                                                            .w600,
+                                                                    fontFamily:
+                                                                        ConstantFont
+                                                                            .montserratMedium),
                                                               ),
                                                             ),
                                                             Container(
-                                                              margin: EdgeInsets.only(top: 5.0, left: 0.0),
+                                                              margin: EdgeInsets
+                                                                  .only(
+                                                                      top: 5.0,
+                                                                      left:
+                                                                          0.0),
                                                               child: Text(
-                                                                PreferenceUtils.getString(AppConstant.salonAddress),
-                                                                overflow: TextOverflow.ellipsis,
+                                                                PreferenceUtils
+                                                                    .getString(
+                                                                        AppConstant
+                                                                            .salonAddress),
+                                                                overflow:
+                                                                    TextOverflow
+                                                                        .ellipsis,
                                                                 maxLines: 1,
                                                                 style: TextStyle(
-                                                                    color: greyColor,
-                                                                    fontSize: 12,
-                                                                    fontWeight: FontWeight.w600,
-                                                                    fontFamily: ConstantFont.montserratMedium),
+                                                                    color:
+                                                                        greyColor,
+                                                                    fontSize:
+                                                                        12,
+                                                                    fontWeight:
+                                                                        FontWeight
+                                                                            .w600,
+                                                                    fontFamily:
+                                                                        ConstantFont
+                                                                            .montserratMedium),
                                                               ),
                                                             ),
                                                             Row(
-                                                              children: <Widget>[
+                                                              children: <
+                                                                  Widget>[
                                                                 Container(
-                                                                  margin: EdgeInsets.only(top: 2, left: 0),
-                                                                  child: SvgPicture.asset(
-                                                                    DummyImage.star,
+                                                                  margin: EdgeInsets
+                                                                      .only(
+                                                                          top:
+                                                                              2,
+                                                                          left:
+                                                                              0),
+                                                                  child:
+                                                                      SvgPicture
+                                                                          .asset(
+                                                                    DummyImage
+                                                                        .star,
                                                                     width: 10,
                                                                     height: 10,
                                                                   ),
                                                                 ),
                                                                 Container(
-                                                                  child: Container(
-                                                                    margin: EdgeInsets.only(top: 2, left: 2),
+                                                                  child:
+                                                                      Container(
+                                                                    margin: EdgeInsets.only(
+                                                                        top: 2,
+                                                                        left:
+                                                                            2),
                                                                     child: Text(
-                                                                        PreferenceUtils.getString(
-                                                                                AppConstant.salonRating) +
+                                                                        PreferenceUtils.getString(AppConstant.salonRating) +
                                                                             " Rating",
                                                                         style: TextStyle(
-                                                                            color: grey99,
-                                                                            fontSize: 11,
-                                                                            fontWeight: FontWeight.w600,
+                                                                            color:
+                                                                                grey99,
+                                                                            fontSize:
+                                                                                11,
+                                                                            fontWeight:
+                                                                                FontWeight.w600,
                                                                             fontFamily: ConstantFont.montserratMedium)),
                                                                   ),
                                                                 ),
                                                                 Container(
-                                                                  alignment: Alignment.center,
+                                                                  alignment:
+                                                                      Alignment
+                                                                          .center,
                                                                   width: 5.0,
                                                                   height: 5.0,
-                                                                  margin: EdgeInsets.only(left: 5.0, top: 5.0),
-                                                                  decoration: BoxDecoration(
-                                                                    shape: BoxShape.circle,
-                                                                    color: greyColor,
+                                                                  margin: EdgeInsets
+                                                                      .only(
+                                                                          left:
+                                                                              5.0,
+                                                                          top:
+                                                                              5.0),
+                                                                  decoration:
+                                                                      BoxDecoration(
+                                                                    shape: BoxShape
+                                                                        .circle,
+                                                                    color:
+                                                                        greyColor,
                                                                   ),
                                                                 ),
                                                                 Container(
-                                                                    margin:
-                                                                        EdgeInsets.only(left: 0.0, top: 5.0, right: 0),
-                                                                    child: RichText(
-                                                                      maxLines: 2,
-                                                                      overflow: TextOverflow.ellipsis,
-                                                                      textScaleFactor: 1,
-                                                                      textAlign: TextAlign.center,
-                                                                      text: TextSpan(
+                                                                    margin: EdgeInsets.only(
+                                                                        left:
+                                                                            0.0,
+                                                                        top:
+                                                                            5.0,
+                                                                        right:
+                                                                            0),
+                                                                    child:
+                                                                        RichText(
+                                                                      maxLines:
+                                                                          2,
+                                                                      overflow:
+                                                                          TextOverflow
+                                                                              .ellipsis,
+                                                                      textScaleFactor:
+                                                                          1,
+                                                                      textAlign:
+                                                                          TextAlign
+                                                                              .center,
+                                                                      text:
+                                                                          TextSpan(
                                                                         children: [
                                                                           WidgetSpan(
-                                                                            child: Icon(
+                                                                            child:
+                                                                                Icon(
                                                                               Icons.calendar_today,
                                                                               size: 14,
                                                                               color: pinkColor,
                                                                             ),
                                                                           ),
                                                                           TextSpan(
-                                                                              text:
-                                                                                  completedDataList[index].startTime! +
-                                                                                      "-",
-                                                                              style: TextStyle(
-                                                                                  color: greyColor,
-                                                                                  fontSize: 11,
-                                                                                  fontWeight: FontWeight.w600,
-                                                                                  fontFamily:
-                                                                                      ConstantFont.montserratMedium)),
+                                                                              text: completedDataList[index].startTime! + "-",
+                                                                              style: TextStyle(color: greyColor, fontSize: 11, fontWeight: FontWeight.w600, fontFamily: ConstantFont.montserratMedium)),
                                                                           TextSpan(
                                                                               text: parsedDate,
-                                                                              style: TextStyle(
-                                                                                  color: greyColor,
-                                                                                  fontSize: 11,
-                                                                                  fontWeight: FontWeight.w600,
-                                                                                  fontFamily:
-                                                                                      ConstantFont.montserratMedium))
+                                                                              style: TextStyle(color: greyColor, fontSize: 11, fontWeight: FontWeight.w600, fontFamily: ConstantFont.montserratMedium))
                                                                         ],
                                                                       ),
                                                                     ))
@@ -1298,60 +1664,107 @@ class _Profile extends State<Profile> {
                                                 )),
                                             Container(
                                               child: Container(
-                                                margin: const EdgeInsets.only(top: 1.0, bottom: 1.0),
-                                                padding: const EdgeInsets.only(left: 10.0, right: 10.0),
-                                                child: MySeparator(color: greyColor),
+                                                margin: const EdgeInsets.only(
+                                                    top: 1.0, bottom: 1.0),
+                                                padding: const EdgeInsets.only(
+                                                    left: 10.0, right: 10.0),
+                                                child: MySeparator(
+                                                    color: greyColor),
                                               ),
                                             ),
                                             Padding(
-                                                padding: const EdgeInsets.all(0),
+                                                padding:
+                                                    const EdgeInsets.all(0),
                                                 child: Row(
-                                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment
+                                                          .spaceBetween,
                                                   children: <Widget>[
                                                     Container(
-                                                        width: screenWidth * .33,
-                                                        margin: EdgeInsets.only(left: 5.0, right: 10.0),
+                                                        width:
+                                                            screenWidth * .33,
+                                                        margin: EdgeInsets.only(
+                                                            left: 5.0,
+                                                            right: 10.0),
                                                         color: whiteColor,
-                                                        alignment: Alignment.topLeft,
+                                                        alignment:
+                                                            Alignment.topLeft,
                                                         child: ListView(
                                                           shrinkWrap: true,
-                                                          physics: NeverScrollableScrollPhysics(),
+                                                          physics:
+                                                              NeverScrollableScrollPhysics(),
                                                           children: <Widget>[
                                                             Container(
-                                                              transform: Matrix4.translationValues(5.0, 0.0, 0.0),
+                                                              transform: Matrix4
+                                                                  .translationValues(
+                                                                      5.0,
+                                                                      0.0,
+                                                                      0.0),
                                                               child: Text(
-                                                                StringConstant.serviceType,
+                                                                StringConstant
+                                                                    .serviceType,
                                                                 style: TextStyle(
-                                                                    color: whiteB3,
-                                                                    fontSize: 12,
-                                                                    fontWeight: FontWeight.w600,
-                                                                    fontFamily: ConstantFont.montserratMedium),
+                                                                    color:
+                                                                        whiteB3,
+                                                                    fontSize:
+                                                                        12,
+                                                                    fontWeight:
+                                                                        FontWeight
+                                                                            .w600,
+                                                                    fontFamily:
+                                                                        ConstantFont
+                                                                            .montserratMedium),
                                                               ),
                                                             ),
                                                             Visibility(
-                                                              visible: completedDataList[index].serListVisible,
+                                                              visible:
+                                                                  completedDataList[
+                                                                          index]
+                                                                      .serListVisible,
                                                               child: Container(
-                                                                margin: EdgeInsets.only(left: 5),
+                                                                margin: EdgeInsets
+                                                                    .only(
+                                                                        left:
+                                                                            5),
                                                                 child: Text(
-                                                                  completedDataList[index].services![0].name!,
+                                                                  completedDataList[
+                                                                          index]
+                                                                      .services![
+                                                                          0]
+                                                                      .name!,
                                                                   style: TextStyle(
-                                                                      color: white4B,
-                                                                      fontSize: 12,
-                                                                      fontWeight: FontWeight.w600,
-                                                                      fontFamily: ConstantFont.montserratMedium),
+                                                                      color:
+                                                                          white4B,
+                                                                      fontSize:
+                                                                          12,
+                                                                      fontWeight:
+                                                                          FontWeight
+                                                                              .w600,
+                                                                      fontFamily:
+                                                                          ConstantFont
+                                                                              .montserratMedium),
                                                                 ),
                                                               ),
                                                             ),
-                                                            completedDataList[index].services!.length == 1
+                                                            completedDataList[
+                                                                            index]
+                                                                        .services!
+                                                                        .length ==
+                                                                    1
                                                                 ? Container(
                                                                     height: 0,
                                                                     width: 0,
                                                                   )
                                                                 : Visibility(
-                                                                    visible: completedDataList[index].seeAllVisible,
-                                                                    child: GestureDetector(
-                                                                      onTap: () {
-                                                                        setState(() {
+                                                                    visible: completedDataList[
+                                                                            index]
+                                                                        .seeAllVisible,
+                                                                    child:
+                                                                        GestureDetector(
+                                                                      onTap:
+                                                                          () {
+                                                                        setState(
+                                                                            () {
                                                                           completedDataList[index].seeAllVisible =
                                                                               false;
                                                                           completedDataList[index].serListVisible =
@@ -1360,45 +1773,76 @@ class _Profile extends State<Profile> {
                                                                               true;
                                                                         });
                                                                       },
-                                                                      child: Container(
-                                                                        margin: EdgeInsets.only(left: 5, top: 5),
-                                                                        child: Text(
-                                                                          StringConstant.seeAll,
+                                                                      child:
+                                                                          Container(
+                                                                        margin: EdgeInsets.only(
+                                                                            left:
+                                                                                5,
+                                                                            top:
+                                                                                5),
+                                                                        child:
+                                                                            Text(
+                                                                          StringConstant
+                                                                              .seeAll,
                                                                           style: TextStyle(
                                                                               color: blue4a,
                                                                               fontSize: 12,
                                                                               fontWeight: FontWeight.w600,
-                                                                              fontFamily:
-                                                                                  ConstantFont.montserratMedium),
+                                                                              fontFamily: ConstantFont.montserratMedium),
                                                                         ),
                                                                       ),
                                                                     ),
                                                                   ),
                                                             Visibility(
-                                                              visible: completedDataList[index].newListVisible,
-                                                              child: GestureDetector(
+                                                              visible:
+                                                                  completedDataList[
+                                                                          index]
+                                                                      .newListVisible,
+                                                              child:
+                                                                  GestureDetector(
                                                                 onTap: () {
                                                                   setState(() {
-                                                                    print("SeeAllTapData");
-                                                                    completedDataList[index].seeAllVisible = true;
-                                                                    completedDataList[index].serListVisible = true;
-                                                                    completedDataList[index].newListVisible = false;
+                                                                    print(
+                                                                        "SeeAllTapData");
+                                                                    completedDataList[
+                                                                            index]
+                                                                        .seeAllVisible = true;
+                                                                    completedDataList[
+                                                                            index]
+                                                                        .serListVisible = true;
+                                                                    completedDataList[
+                                                                            index]
+                                                                        .newListVisible = false;
                                                                   });
                                                                 },
                                                                 child: ListView(
-                                                                  shrinkWrap: true,
-                                                                  physics: NeverScrollableScrollPhysics(),
-                                                                  children: <Widget>[
+                                                                  shrinkWrap:
+                                                                      true,
+                                                                  physics:
+                                                                      NeverScrollableScrollPhysics(),
+                                                                  children: <
+                                                                      Widget>[
                                                                     Container(
-                                                                      margin: EdgeInsets.only(left: 5, top: 5),
-                                                                      child: Text(
-                                                                        completedServiceList.join(" , "),
-                                                                        maxLines: 5,
-                                                                        overflow: TextOverflow.ellipsis,
+                                                                      margin: EdgeInsets.only(
+                                                                          left:
+                                                                              5,
+                                                                          top:
+                                                                              5),
+                                                                      child:
+                                                                          Text(
+                                                                        completedServiceList
+                                                                            .join(" , "),
+                                                                        maxLines:
+                                                                            5,
+                                                                        overflow:
+                                                                            TextOverflow.ellipsis,
                                                                         style: TextStyle(
-                                                                            color: white4B,
-                                                                            fontSize: 12,
-                                                                            fontWeight: FontWeight.w600,
+                                                                            color:
+                                                                                white4B,
+                                                                            fontSize:
+                                                                                12,
+                                                                            fontWeight:
+                                                                                FontWeight.w600,
                                                                             fontFamily: ConstantFont.montserratMedium),
                                                                       ),
                                                                     ),
@@ -1409,31 +1853,52 @@ class _Profile extends State<Profile> {
                                                           ],
                                                         )),
                                                     Container(
-                                                      width: MediaQuery.of(context).size.width * 0.4,
+                                                      width:
+                                                          MediaQuery.of(context)
+                                                                  .size
+                                                                  .width *
+                                                              0.4,
                                                       height: 50,
-                                                      alignment: Alignment.topRight,
-                                                      margin: EdgeInsets.only(top: 20, right: 10),
+                                                      alignment:
+                                                          Alignment.topRight,
+                                                      margin: EdgeInsets.only(
+                                                          top: 20, right: 10),
                                                       child: GestureDetector(
                                                           onTap: () {},
                                                           child: RichText(
                                                             text: TextSpan(
                                                               children: [
                                                                 WidgetSpan(
-                                                                  child: Container(
-                                                                    margin: EdgeInsets.only(top: 5),
-                                                                    child: SvgPicture.asset(
-                                                                      DummyImage.correct,
+                                                                  child:
+                                                                      Container(
+                                                                    margin: EdgeInsets
+                                                                        .only(
+                                                                            top:
+                                                                                5),
+                                                                    child: SvgPicture
+                                                                        .asset(
+                                                                      DummyImage
+                                                                          .correct,
                                                                     ),
                                                                   ),
                                                                 ),
                                                                 WidgetSpan(
-                                                                  child: Container(
-                                                                    margin: EdgeInsets.only(top: 5, left: 5),
-                                                                    child: Text(StringConstant.completed,
+                                                                  child:
+                                                                      Container(
+                                                                    margin: EdgeInsets.only(
+                                                                        top: 5,
+                                                                        left:
+                                                                            5),
+                                                                    child: Text(
+                                                                        StringConstant
+                                                                            .completed,
                                                                         style: TextStyle(
-                                                                            color: green00,
-                                                                            fontSize: 12,
-                                                                            fontWeight: FontWeight.w500,
+                                                                            color:
+                                                                                green00,
+                                                                            fontSize:
+                                                                                12,
+                                                                            fontWeight:
+                                                                                FontWeight.w500,
                                                                             fontFamily: ConstantFont.montserratMedium)),
                                                                   ),
                                                                 ),
@@ -1470,7 +1935,11 @@ class _Profile extends State<Profile> {
           Widget cancelButton = TextButton(
             child: Text(
               StringConstant.no,
-              style: TextStyle(color: greyColor, fontSize: 16, fontWeight: FontWeight.w600, fontFamily: 'Montserrat'),
+              style: TextStyle(
+                  color: greyColor,
+                  fontSize: 16,
+                  fontWeight: FontWeight.w600,
+                  fontFamily: 'Montserrat'),
             ),
             onPressed: () {
               Navigator.pop(context);
@@ -1479,12 +1948,17 @@ class _Profile extends State<Profile> {
           Widget continueButton = TextButton(
             child: Text(
               StringConstant.yes,
-              style: TextStyle(color: pinkColor, fontSize: 16, fontWeight: FontWeight.w600, fontFamily: 'Montserrat'),
+              style: TextStyle(
+                  color: pinkColor,
+                  fontSize: 16,
+                  fontWeight: FontWeight.w600,
+                  fontFamily: 'Montserrat'),
             ),
             onPressed: () {
               print("BookingId:$id");
 
-              AppConstant.checkNetwork().whenComplete(() => callApiForCancelBooking(id!));
+              AppConstant.checkNetwork()
+                  .whenComplete(() => callApiForCancelBooking(id!));
               Navigator.pop(context);
             },
           );
@@ -1498,8 +1972,11 @@ class _Profile extends State<Profile> {
               alignment: Alignment.center,
               child: Text(
                 StringConstant.cancelAppointment,
-                style:
-                    TextStyle(color: blackColor, fontSize: 20, fontWeight: FontWeight.w600, fontFamily: 'Montserrat'),
+                style: TextStyle(
+                    color: blackColor,
+                    fontSize: 20,
+                    fontWeight: FontWeight.w600,
+                    fontFamily: 'Montserrat'),
                 textAlign: TextAlign.center,
               ),
             ),
@@ -1513,7 +1990,10 @@ class _Profile extends State<Profile> {
                       StringConstant.areYouSureYouWantToCancelYourAppointment,
                       textAlign: TextAlign.center,
                       style: TextStyle(
-                          color: greyColor, fontWeight: FontWeight.w600, fontSize: 18, fontFamily: 'Montserrat'),
+                          color: greyColor,
+                          fontWeight: FontWeight.w600,
+                          fontSize: 18,
+                          fontFamily: 'Montserrat'),
                     ),
                   ),
                 ),
@@ -1526,10 +2006,13 @@ class _Profile extends State<Profile> {
   Future<bool> _onWillPop() async {
     Navigator.pop(context);
 
-    return (await Navigator.of(context).push(MaterialPageRoute(builder: (context) => new HomeScreen(0)))) ?? false;
+    return (await Navigator.of(context).push(
+            MaterialPageRoute(builder: (context) => new HomeScreen(0)))) ??
+        false;
   }
 
-  void fieldFocusChange(BuildContext context, FocusNode currentFocus, FocusNode nextFocus) {
+  void fieldFocusChange(
+      BuildContext context, FocusNode currentFocus, FocusNode nextFocus) {
     currentFocus.unfocus();
     FocusScope.of(context).requestFocus(nextFocus);
   }

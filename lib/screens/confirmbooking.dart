@@ -24,6 +24,7 @@ import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:flutter_stripe/flutter_stripe.dart';
 import 'package:intl/intl.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
+import 'package:persistent_bottom_nav_bar_ccc/persistent-tab-view.dart';
 
 class ConfirmBooking extends StatefulWidget {
   final double? totalprice;
@@ -42,8 +43,18 @@ class ConfirmBooking extends StatefulWidget {
   final bool couponVisible;
   final bool couponNotVisible;
 
-  ConfirmBooking(this.selectedEmpId, this.time, this.date, this.totalprice, this.selectedServices, this.salonId,
-      this._selectedServicesName, this._totalprice, this.salonData, this.couponVisible, this.couponNotVisible);
+  ConfirmBooking(
+      this.selectedEmpId,
+      this.time,
+      this.date,
+      this.totalprice,
+      this.selectedServices,
+      this.salonId,
+      this._selectedServicesName,
+      this._totalprice,
+      this.salonData,
+      this.couponVisible,
+      this.couponNotVisible);
 
   @override
   _ConfirmBooking createState() => new _ConfirmBooking();
@@ -59,29 +70,29 @@ class _ConfirmBooking extends State<ConfirmBooking> {
   int? selectedEmpId;
   List? _totalprice = [];
   var rating = 1.0;
-  
+
   double xOffset = 0;
   double yOffset = 0;
   double scaleFactor = 1;
-     bool isDrawerOpen = false;
+  bool isDrawerOpen = false;
 
-    void onOpen(){
+  void onOpen() {
     setState(() {
-      xOffset=220;
-      yOffset=130;
-      scaleFactor=0.7;
-      isDrawerOpen=true;
+      xOffset = 220;
+      yOffset = 130;
+      scaleFactor = 0.7;
+      isDrawerOpen = true;
     });
-    }
+  }
 
-   void onClose(){
+  void onClose() {
     setState(() {
-      xOffset=0;
-      yOffset=0;
-      scaleFactor=1;
-      isDrawerOpen=false;
+      xOffset = 0;
+      yOffset = 0;
+      scaleFactor = 1;
+      isDrawerOpen = false;
     });
-   }
+  }
 
   List<String>? _selectedServicesName = <String>[];
   late var parsedDate;
@@ -163,11 +174,11 @@ class _ConfirmBooking extends State<ConfirmBooking> {
           var msg = res.statusMessage;
 
           if (responseCode == 401) {
-            ToastMessage.toastMessage("Invalid Data");
+            ToastMessage.toastMessage("Data Invalide");
             print(responseCode);
             print(res.statusMessage);
           } else if (responseCode == 422) {
-            ToastMessage.toastMessage("Invalid Email");
+            ToastMessage.toastMessage("Email Invalide");
             print("code:$responseCode");
             print("msg:$msg");
           }
@@ -188,7 +199,8 @@ class _ConfirmBooking extends State<ConfirmBooking> {
       if (response.success == true) {
         paymentSetting = response;
         if (response.data!.cod == 1) {
-          fList.add(PaymentType(index: 1, name: "LOCAL", image: "images/localpay.png"));
+          fList.add(PaymentType(
+              index: 1, name: "LOCAL", image: "images/localpay.png"));
         }
         if (response.data!.stripe == 1) {
           stripKey = response.data!.stripePublicKey;
@@ -223,7 +235,8 @@ class _ConfirmBooking extends State<ConfirmBooking> {
   void _sucessPayment(BuildContext context, int? radioValue, String result) {
     String paymentToken = "";
 
-    AppConstant.checkNetwork().whenComplete(() => callApiForBookService(result, paymentToken));
+    AppConstant.checkNetwork()
+        .whenComplete(() => callApiForBookService(result, paymentToken));
   }
 
   void callApiForBookService(String result1, String paymentToken) {
@@ -285,7 +298,8 @@ class _ConfirmBooking extends State<ConfirmBooking> {
 
   Future<bool> _onWillPop() async {
     final completer = Completer<bool>();
-    Navigator.push(context, new MaterialPageRoute(builder: (context) => new HomeScreen(1)));
+    Navigator.push(context,
+        new MaterialPageRoute(builder: (context) => new HomeScreen(1)));
     completer.complete(true);
     return completer.future;
   }
@@ -330,7 +344,8 @@ class _ConfirmBooking extends State<ConfirmBooking> {
               body: new Stack(
                 children: <Widget>[
                   SingleChildScrollView(
-                    padding: EdgeInsets.only(bottom: MediaQuery.of(context).size.height * 0.05),
+                    padding: EdgeInsets.only(
+                        bottom: MediaQuery.of(context).size.height * 0.05),
                     child: Container(
                       child: new Column(
                         children: <Widget>[
@@ -366,7 +381,8 @@ class _ConfirmBooking extends State<ConfirmBooking> {
                               width: double.infinity,
                               decoration: BoxDecoration(
                                 border: Border.all(color: whiteF1, width: 2),
-                                borderRadius: BorderRadius.all(Radius.circular(10)),
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(10)),
                               ),
                               child: ListView(
                                 physics: NeverScrollableScrollPhysics(),
@@ -374,7 +390,8 @@ class _ConfirmBooking extends State<ConfirmBooking> {
                                 children: <Widget>[
                                   Container(
                                       alignment: Alignment.topLeft,
-                                      margin: EdgeInsets.only(left: 5.0, top: 0.0),
+                                      margin:
+                                          EdgeInsets.only(left: 5.0, top: 0.0),
                                       child: Row(
                                         children: <Widget>[
                                           new Container(
@@ -382,86 +399,125 @@ class _ConfirmBooking extends State<ConfirmBooking> {
                                             width: 70,
                                             alignment: Alignment.topLeft,
                                             child: CachedNetworkImage(
-                                              imageUrl: salonData!.imagePath! + salonData!.image!,
-                                              imageBuilder: (context, imageProvider) => Container(
+                                              imageUrl: salonData!.imagePath! +
+                                                  salonData!.image!,
+                                              imageBuilder:
+                                                  (context, imageProvider) =>
+                                                      Container(
                                                 decoration: BoxDecoration(
-                                                  borderRadius: BorderRadius.circular(10.0),
+                                                  borderRadius:
+                                                      BorderRadius.circular(
+                                                          10.0),
                                                   image: DecorationImage(
                                                     image: imageProvider,
                                                     fit: BoxFit.fill,
-                                                    alignment: Alignment.topCenter,
+                                                    alignment:
+                                                        Alignment.topCenter,
                                                   ),
                                                 ),
                                               ),
-                                              placeholder: (context, url) => SpinKitFadingCircle(color: pinkColor),
-                                              errorWidget: (context, url, error) => Image.asset(DummyImage.noImage),
+                                              placeholder: (context, url) =>
+                                                  SpinKitFadingCircle(
+                                                      color: pinkColor),
+                                              errorWidget:
+                                                  (context, url, error) =>
+                                                      Image.asset(
+                                                          DummyImage.noImage),
                                             ),
                                           ),
                                           new Container(
                                               width: screenWidth * .65,
                                               height: 110,
-                                              margin: EdgeInsets.only(left: 5.0, top: 0.0),
+                                              margin: EdgeInsets.only(
+                                                  left: 5.0, top: 0.0),
                                               alignment: Alignment.topLeft,
                                               color: whiteColor,
                                               child: ListView(
                                                 shrinkWrap: true,
-                                                physics: NeverScrollableScrollPhysics(),
+                                                physics:
+                                                    NeverScrollableScrollPhysics(),
                                                 children: <Widget>[
                                                   Container(
-                                                    margin: EdgeInsets.only(top: 20.0),
+                                                    margin: EdgeInsets.only(
+                                                        top: 20.0),
                                                     child: Text(
                                                       salonData!.name!,
                                                       maxLines: 1,
-                                                      overflow: TextOverflow.ellipsis,
+                                                      overflow:
+                                                          TextOverflow.ellipsis,
                                                       style: TextStyle(
                                                           color: blackColor,
                                                           fontSize: 14,
-                                                          fontWeight: FontWeight.w600,
-                                                          fontFamily: ConstantFont.montserratSemiBold),
+                                                          fontWeight:
+                                                              FontWeight.w600,
+                                                          fontFamily: ConstantFont
+                                                              .montserratSemiBold),
                                                     ),
                                                   ),
                                                   Container(
-                                                    margin: EdgeInsets.only(top: 5.0),
+                                                    margin: EdgeInsets.only(
+                                                        top: 5.0),
                                                     child: Text(
                                                       salonData!.address!,
-                                                      overflow: TextOverflow.ellipsis,
+                                                      overflow:
+                                                          TextOverflow.ellipsis,
                                                       maxLines: 2,
                                                       style: TextStyle(
                                                           color: greyColor,
                                                           fontSize: 11,
-                                                          fontWeight: FontWeight.w600,
-                                                          fontFamily: ConstantFont.montserratMedium),
+                                                          fontWeight:
+                                                              FontWeight.w600,
+                                                          fontFamily: ConstantFont
+                                                              .montserratMedium),
                                                     ),
                                                   ),
                                                   Column(
-                                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                                    crossAxisAlignment:
+                                                        CrossAxisAlignment
+                                                            .start,
                                                     children: [
                                                       Row(
                                                         children: <Widget>[
                                                           Container(
-                                                              margin: EdgeInsets.only(left: 0.0, top: 5.0),
+                                                              margin: EdgeInsets
+                                                                  .only(
+                                                                      left: 0.0,
+                                                                      top: 5.0),
                                                               child: RichText(
                                                                 text: TextSpan(
                                                                   children: [
                                                                     WidgetSpan(
-                                                                      child: Icon(
-                                                                        Icons.star,
-                                                                        size: 14,
-                                                                        color: yellowColor,
+                                                                      child:
+                                                                          Icon(
+                                                                        Icons
+                                                                            .star,
+                                                                        size:
+                                                                            14,
+                                                                        color:
+                                                                            yellowColor,
                                                                       ),
                                                                     ),
                                                                     TextSpan(
-                                                                        text: salonData!.rate.toString(),
+                                                                        text: salonData!
+                                                                            .rate
+                                                                            .toString(),
                                                                         style: TextStyle(
-                                                                            color: greyColor,
-                                                                            fontSize: 11,
-                                                                            fontWeight: FontWeight.w600)),
+                                                                            color:
+                                                                                greyColor,
+                                                                            fontSize:
+                                                                                11,
+                                                                            fontWeight:
+                                                                                FontWeight.w600)),
                                                                     TextSpan(
-                                                                        text: StringConstant.rating,
+                                                                        text: StringConstant
+                                                                            .rating,
                                                                         style: TextStyle(
-                                                                            color: greyColor,
-                                                                            fontSize: 11,
-                                                                            fontFamily: ConstantFont.montserratMedium,
+                                                                            color:
+                                                                                greyColor,
+                                                                            fontSize:
+                                                                                11,
+                                                                            fontFamily:
+                                                                                ConstantFont.montserratMedium,
                                                                             fontWeight: FontWeight.w600)),
                                                                   ],
                                                                 ),
@@ -471,40 +527,64 @@ class _ConfirmBooking extends State<ConfirmBooking> {
                                                       Row(
                                                         children: [
                                                           Container(
-                                                            alignment: Alignment.center,
+                                                            alignment: Alignment
+                                                                .center,
                                                             width: 5.0,
                                                             height: 5.0,
-                                                            margin: EdgeInsets.only(left: 5.0, top: 5.0),
-                                                            decoration: BoxDecoration(
-                                                              shape: BoxShape.circle,
+                                                            margin:
+                                                                EdgeInsets.only(
+                                                                    left: 5.0,
+                                                                    top: 5.0),
+                                                            decoration:
+                                                                BoxDecoration(
+                                                              shape: BoxShape
+                                                                  .circle,
                                                               color: greyColor,
                                                             ),
                                                           ),
                                                           Container(
-                                                              margin: EdgeInsets.only(left: 5.0, top: 5.0, right: 0),
+                                                              margin: EdgeInsets
+                                                                  .only(
+                                                                      left: 5.0,
+                                                                      top: 5.0,
+                                                                      right: 0),
                                                               child: RichText(
                                                                 maxLines: 2,
-                                                                overflow: TextOverflow.ellipsis,
-                                                                textScaleFactor: 1,
-                                                                textAlign: TextAlign.center,
+                                                                overflow:
+                                                                    TextOverflow
+                                                                        .ellipsis,
+                                                                textScaleFactor:
+                                                                    1,
+                                                                textAlign:
+                                                                    TextAlign
+                                                                        .center,
                                                                 text: TextSpan(
                                                                   children: [
                                                                     WidgetSpan(
-                                                                      child: Icon(
-                                                                        Icons.calendar_today,
-                                                                        size: 14,
-                                                                        color: pinkColor,
+                                                                      child:
+                                                                          Icon(
+                                                                        Icons
+                                                                            .calendar_today,
+                                                                        size:
+                                                                            14,
+                                                                        color:
+                                                                            pinkColor,
                                                                       ),
                                                                     ),
                                                                     TextSpan(
                                                                         text: time.toString() +
                                                                             " - " +
-                                                                            parsedDate.toString(),
+                                                                            parsedDate
+                                                                                .toString(),
                                                                         style: TextStyle(
-                                                                            color: greyColor,
-                                                                            fontFamily: ConstantFont.montserratMedium,
-                                                                            fontSize: 11,
-                                                                            fontWeight: FontWeight.w600)),
+                                                                            color:
+                                                                                greyColor,
+                                                                            fontFamily: ConstantFont
+                                                                                .montserratMedium,
+                                                                            fontSize:
+                                                                                11,
+                                                                            fontWeight:
+                                                                                FontWeight.w600)),
                                                                   ],
                                                                 ),
                                                               )),
@@ -560,7 +640,8 @@ class _ConfirmBooking extends State<ConfirmBooking> {
                                     physics: NeverScrollableScrollPhysics(),
                                     children: <Widget>[
                                       Row(
-                                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
                                         children: [
                                           Container(
                                             child: Text(
@@ -569,17 +650,20 @@ class _ConfirmBooking extends State<ConfirmBooking> {
                                                   color: grey99,
                                                   fontWeight: FontWeight.w600,
                                                   fontSize: 14,
-                                                  fontFamily: ConstantFont.montserratMedium),
+                                                  fontFamily: ConstantFont
+                                                      .montserratMedium),
                                             ),
                                           ),
                                           Container(
                                             child: Text(
-                                              _totalprice![index].toString() + " ₹",
+                                              _totalprice![index].toString() +
+                                                  " ₹",
                                               style: TextStyle(
                                                   color: grey99,
                                                   fontWeight: FontWeight.w600,
                                                   fontSize: 14,
-                                                  fontFamily: ConstantFont.montserratMedium),
+                                                  fontFamily: ConstantFont
+                                                      .montserratMedium),
                                             ),
                                           ),
                                         ],
@@ -591,7 +675,8 @@ class _ConfirmBooking extends State<ConfirmBooking> {
                                         lineLength: double.infinity,
                                         lineThickness: 1.0,
                                         dashLength: 4.0,
-                                        dashColor: Color(0xe2777474).withOpacity(0.3),
+                                        dashColor:
+                                            Color(0xe2777474).withOpacity(0.3),
                                         dashRadius: 0.0,
                                         dashGapLength: 4.0,
                                         dashGapColor: Colors.transparent,
@@ -613,16 +698,20 @@ class _ConfirmBooking extends State<ConfirmBooking> {
                             alignment: Alignment.center,
                             margin: EdgeInsets.only(left: 25, right: 15),
                             decoration: BoxDecoration(
-                                color: pinkColor, borderRadius: BorderRadius.all(Radius.circular(10))),
+                                color: pinkColor,
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(10))),
                             child: Column(
                               children: [
                                 Visibility(
                                   visible: couponNotVisible,
                                   child: Row(
-                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
                                     children: [
                                       Container(
-                                        margin: EdgeInsets.only(left: 15, top: 5),
+                                        margin:
+                                            EdgeInsets.only(left: 15, top: 5),
                                         alignment: Alignment.center,
                                         child: Text(
                                           StringConstant.youHaveACouponToUse,
@@ -630,7 +719,8 @@ class _ConfirmBooking extends State<ConfirmBooking> {
                                               color: whiteColor,
                                               fontWeight: FontWeight.w600,
                                               fontSize: 14,
-                                              fontFamily: ConstantFont.montserratMedium),
+                                              fontFamily: ConstantFont
+                                                  .montserratMedium),
                                         ),
                                       ),
                                       GestureDetector(
@@ -638,22 +728,24 @@ class _ConfirmBooking extends State<ConfirmBooking> {
                                           Navigator.pushReplacement(
                                             context,
                                             new MaterialPageRoute(
-                                               builder: (context) =>  Text("TopOffers")//new TopOffers(
-                                              //     1,
-                                              //     selectedEmpId,
-                                              //     time,
-                                              //     date,
-                                              //     totalprice,
-                                              //     selectedServices,
-                                              //     salonId,
-                                              //     _selectedServicesName,
-                                              //     _totalprice,
-                                              //     salonData),
-                                            ),
+                                                builder: (context) => Text(
+                                                    "TopOffers") //new TopOffers(
+                                                //     1,
+                                                //     selectedEmpId,
+                                                //     time,
+                                                //     date,
+                                                //     totalprice,
+                                                //     selectedServices,
+                                                //     salonId,
+                                                //     _selectedServicesName,
+                                                //     _totalprice,
+                                                //     salonData),
+                                                ),
                                           );
                                         },
                                         child: Container(
-                                          margin: EdgeInsets.only(right: 10, top: 6),
+                                          margin: EdgeInsets.only(
+                                              right: 10, top: 6),
                                           alignment: Alignment.center,
                                           child: Text(
                                             StringConstant.clickHere,
@@ -661,7 +753,8 @@ class _ConfirmBooking extends State<ConfirmBooking> {
                                                 color: whiteColor,
                                                 fontWeight: FontWeight.w600,
                                                 fontSize: 14,
-                                                fontFamily: ConstantFont.montserratBold),
+                                                fontFamily: ConstantFont
+                                                    .montserratBold),
                                           ),
                                         ),
                                       )
@@ -671,10 +764,12 @@ class _ConfirmBooking extends State<ConfirmBooking> {
                                 Visibility(
                                   visible: couponVisible,
                                   child: Row(
-                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
                                     children: [
                                       Container(
-                                        margin: EdgeInsets.only(left: 15, top: 5),
+                                        margin:
+                                            EdgeInsets.only(left: 15, top: 5),
                                         alignment: Alignment.center,
                                         child: Text(
                                           StringConstant.couponApplied,
@@ -682,21 +777,26 @@ class _ConfirmBooking extends State<ConfirmBooking> {
                                               color: whiteColor,
                                               fontWeight: FontWeight.w600,
                                               fontSize: 14,
-                                              fontFamily: ConstantFont.montserratMedium),
+                                              fontFamily: ConstantFont
+                                                  .montserratMedium),
                                         ),
                                       ),
                                       GestureDetector(
                                         onTap: () {},
                                         child: Container(
-                                          margin: EdgeInsets.only(right: 10, top: 6),
+                                          margin: EdgeInsets.only(
+                                              right: 10, top: 6),
                                           alignment: Alignment.center,
                                           child: Text(
-                                            'new price: ' + totalprice.toString() + " ₹",
+                                            'new price: ' +
+                                                totalprice.toString() +
+                                                " ₹",
                                             style: TextStyle(
                                                 color: whiteColor,
                                                 fontWeight: FontWeight.w600,
                                                 fontSize: 14,
-                                                fontFamily: ConstantFont.montserratMedium),
+                                                fontFamily: ConstantFont
+                                                    .montserratMedium),
                                           ),
                                         ),
                                       )
@@ -749,7 +849,10 @@ class _ConfirmBooking extends State<ConfirmBooking> {
                                   title: Text(
                                     "${fList[index].name}",
                                     style: TextStyle(
-                                        fontSize: 16, fontFamily: ConstantFont.montserratMedium, color: Colors.black),
+                                        fontSize: 16,
+                                        fontFamily:
+                                            ConstantFont.montserratMedium,
+                                        color: Colors.black),
                                   ),
                                   secondary: Container(
                                       height: 20,
@@ -761,7 +864,8 @@ class _ConfirmBooking extends State<ConfirmBooking> {
                                         width: 30,
                                         fit: BoxFit.fill,
                                       )),
-                                  controlAffinity: ListTileControlAffinity.trailing,
+                                  controlAffinity:
+                                      ListTileControlAffinity.trailing,
                                 ),
                               );
                             },
@@ -769,11 +873,13 @@ class _ConfirmBooking extends State<ConfirmBooking> {
                           Align(
                               alignment: Alignment.bottomRight,
                               child: Padding(
-                                padding: EdgeInsets.only(right: 10.0, bottom: 25),
+                                padding:
+                                    EdgeInsets.only(right: 10.0, bottom: 25),
                                 child: ElevatedButton(
                                   onPressed: () {
                                     if (_result == "") {
-                                      ToastMessage.toastMessage("Please Select Payment method");
+                                      ToastMessage.toastMessage(
+                                          "Veuillez sélectionner le mode de paiement.");
                                     } else {
                                       setState(() {
                                         print(_result);
@@ -785,25 +891,34 @@ class _ConfirmBooking extends State<ConfirmBooking> {
                                           print(widget.totalprice);
                                           print(widget.time);
                                           print(widget.date);
-                                          Navigator.of(context).push(MaterialPageRoute(
-                                              builder: (context) => GenerateStripeToken(
-                                                    stripeKey: stripKey!,
-                                                    salonDetails: widget.salonData,
-                                                    result: "STRIPE",
-                                                    empId: widget.selectedEmpId!,
-                                                    selectedServices: selectedServices!,
-                                                    totalPrice: widget.totalprice!,
-                                                    date: widget.date,
-                                                    time: widget.time,
-                                                  )));
+                                          Navigator.of(context).push(
+                                              MaterialPageRoute(
+                                                  builder: (context) =>
+                                                      GenerateStripeToken(
+                                                        stripeKey: stripKey!,
+                                                        salonDetails:
+                                                            widget.salonData,
+                                                        result: "STRIPE",
+                                                        empId: widget
+                                                            .selectedEmpId!,
+                                                        selectedServices:
+                                                            selectedServices!,
+                                                        totalPrice:
+                                                            widget.totalprice!,
+                                                        date: widget.date,
+                                                        time: widget.time,
+                                                      )));
                                         } else {
-                                          _sucessPayment(context, _radioValue, _result);
+                                          _sucessPayment(
+                                              context, _radioValue, _result);
+
                                         }
                                       });
                                     }
                                   },
                                   child: Text("Pay"),
-                                  style: ElevatedButton.styleFrom(backgroundColor: pinkColor),
+                                  style: ElevatedButton.styleFrom(
+                                      backgroundColor: pinkColor),
                                 ),
                               ))
                         ],
@@ -829,6 +944,7 @@ class _ConfirmBooking extends State<ConfirmBooking> {
         builder: (context) {
           return StatefulBuilder(
             builder: (context, setState) {
+             
               return Container(
                 margin: EdgeInsets.only(top: 30, left: 15, bottom: 20),
                 color: whiteColor,
@@ -854,7 +970,8 @@ class _ConfirmBooking extends State<ConfirmBooking> {
                       Align(
                         alignment: Alignment.center,
                         child: Container(
-                          margin: const EdgeInsets.only(top: 20.0, left: 15.0, right: 15),
+                          margin: const EdgeInsets.only(
+                              top: 20.0, left: 15.0, right: 15),
                           child: Text(
                             StringConstant.yourAppointmentBookingIsSuccessfully,
                             style: TextStyle(
@@ -870,9 +987,11 @@ class _ConfirmBooking extends State<ConfirmBooking> {
                       Align(
                         alignment: Alignment.center,
                         child: Container(
-                          margin: const EdgeInsets.only(top: 20.0, left: 15.0, right: 15),
+                          margin: const EdgeInsets.only(
+                              top: 20.0, left: 15.0, right: 15),
                           child: Text(
-                            StringConstant.youCanSeeYourUpcomingAppointmentInAppointmentSection,
+                            StringConstant
+                                .youCanSeeYourUpcomingAppointmentInAppointmentSection,
                             style: TextStyle(
                                 color: greyColor,
                                 fontFamily: ConstantFont.montserratMedium,
@@ -886,7 +1005,12 @@ class _ConfirmBooking extends State<ConfirmBooking> {
                       GestureDetector(
                         onTap: () {
                           _radioValue = -1;
-                          Navigator.push(context, new MaterialPageRoute(builder: (context) =>  HomeScreen(1) ));
+                          // Navigator.push(context, new MaterialPageRoute(builder: (context) =>  HomeScreen(1) ));
+                          pushNewScreen(
+                            context,
+                            screen: HomeScreen(1),
+                            withNavBar: false,
+                          );
                         },
                         child: Align(
                           alignment: Alignment.center,

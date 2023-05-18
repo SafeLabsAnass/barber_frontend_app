@@ -273,11 +273,11 @@ class _ForgotPassword extends State<ForgotPassword> {
 
           if (responseCode == 401) {
 
-            ToastMessage.toastMessage("Invalid Data");
+            ToastMessage.toastMessage("Données invalide");
             print(responseCode);
             print(res.statusMessage);
           } else if (responseCode == 422) {
-            ToastMessage.toastMessage("Invalid Email");
+            ToastMessage.toastMessage("Email invalide");
             print("code:$responseCode");
             print("msg:$msg");
           }

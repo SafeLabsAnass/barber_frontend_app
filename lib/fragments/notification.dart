@@ -111,7 +111,7 @@ class _Notification1 extends State<Notification1> {
           } else {
             dataVisible = false;
             noDataVisible = true;
-            ToastMessage.toastMessage("No Data");
+            ToastMessage.toastMessage("Pas de données disponibles.");
           }
         }
       });

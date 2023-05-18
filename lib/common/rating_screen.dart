@@ -43,11 +43,11 @@ class _RatingScreenState extends State<RatingScreen> {
           var msg = res.statusMessage;
 
           if (responseCode == 401) {
-            ToastMessage.toastMessage("Invalid Data");
+            ToastMessage.toastMessage("Données invalides.");
             print(responseCode);
             print(res.statusMessage);
           } else if (responseCode == 422) {
-            ToastMessage.toastMessage("Invalid Email");
+            ToastMessage.toastMessage("Email invalide.");
             print("code:$responseCode");
             print("msg:$msg");
           }
@@ -202,7 +202,7 @@ class _RatingScreenState extends State<RatingScreen> {
                   Navigator.pop(context);
                   return;
                 } else {
-                  ToastMessage.toastMessage('Please give star rating.');
+                  ToastMessage.toastMessage('Veuillez donner votre avis en étoiles.');
                   return;
                 }
               }

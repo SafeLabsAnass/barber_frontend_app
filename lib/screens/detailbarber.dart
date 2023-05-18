@@ -33,11 +33,13 @@ class DetailBarber extends StatefulWidget {
   bool isDrawerOpen;
 
   final int? catId;
+  final int? currentSelectedIndex;
 
   DetailBarber(
       {Key? key,
       this.title,
       this.catId,
+      this.currentSelectedIndex,
       required isDrawerOpen,
       required this.onOpen,
       required this.onClose})
@@ -123,7 +125,7 @@ class _DetailBarber extends State<DetailBarber>
       print("Today Is:$day");
 
       setState(() {
-        _controller = new TabController(length: 4, vsync: this);
+        _controller = new TabController(length: 4, vsync: this, initialIndex: 2);
         int? catId = widget.catId;
         print("catId:$catId");
         PreferenceUtils.init();
@@ -334,7 +336,7 @@ class _DetailBarber extends State<DetailBarber>
           dataVisible = false;
           noDataVisible = true;
 
-          ToastMessage.toastMessage("No Data");
+          ToastMessage.toastMessage("Pas de données");
         }
       });
     }).catchError((Object obj) {
@@ -343,7 +345,7 @@ class _DetailBarber extends State<DetailBarber>
       });
       print("error:$obj");
       print(obj.runtimeType);
-      ToastMessage.toastMessage("Internal Server Error");
+      ToastMessage.toastMessage("Erreur interne du serveur");
     });
   }
 
@@ -463,7 +465,7 @@ class _DetailBarber extends State<DetailBarber>
                               children: <Widget>[
                                 TabAbout(salonData, widget.catId, distance),
                                 GalleryView(galleyDataList),
-                                ServiceTab(categoryList, salonId, salonData),
+                                ServiceTab(categoryList, widget.currentSelectedIndex, salonId, salonData),
                                 ReViewTab(reviewList),
                               ],
                             ),

@@ -23,6 +23,6 @@ Color mustardColor=Color(0xFFFFF2D3);
 Color greenColor=Colors.green;
 Color whiteDD=Color(0xffdddddd);
 Color beigeColor = Color(0xffF2E9E6);
-Color drawerColor = Color(0xFF902B57);
+Color drawerColor = Color(0xFFB8517E);
 
 

@@ -123,7 +123,7 @@ class _GenerateStripeTokenState extends State<GenerateStripeToken> {
       return;
     } catch (e) {
       print(e);
-      ToastMessage.toastMessage("Error:" + e.toString());
+      ToastMessage.toastMessage("Erreur:" + e.toString());
       rethrow;
     }
   }
@@ -145,7 +145,7 @@ class _GenerateStripeTokenState extends State<GenerateStripeToken> {
         if (response.success = true) {
           showSucess();
         } else {
-          ToastMessage.toastMessage("No Data");
+          ToastMessage.toastMessage("Pas de données");
         }
       });
     }).catchError((Object obj) {

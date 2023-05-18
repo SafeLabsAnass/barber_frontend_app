@@ -126,7 +126,7 @@ class _BookAppointment extends State<BookAppoitment> with TickerProviderStateMix
       });
       print("error:$obj");
       print(obj.runtimeType);
-      ToastMessage.toastMessage("No employee available at this time");
+      ToastMessage.toastMessage("Aucun employé n'est disponible pour le moment.");
     });
   }
 
@@ -678,7 +678,7 @@ class _BookAppointment extends State<BookAppoitment> with TickerProviderStateMix
                                     child: TextButton(
                                       onPressed: () {
                                         if (selectedEmpId == null) {
-                                          ToastMessage.toastMessage("Select Employee");
+                                          ToastMessage.toastMessage("Veuillez sélectionner un employé.");
                                         } else {
                                           print("SelectedEmpId:$selectedEmpId");
                                           print("SelectedTime:$time");

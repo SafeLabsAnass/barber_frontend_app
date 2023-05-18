@@ -26,6 +26,7 @@ import 'package:intl/intl.dart';
 import 'package:barber_app/screens/loginscreen.dart';
 import 'package:dio/dio.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
+import 'package:persistent_bottom_nav_bar_ccc/persistent-tab-view.dart';
 
 class Appoinment extends StatefulWidget {
   Appoinment(
@@ -138,7 +139,7 @@ class _Appoinment extends State<Appoinment>
               noCompleteDataVisible = true;
             }
           } else {
-            ToastMessage.toastMessage("No Data");
+            ToastMessage.toastMessage("Pas de données disponibles.");
           }
         });
       }
@@ -148,7 +149,7 @@ class _Appoinment extends State<Appoinment>
       });
       print("error123456:$obj");
       print(obj.runtimeType);
-      ToastMessage.toastMessage("Internal Server Error");
+      ToastMessage.toastMessage("Erreur interne du serveur");
     });
   }
 
@@ -165,7 +166,7 @@ class _Appoinment extends State<Appoinment>
           AppConstant.checkNetwork()
               .whenComplete(() => CallApiForAppointment());
         } else {
-          ToastMessage.toastMessage("No Data");
+          ToastMessage.toastMessage("Pas de données disponibles");
         }
       });
     }).catchError((Object obj) {
@@ -2218,10 +2219,15 @@ class _Appoinment extends State<Appoinment>
         if (response.success = true) {
           print("sucess");
           ToastMessage.toastMessage(response.msg!);
-          Navigator.push(
-            context,
-            MaterialPageRoute(builder: (context) => HomeScreen(1)),
-          );
+          // Navigator.push(
+          //   context,
+          //   MaterialPageRoute(builder: (context) => HomeScreen(1)),
+          // );
+          pushNewScreen(
+                            context,
+                            screen: HomeScreen(1),
+                            withNavBar: false,
+                          );
         }
       });
     }).catchError((Object obj) {
@@ -2236,11 +2242,11 @@ class _Appoinment extends State<Appoinment>
           var msg = res.statusMessage;
 
           if (responseCode == 401) {
-            ToastMessage.toastMessage("Invalid Data");
+            ToastMessage.toastMessage("Data invalide ");
             print(responseCode);
             print(res.statusMessage);
           } else if (responseCode == 422) {
-            ToastMessage.toastMessage("Invalid Email");
+            ToastMessage.toastMessage("Email invalide");
             print("code:$responseCode");
             print("msg:$msg");
           }
@@ -2451,8 +2457,7 @@ class _Appoinment extends State<Appoinment>
                                     Navigator.pop(context);
                                     return;
                                   } else {
-                                    ToastMessage.toastMessage(
-                                        'Please give star rating.');
+                                    ToastMessage.toastMessage('Veuillez donner votre avis en étoiles.');
                                     return;
                                   }
                                 }

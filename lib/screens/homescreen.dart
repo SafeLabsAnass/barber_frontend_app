@@ -53,7 +53,7 @@ class _HomeScreen extends State<HomeScreen> {
         SystemUiOverlayStyle(statusBarBrightness: Brightness.dark));
 
     return new Scaffold(
-
+      resizeToAvoidBottomInset: false,
       body: Stack(
         children:[ 
         DrawerOnly(),
@@ -97,7 +97,7 @@ class _HomeScreen extends State<HomeScreen> {
             PreferenceUtils.setString(
                 AppConstant.username, response.data!.name!);
           } else {
-            ToastMessage.toastMessage("No Data");
+            ToastMessage.toastMessage("Pas de données");
           }
         });
       }
