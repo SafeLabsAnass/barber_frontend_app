@@ -20,11 +20,7 @@ import 'package:table_calendar/table_calendar.dart';
 
 import 'confirmbooking.dart';
 
-void main() {
-  runApp(new MaterialApp(
-    debugShowCheckedModeBanner: false,
-  ));
-}
+
 
 class BookAppoitment extends StatefulWidget {
   final double totalprice;
@@ -130,7 +126,7 @@ class _BookAppointment extends State<BookAppoitment> with TickerProviderStateMix
       });
       print("error:$obj");
       print(obj.runtimeType);
-      ToastMessage.toastMessage("No employee available at this time");
+      ToastMessage.toastMessage("Aucun employé n'est disponible pour le moment.");
     });
   }
 
@@ -634,7 +630,7 @@ class _BookAppointment extends State<BookAppoitment> with TickerProviderStateMix
                           maintainState: true,
                           visible: viewVisible1,
                           child: Container(
-                            margin: EdgeInsets.only(top: 10, bottom: 50),
+                            margin: EdgeInsets.only(top: 10, bottom: 0),
                             color: whiteColor,
                             height: 60,
                             child: Row(
@@ -682,7 +678,7 @@ class _BookAppointment extends State<BookAppoitment> with TickerProviderStateMix
                                     child: TextButton(
                                       onPressed: () {
                                         if (selectedEmpId == null) {
-                                          ToastMessage.toastMessage("Select Employee");
+                                          ToastMessage.toastMessage("Veuillez sélectionner un employé.");
                                         } else {
                                           print("SelectedEmpId:$selectedEmpId");
                                           print("SelectedTime:$time");

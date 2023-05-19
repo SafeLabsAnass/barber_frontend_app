@@ -327,7 +327,7 @@ class _LoginScreen extends State<LoginScreen> {
         PreferenceUtils.setlogin(AppConstant.isLoggedIn, true);
         bool? login123 = PreferenceUtils.getlogin(AppConstant.isLoggedIn);
         print("login123:$login123");
-        ToastMessage.toastMessage("login successfully");
+        ToastMessage.toastMessage("Connexion réussie");
 
         print("WidgetIndex:${widget.index}");
 
@@ -345,14 +345,14 @@ class _LoginScreen extends State<LoginScreen> {
         print(msg);
 
         if (msg == "Verify your account") {
-          ToastMessage.toastMessage("Verify your account");
+          ToastMessage.toastMessage("Veuillez vérifier votre compte.");
 
           var userid = body['data'].toString();
           print("loginUserid:$userid");
           PreferenceUtils.setString(AppConstant.userid, userid);
           PreferenceUtils.setString(AppConstant.useremail, email);
           PreferenceUtils.setlogin(AppConstant.isLoggedIn, true);
-          ToastMessage.toastMessage("login successfully");
+          ToastMessage.toastMessage("Connexion réussie.");
 
           Navigator.push(
             context,
@@ -375,7 +375,7 @@ class _LoginScreen extends State<LoginScreen> {
           var responseCode = res.statusCode;
 
           if (responseCode == 401) {
-            ToastMessage.toastMessage("Invalid email or password");
+            ToastMessage.toastMessage("Email ou mot de passe invalide.");
 
             print("Got error : ${res.statusCode} -> ${res.statusMessage}");
             print("Invalid email or password");
@@ -405,7 +405,7 @@ class _LoginScreen extends State<LoginScreen> {
               MaterialPageRoute(builder: (context) => HomeScreen(1)),
             );
           } else {
-            ToastMessage.toastMessage("No Data");
+            ToastMessage.toastMessage("Pas de données");
           }
         });
       }
@@ -415,7 +415,7 @@ class _LoginScreen extends State<LoginScreen> {
       });
       print("error:$obj");
       print(obj.runtimeType);
-      ToastMessage.toastMessage("Internal Server Error");
+      ToastMessage.toastMessage("Erreur interne du serveur");
     });
   }
 
@@ -451,7 +451,7 @@ class _LoginScreen extends State<LoginScreen> {
         style: TextStyle(fontSize: 20),
       ),
       content: Text(
-        "The Barber App uses location data to find nearby Barber Shops, even when app is in background.",
+        "Cindy Beauty App uses location data to find nearby Barber Shops, even when app is in background.",
         style: TextStyle(fontSize: 18),
       ),
       actions: [

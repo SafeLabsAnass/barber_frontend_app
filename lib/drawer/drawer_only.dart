@@ -10,6 +10,7 @@ import 'package:barber_app/drawerscreen/about.dart';
 import 'package:barber_app/drawerscreen/privacypolicy.dart';
 import 'package:barber_app/drawerscreen/tems_condition.dart';
 import 'package:barber_app/drawerscreen/top_offers.dart';
+import 'package:barber_app/fragments/profile.dart';
 import 'package:barber_app/main.dart';
 import 'package:barber_app/network/Apiservice.dart';
 import 'package:barber_app/network/BaseModel.dart';
@@ -20,7 +21,6 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_share/flutter_share.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
-import 'package:get/get.dart';
 
 // ignore: must_be_immutable
 class DrawerOnly extends StatefulWidget {
@@ -30,6 +30,30 @@ class DrawerOnly extends StatefulWidget {
 
 class _DrawerOnlyState extends State<DrawerOnly> {
   late String? name = "User";
+
+  double xOffset = 0;
+  double yOffset = 0;
+  double scaleFactor = 1;
+  bool isDrawerOpen = false;
+  void onOpen(){
+    setState(() {
+      xOffset=220;
+      yOffset=130;
+      scaleFactor=0.7;
+      isDrawerOpen=true;
+    });
+    }
+
+   void onClose(){
+    setState(() {
+      xOffset=0;
+      yOffset=0;
+      scaleFactor=1;
+      isDrawerOpen=false;
+    });
+   }
+
+
 
   @override
   Widget build(BuildContext context) {
@@ -44,81 +68,91 @@ class _DrawerOnlyState extends State<DrawerOnly> {
     return Material(
       child: SafeArea(
         child: Container(
-            color: Color.fromARGB(255, 253, 237, 242),
+            color: drawerColor,
             child: Column(
-
+                
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
 
-                  Container(
-                    padding: EdgeInsets.only(left: 15.0, top: 10.0, bottom: 10),
-                    alignment: Alignment.center,
-                    height: 80,
-                    width: double.infinity,
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Expanded(
-                          child: Row(
-                            children: [
-                              CachedNetworkImage(
-                                height: 60,
-                                width: 60,
-                                imageUrl: PreferenceUtils.getString(
-                                    AppConstant.fullImage),
-                                imageBuilder: (context, imageProvider) =>
-                                    ClipOval(
-                                  child: Image(
-                                    image: imageProvider,
-                                    fit: BoxFit.fill,
+                  Padding(
+                    padding: EdgeInsets.only(top: 20),
+                    child: Container(
+                      padding: EdgeInsets.only(left: 15.0, top: 10.0, bottom: 10),
+                      alignment: Alignment.center,
+                      height: 80,
+                      width: double.infinity,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Expanded(
+                            child: Row(
+                              children: [
+                                GestureDetector(
+                                  onTap: () {
+                                    Navigator.of(context).push(
+                                      MaterialPageRoute(builder: (context) => Profile(isDrawerOpen: isDrawerOpen,onOpen: onOpen, onClose: onClose))
+                                    );
+                                  },
+                                  child: CachedNetworkImage(
+                                    height: 60,
+                                    width: 60,
+                                    imageUrl: PreferenceUtils.getString(
+                                        AppConstant.fullImage),
+                                    imageBuilder: (context, imageProvider) =>
+                                        ClipOval(
+                                      child: Image(
+                                        image: imageProvider,
+                                        fit: BoxFit.cover,
+                                      ),
+                                    ),
+                                    placeholder: (context, url) =>
+                                        SpinKitFadingCircle(
+                                      color: pinkColor,
+                                      size: 5,
+                                    ),
+                                    errorWidget: (context, url, error) =>
+                                        Image.asset(DummyImage.noImage),
                                   ),
                                 ),
-                                placeholder: (context, url) =>
-                                    SpinKitFadingCircle(
-                                  color: pinkColor,
-                                  size: 5,
+                                Expanded(
+                                  child: Padding(
+                                      padding: EdgeInsets.only(left: 12.0),
+                                      child:   Text(
+                                            name![0].toUpperCase() + name!.substring(1).toLowerCase(),
+                                            overflow: TextOverflow.ellipsis,
+                                            maxLines: 1,
+                                            style: TextStyle(
+                                                color: beigeColor,
+                                                fontSize: 15,
+                  
+                                                fontWeight: FontWeight.w500,
+                                                fontFamily: 'Montserrat'),
+                                          ),
+                                      
+                  
+                                      //Text(
+                                      //   'Hi, ' + name!,
+                                      //   overflow: TextOverflow.ellipsis,
+                                      //   maxLines: 1,
+                                      //   style: TextStyle(
+                                      //       color: beigeColor , fontSize: 15, fontWeight: FontWeight.w600, fontFamily: 'Montserrat'),
+                                      // ),
+                                      ),
                                 ),
-                                errorWidget: (context, url, error) =>
-                                    Image.asset(DummyImage.noImage),
-                              ),
-                              Expanded(
-                                child: Padding(
-                                    padding: EdgeInsets.only(left: 12.0),
-                                    child:   Text(
-                                          name![0].toUpperCase() + name!.substring(1).toLowerCase(),
-                                          overflow: TextOverflow.ellipsis,
-                                          maxLines: 1,
-                                          style: TextStyle(
-                                              color: pinkColor,
-                                              fontSize: 14,
-
-                                              fontWeight: FontWeight.w600,
-                                              fontFamily: 'Montserrat'),
-                                        ),
-                                    
-
-                                    //Text(
-                                    //   'Hi, ' + name!,
-                                    //   overflow: TextOverflow.ellipsis,
-                                    //   maxLines: 1,
-                                    //   style: TextStyle(
-                                    //       color: blackColor, fontSize: 15, fontWeight: FontWeight.w600, fontFamily: 'Montserrat'),
-                                    // ),
-                                    ),
-                              ),
-                            ],
+                              ],
+                            ),
                           ),
-                        ),
-                        // IconButton(
-                        //   onPressed: () {
-                        //     Navigator.of(context).pop();
-                        //   },
-                        //   icon: Icon(
-                        //     Icons.arrow_back_ios,
-                        //     color: Colors.black,
-                        //   ),
-                        // ),
-                      ],
+                          // IconButton(
+                          //   onPressed: () {
+                          //     Navigator.of(context).pop();
+                          //   },
+                          //   icon: Icon(
+                          //     Icons.arrow_back_ios,
+                          //     color: Colors.black,
+                          //   ),
+                          // ),
+                        ],
+                      ),
                     ),
                   ),
                  
@@ -152,14 +186,14 @@ class _DrawerOnlyState extends State<DrawerOnly> {
                         },
                         child: Row(
                           children: [
-                            Icon(Icons.card_giftcard_rounded, size: 25.0),
+                            Icon(Icons.card_giftcard_rounded, size: 25.0, color: beigeColor,),
                             SizedBox(width: 8.0), // Adjust the width as desired
                             Text(
                               StringConstant.topOffers,
                               style: TextStyle(
-                                color: blackColor,
-                                fontSize: 15,
-                                fontWeight: FontWeight.w600,
+                                color: beigeColor ,
+                                fontSize: 13.5,
+                                fontWeight: FontWeight.w500,
                                 fontFamily: 'Montserrat',
                               ),
                             ),
@@ -169,7 +203,7 @@ class _DrawerOnlyState extends State<DrawerOnly> {
                     ),
                     Container(
                         alignment: Alignment.centerLeft,
-                        margin: EdgeInsets.only(left: 20.0, top: 40.0),
+                        margin: EdgeInsets.only(left: 20.0, top: 20.0),
                         child: GestureDetector(
                           onTap: () {
                             Navigator.of(context).pop();
@@ -185,14 +219,15 @@ class _DrawerOnlyState extends State<DrawerOnly> {
                                 //
                                 Icons.list_alt_outlined,
                                 size: 25.0,
+                                 color: beigeColor 
                               ),
                               SizedBox(width: 8.0),
                               Text(
                                 StringConstant.termsAndConditions,
                                 style: TextStyle(
-                                    color: blackColor,
-                                    fontSize: 15,
-                                    fontWeight: FontWeight.w600,
+                                    color: beigeColor ,
+                                    fontSize: 13.5,
+                                    fontWeight: FontWeight.w500,
                                     fontFamily: 'Montserrat'),
                               ),
                             ],
@@ -200,7 +235,7 @@ class _DrawerOnlyState extends State<DrawerOnly> {
                         )),
                     Container(
                         alignment: Alignment.centerLeft,
-                        margin: EdgeInsets.only(left: 20.0, top: 40.0),
+                        margin: EdgeInsets.only(left: 20.0, top: 20.0),
                         child: GestureDetector(
                           onTap: () {
                             Navigator.of(context).pop();
@@ -215,14 +250,15 @@ class _DrawerOnlyState extends State<DrawerOnly> {
                               Icon(
                                 Icons.inventory_outlined,
                                 size: 25.0,
+                                color: beigeColor 
                               ),
                               SizedBox(width: 8.0),
                               Text(
                                 StringConstant.privacyAndPolicy,
                                 style: TextStyle(
-                                    color: blackColor,
-                                    fontSize: 15,
-                                    fontWeight: FontWeight.w600,
+                                    color: beigeColor ,
+                                    fontSize: 13.5,
+                                    fontWeight: FontWeight.w500,
                                     fontFamily: 'Montserrat'),
                               ),
                             ],
@@ -230,7 +266,7 @@ class _DrawerOnlyState extends State<DrawerOnly> {
                         )),
                     Container(
                       alignment: Alignment.centerLeft,
-                      margin: EdgeInsets.only(left: 20.0, top: 40.0),
+                      margin: EdgeInsets.only(left: 20.0, top: 20.0),
                       child: GestureDetector(
                         onTap: () {
                           // Navigator.pop(context);
@@ -241,14 +277,17 @@ class _DrawerOnlyState extends State<DrawerOnly> {
                             Icon(
                               Icons.group_add_outlined ,
                               size: 25.0,
+                              color: beigeColor 
+
+                      
                             ),
                             SizedBox(width: 8.0),
                             Text(
                               StringConstant.inviteAFriends,
                               style: TextStyle(
-                                  color: blackColor,
-                                  fontSize: 15,
-                                  fontWeight: FontWeight.w600,
+                                  color: beigeColor ,
+                                  fontSize: 13.5,
+                                  fontWeight: FontWeight.w500,
                                   fontFamily: 'Montserrat'),
                             )
                           ],
@@ -257,7 +296,7 @@ class _DrawerOnlyState extends State<DrawerOnly> {
                     ),
                     Container(
                       alignment: Alignment.centerLeft,
-                      margin: EdgeInsets.only(left: 20.0, top: 40.0),
+                      margin: EdgeInsets.only(left: 20.0, top: 20.0),
                       child: GestureDetector(
                         onTap: () {
                           Navigator.of(context).pop();
@@ -271,14 +310,15 @@ class _DrawerOnlyState extends State<DrawerOnly> {
                           Icon(
                             Icons.info_outline_rounded,
                             size: 25.0,
+                            color: beigeColor 
                           ),
                           SizedBox(width: 8.0),
                           Text(
                             StringConstant.about,
                             style: TextStyle(
-                                color: blackColor,
-                                fontSize: 15,
-                                fontWeight: FontWeight.w600,
+                                color: beigeColor ,
+                                fontSize: 13.5,
+                                fontWeight: FontWeight.w500,
                                 fontFamily: 'Montserrat'),
                           ),
                         ]),
@@ -290,7 +330,7 @@ class _DrawerOnlyState extends State<DrawerOnly> {
                               true,
                       child: Container(
                           alignment: Alignment.centerLeft,
-                          margin: EdgeInsets.only(left: 20.0, top: 40.0),
+                          margin: EdgeInsets.only(left: 20.0, top: 20.0),
                           child: GestureDetector(
                             onTap: () {
                               // Navigator.of(context).pop();
@@ -302,14 +342,15 @@ class _DrawerOnlyState extends State<DrawerOnly> {
                                 Icon(
                                   Icons.delete_outline,
                                   size: 25.0,
+                                  color: beigeColor 
                                 ),
                                 SizedBox(width: 8.0),
                                 Text(
                                   StringConstant.deleteAccount,
                                   style: TextStyle(
-                                      color: blackColor,
-                                      fontSize: 15,
-                                      fontWeight: FontWeight.w600,
+                                      color: beigeColor ,
+                                      fontSize: 13.5,
+                                      fontWeight: FontWeight.w500,
                                       fontFamily: 'Montserrat'),
                                 ),
                               ],
@@ -323,7 +364,7 @@ class _DrawerOnlyState extends State<DrawerOnly> {
                         true,
                     child: Container(
                         alignment: Alignment.centerLeft,
-                        margin: EdgeInsets.only(left: 20.0, top: 40.0, bottom:10.0),
+                        margin: EdgeInsets.only(left: 20.0, top: 20.0, bottom:10.0),
                         child: GestureDetector(
                           onTap: () async {
                             showAlertDialog(context);
@@ -332,14 +373,15 @@ class _DrawerOnlyState extends State<DrawerOnly> {
                             Icon(
                               Icons.logout,
                               size: 25.0,
+                              color: beigeColor 
                             ),
                             SizedBox(width: 8.0),
                             Text(
                               StringConstant.logout,
                               style: TextStyle(
-                                  color: blackColor,
-                                  fontSize: 15,
-                                  fontWeight: FontWeight.w600,
+                                  color: beigeColor ,
+                                  fontSize: 14,
+                                  fontWeight: FontWeight.w900,
                                   fontFamily: 'Montserrat'),
                             ),
                           ]),
@@ -431,7 +473,7 @@ class _DrawerOnlyState extends State<DrawerOnly> {
                 ),
                 style: ElevatedButton.styleFrom(
                     elevation: 0,
-                    backgroundColor: whiteColor,
+                    backgroundColor: beigeColor ,
                     side: BorderSide(color: grey99)),
               ),
               ElevatedButton(

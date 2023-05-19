@@ -20,6 +20,7 @@ import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
+import 'package:persistent_bottom_nav_bar_ccc/persistent-tab-view.dart';
 
 class EditProfile extends StatefulWidget {
   final ShowProfileData? showProfile;
@@ -102,10 +103,15 @@ class _EditProfile extends State<EditProfile> {
         if (response.success = true) {
           print(response.msg);
 
-          Navigator.of(context)
-              .push(MaterialPageRoute(builder: (context) => new HomeScreen(3)));
+          // Navigator.of(context)
+          //     .push(MaterialPageRoute(builder: (context) => new HomeScreen(3)));
+          pushNewScreen(
+            context,
+            screen: HomeScreen(3),
+            withNavBar: false,
+          );
         } else {
-          ToastMessage.toastMessage("No Data");
+          ToastMessage.toastMessage("Pas de données disponibles.");
         }
       });
     }).catchError((Object obj) {
@@ -230,8 +236,8 @@ class _EditProfile extends State<EditProfile> {
                                           radius: 30,
                                           backgroundColor: Colors.transparent,
                                           child: Container(
-                                            height: 90,
-                                            width: 90,
+                                            height: 150,
+                                            width: 100,
                                             child: GestureDetector(
                                               onTap: () async {
                                                 selectImage(context);
@@ -245,6 +251,8 @@ class _EditProfile extends State<EditProfile> {
                                                               imageProvider) =>
                                                           ClipOval(
                                                         child: Image(
+                                                          width: 80,
+                                                          height: 80,
                                                           image: imageProvider,
                                                           fit: BoxFit.fill,
                                                         ),
@@ -646,7 +654,7 @@ class _EditProfile extends State<EditProfile> {
                           ),
                         ),
                         style: ElevatedButton.styleFrom(
-                          backgroundColor: blue4a,
+                          backgroundColor: pinkColor,
                           shape: new RoundedRectangleBorder(
                             borderRadius: new BorderRadius.circular(8.0),
                           ),

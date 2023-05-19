@@ -160,7 +160,7 @@ class _OtpScreen extends State<OtpScreen> {
                         } else if (connectivityResult == ConnectivityResult.wifi) {
                           callOtpCheckApi(otp);
                         } else {
-                          ToastMessage.toastMessage("No Internet Connection");
+                          ToastMessage.toastMessage("Pas de connexion Internet");
                         }
                       },
                       pinBoxWidth: 50,
@@ -189,7 +189,7 @@ class _OtpScreen extends State<OtpScreen> {
                         color: pinkColor,
                         onPressed: () async {
                           if (otp.length == 0 && otp.length < 4) {
-                            ToastMessage.toastMessage("Invalid Text");
+                            ToastMessage.toastMessage("Text invalide");
                           } else {
                             var connectivityResult = await (Connectivity().checkConnectivity());
                             if (connectivityResult == ConnectivityResult.mobile) {
@@ -197,7 +197,7 @@ class _OtpScreen extends State<OtpScreen> {
                             } else if (connectivityResult == ConnectivityResult.wifi) {
                               callOtpCheckApi(otp);
                             } else {
-                              ToastMessage.toastMessage("No Internet Connection");
+                              ToastMessage.toastMessage("Pas de connexion Internet");
                             }
                           }
                         },
@@ -227,7 +227,7 @@ class _OtpScreen extends State<OtpScreen> {
                                 } else if (connectivityResult == ConnectivityResult.wifi) {
                                   callResendOtpApi();
                                 } else {
-                                  ToastMessage.toastMessage("No Internet Connection");
+                                  ToastMessage.toastMessage("Pas de connexion Internet");
                                 }
                               },
                               child: new Row(
@@ -341,11 +341,11 @@ class _OtpScreen extends State<OtpScreen> {
           print(responseCode);
 
           if (responseCode == 401) {
-            ToastMessage.toastMessage("Invalid Otp");
+            ToastMessage.toastMessage("Otp invalide");
           } else if (responseCode == 422) {
             print("Invalid OTP");
           } else if (responseCode == 500) {
-            ToastMessage.toastMessage("Internal Server Error");
+            ToastMessage.toastMessage("Erreur interne du serveur");
           }
 
           break;
@@ -403,11 +403,11 @@ class _OtpScreen extends State<OtpScreen> {
           print(responseCode);
 
           if (responseCode == 401) {
-            ToastMessage.toastMessage("Invalid Otp");
+            ToastMessage.toastMessage("Otp Invalide");
           } else if (responseCode == 422) {
             print("Invalid OTP");
           } else if (responseCode == 500) {
-            ToastMessage.toastMessage("Internal Server Error");
+            ToastMessage.toastMessage("Erreur interne du serveur.");
           }
 
           break;

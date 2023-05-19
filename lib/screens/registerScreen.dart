@@ -457,7 +457,7 @@ class _RegisterScreen extends State<RegisterScreen> {
                                             _selectedCountryCode);
                                           } else {
                                             ToastMessage.toastMessage(
-                                            "No Internet Connection");
+                                            "Pas de connexion Internet");
                                           }
                                         }
                                       },

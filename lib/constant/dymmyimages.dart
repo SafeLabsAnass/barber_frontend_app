@@ -30,5 +30,8 @@ class DummyImage{
   static const String distance="images/distance.svg";
   static const String forgotPassword="images/forgotpassword.png";
   static const String mainLogo="images/main_logo.png";
+    static const String salonBg="images/salonbg.jpg";
+
+
 
 }

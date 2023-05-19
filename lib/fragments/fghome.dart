@@ -171,7 +171,7 @@ class _FgHome extends State<FgHome> {
             int length123 = image12.length;
             print("StringListSize:$length123");
           } else {
-            ToastMessage.toastMessage("No Data");
+            ToastMessage.toastMessage("Pas de données disponibles.");
           }
         });
       }
@@ -197,7 +197,7 @@ class _FgHome extends State<FgHome> {
             print('response data length:  ${response.data!.length}');
             categoryDataList.addAll(response.data!);
           } else {
-            ToastMessage.toastMessage("No Data");
+            ToastMessage.toastMessage("Pas de données disponibles.");
           }
         });
       }
@@ -435,7 +435,7 @@ class _FgHome extends State<FgHome> {
                                     width: MediaQuery.of(context).size.width,
                                     child: Center(
                                         child: Text(
-                                      "No Data Found",
+                                      "Pas de données disponibles.",
                                       style: TextStyle(fontFamily: ConstantFont.montserratSemiBold, color: whiteA3),
                                     ))),
                               ),
@@ -490,9 +490,9 @@ class _FgHome extends State<FgHome> {
                                       padding: EdgeInsets.only(bottom: 5),
                                       child: GestureDetector(
                                         onTap: () {
-                                          print(index);
+                                          print(" index: ${index}");
                                           Navigator.of(context).push(MaterialPageRoute(
-                                              builder: (context) => new DetailBarber(catId:categoryDataList[index].catId,isDrawerOpen: widget.isDrawerOpen, onOpen: widget.onOpen,onClose: widget.onClose,)));
+                                              builder: (context) => new DetailBarber(catId:categoryDataList[index].catId, currentSelectedIndex:index, isDrawerOpen: widget.isDrawerOpen, onOpen: widget.onOpen,onClose: widget.onClose,)));
                                         },
                                         child: Container(
                                           margin: EdgeInsets.only(

@@ -114,7 +114,7 @@ class AppConstant {
     } else if (connectivityResult == ConnectivityResult.wifi) {
       return true;
     } else {
-      ToastMessage.toastMessage("No Internet Connection");
+      ToastMessage.toastMessage("Pas de connexion Internet");
       return false;
     }
   }

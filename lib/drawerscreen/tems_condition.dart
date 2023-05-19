@@ -80,7 +80,7 @@ class _TermsCondition extends State<TermsCondition> {
               response.data!.appId!.isNotEmpty ? response.data!.appId! : "");
         } else {
           dataVisible = false;
-          ToastMessage.toastMessage("No Data");
+          ToastMessage.toastMessage("Pas de données");
         }
       });
     }).catchError((Object obj) {

@@ -52,7 +52,7 @@ class _ReViewTab extends State<ReViewTab> {
           resizeToAvoidBottomInset: false,
           backgroundColor: whiteColor,
           body: Padding(
-              padding: EdgeInsets.only(top: 0, left: 15, right: 15, bottom: 50),
+              padding: EdgeInsets.only(top: 0, left: 15, right: 15, bottom: 0),
 
               child: ListView(
                 children: <Widget>[

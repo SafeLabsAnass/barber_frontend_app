@@ -92,7 +92,7 @@ class _About extends State<About> {
         } else {
           dataVisible = false;
           noDataVisible = true;
-          ToastMessage.toastMessage("No Data");
+          ToastMessage.toastMessage("Pas de données.");
         }
       });
     }).catchError((Object obj) {

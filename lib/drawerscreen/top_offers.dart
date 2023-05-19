@@ -107,7 +107,7 @@ class _TopOffers extends State<TopOffers> {
             int length123 = image12.length;
             print("String List:$length123");
           } else {
-            ToastMessage.toastMessage("No Data");
+            ToastMessage.toastMessage("Pas de données");
           }
         });
       } else {
@@ -121,7 +121,7 @@ class _TopOffers extends State<TopOffers> {
           int length123 = image12.length;
           print("String List:$length123");
         } else {
-          ToastMessage.toastMessage("No Data");
+          ToastMessage.toastMessage("Pas de données");
         }
       }
     }).catchError((Object obj) {
@@ -130,7 +130,7 @@ class _TopOffers extends State<TopOffers> {
       });
       print("error:$obj");
       print(obj.runtimeType);
-      ToastMessage.toastMessage("Internal Server Error");
+      ToastMessage.toastMessage("Erreur interne du serveur.");
     });
   }
 
@@ -149,7 +149,7 @@ class _TopOffers extends State<TopOffers> {
             int size = offerDataList.length;
             print("offerSize:$size");
           } else {
-            ToastMessage.toastMessage("No Data");
+            ToastMessage.toastMessage("Pas de données.");
           }
         });
       } else {
@@ -160,7 +160,7 @@ class _TopOffers extends State<TopOffers> {
           int size = offerDataList.length;
           print("offerSize:$size");
         } else {
-          ToastMessage.toastMessage("No Data");
+          ToastMessage.toastMessage("Pas de données.");
         }
       }
     }).catchError((Object obj) {
@@ -169,7 +169,7 @@ class _TopOffers extends State<TopOffers> {
       });
       print("error:$obj");
       print(obj.runtimeType);
-      ToastMessage.toastMessage("Internal Server Error");
+      ToastMessage.toastMessage("Erreur interne du serveur.");
     });
   }
 
@@ -264,11 +264,11 @@ class _TopOffers extends State<TopOffers> {
           var msg = res.statusMessage;
 
           if (responseCode == 401) {
-            ToastMessage.toastMessage("Invalid Data");
+            ToastMessage.toastMessage("Données invalides.");
             print(responseCode);
             print(res.statusMessage);
           } else if (responseCode == 422) {
-            ToastMessage.toastMessage("Invalid Email");
+            ToastMessage.toastMessage("Email invalide ");
             print("code:$responseCode");
             print("msg:$msg");
           }
@@ -710,7 +710,7 @@ class _TopOffers extends State<TopOffers> {
                                                                       -1) {
                                                                     ToastMessage
                                                                         .toastMessage(
-                                                                            "First Book Appointment from Home");
+                                                                            "Réserver un rendez-vous depuis la page d'accueil.");
                                                                     print(
                                                                         "not apply");
                                                                   } else if (code ==

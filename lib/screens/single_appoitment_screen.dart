@@ -77,7 +77,7 @@ class _SingleAppoitmentScreenState extends State<SingleAppoitmentScreen> {
       ),
       body: _loading == true
           ? Center(
-              child: Text("No Data Found"),
+              child: Text("Pas de données disponibles."),
             )
           : appoitmentData == null
               ? Center(child: SpinKitFadingCircle(color: pinkColor))
@@ -140,7 +140,7 @@ class _SingleAppoitmentScreenState extends State<SingleAppoitmentScreen> {
                 children: [
                   Text(
                     PreferenceUtils.getString(AppConstant.singlesalonName) == ""
-                        ? "The Single Barber"
+                        ? "Cindy Beauty"
                         : PreferenceUtils.getString(AppConstant.singlesalonName),
                     style: TextStyle(
                         fontFamily: ConstantFont.montserratBold,

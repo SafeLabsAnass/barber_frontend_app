@@ -26,10 +26,16 @@ import 'package:intl/intl.dart';
 import 'package:barber_app/screens/loginscreen.dart';
 import 'package:dio/dio.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
+import 'package:persistent_bottom_nav_bar_ccc/persistent-tab-view.dart';
 
 class Appoinment extends StatefulWidget {
-   Appoinment({Key? key,required isDrawerOpen, required this.onOpen, required this.onClose}) : 
-   isDrawerOpen = isDrawerOpen,super(key: key);
+  Appoinment(
+      {Key? key,
+      required isDrawerOpen,
+      required this.onOpen,
+      required this.onClose})
+      : isDrawerOpen = isDrawerOpen,
+        super(key: key);
 
   final bool isDrawerOpen;
   final VoidCallback onOpen;
@@ -39,8 +45,10 @@ class Appoinment extends StatefulWidget {
   _Appoinment createState() => new _Appoinment();
 }
 
-class _Appoinment extends State<Appoinment> with SingleTickerProviderStateMixin {
-  final GlobalKey<ScaffoldState> _drawerScaffoldKey = new GlobalKey<ScaffoldState>();
+class _Appoinment extends State<Appoinment>
+    with SingleTickerProviderStateMixin {
+  final GlobalKey<ScaffoldState> _drawerScaffoldKey =
+      new GlobalKey<ScaffoldState>();
 
   List<Completed> completedDataList = <Completed>[];
   List<Cancel> cancelDataList = <Cancel>[];
@@ -74,16 +82,19 @@ class _Appoinment extends State<Appoinment> with SingleTickerProviderStateMixin 
     super.initState();
     if (mounted) {
       setState(() {
-        _controller = new TabController(length: 3, vsync: this, initialIndex: tabIndex);
+        _controller =
+            new TabController(length: 3, vsync: this, initialIndex: tabIndex);
         PreferenceUtils.init();
         name = PreferenceUtils.getString(AppConstant.username);
 
         if (PreferenceUtils.getlogin(AppConstant.isLoggedIn) == true) {
-          AppConstant.checkNetwork().whenComplete(() => CallApiForAppointment());
+          AppConstant.checkNetwork()
+              .whenComplete(() => CallApiForAppointment());
         } else {
           Future.delayed(
             Duration(seconds: 0),
-            () => Navigator.of(context).push(MaterialPageRoute(builder: (context) => LoginScreen(0))),
+            () => Navigator.of(context)
+                .push(MaterialPageRoute(builder: (context) => LoginScreen(0))),
           );
         }
       });
@@ -128,7 +139,7 @@ class _Appoinment extends State<Appoinment> with SingleTickerProviderStateMixin 
               noCompleteDataVisible = true;
             }
           } else {
-            ToastMessage.toastMessage("No Data");
+            ToastMessage.toastMessage("Pas de données disponibles.");
           }
         });
       }
@@ -138,7 +149,7 @@ class _Appoinment extends State<Appoinment> with SingleTickerProviderStateMixin 
       });
       print("error123456:$obj");
       print(obj.runtimeType);
-      ToastMessage.toastMessage("Internal Server Error");
+      ToastMessage.toastMessage("Erreur interne du serveur");
     });
   }
 
@@ -152,9 +163,10 @@ class _Appoinment extends State<Appoinment> with SingleTickerProviderStateMixin 
         if (response.success = true) {
           ToastMessage.toastMessage(response.msg!);
 
-          AppConstant.checkNetwork().whenComplete(() => CallApiForAppointment());
+          AppConstant.checkNetwork()
+              .whenComplete(() => CallApiForAppointment());
         } else {
-          ToastMessage.toastMessage("No Data");
+          ToastMessage.toastMessage("Pas de données disponibles");
         }
       });
     }).catchError((Object obj) {
@@ -187,16 +199,19 @@ class _Appoinment extends State<Appoinment> with SingleTickerProviderStateMixin 
     await Future.delayed(Duration(milliseconds: 500));
     if (mounted) {
       setState(() {
-        _controller = new TabController(length: 3, vsync: this, initialIndex: tabIndex);
+        _controller =
+            new TabController(length: 3, vsync: this, initialIndex: tabIndex);
         PreferenceUtils.init();
         name = PreferenceUtils.getString(AppConstant.username);
 
         if (PreferenceUtils.getlogin(AppConstant.isLoggedIn) == true) {
-          AppConstant.checkNetwork().whenComplete(() => CallApiForAppointment());
+          AppConstant.checkNetwork()
+              .whenComplete(() => CallApiForAppointment());
         } else {
           Future.delayed(
             Duration(seconds: 0),
-            () => Navigator.of(context).push(MaterialPageRoute(builder: (context) => LoginScreen(0))),
+            () => Navigator.of(context)
+                .push(MaterialPageRoute(builder: (context) => LoginScreen(0))),
           );
         }
       });
@@ -218,7 +233,14 @@ class _Appoinment extends State<Appoinment> with SingleTickerProviderStateMixin 
           child: Scaffold(
               backgroundColor: whiteColor,
               resizeToAvoidBottomInset: true,
-              appBar: appbar(context, StringConstant.appointment, _drawerScaffoldKey, true,widget.isDrawerOpen, widget.onOpen, widget.onClose) as PreferredSizeWidget?,
+              appBar: appbar(
+                  context,
+                  StringConstant.appointment,
+                  _drawerScaffoldKey,
+                  true,
+                  widget.isDrawerOpen,
+                  widget.onOpen,
+                  widget.onClose) as PreferredSizeWidget?,
               key: _drawerScaffoldKey,
               drawer: new DrawerOnly(),
               body: new Stack(
@@ -230,7 +252,8 @@ class _Appoinment extends State<Appoinment> with SingleTickerProviderStateMixin 
                         Container(
                           height: screenHeight * 0.055,
                           color: whiteColor,
-                          margin: EdgeInsets.only(top: 0.0, left: 10, right: 10),
+                          margin:
+                              EdgeInsets.only(top: 0.0, left: 10, right: 10),
                           child: TabBar(
                             controller: _controller,
                             isScrollable: false,
@@ -249,7 +272,9 @@ class _Appoinment extends State<Appoinment> with SingleTickerProviderStateMixin 
                             labelColor: pinkColor,
                             unselectedLabelColor: greyColor,
                             labelStyle: TextStyle(
-                                fontSize: 13, fontWeight: FontWeight.w600, fontFamily: ConstantFont.montserratMedium),
+                                fontSize: 13,
+                                fontWeight: FontWeight.w600,
+                                fontFamily: ConstantFont.montserratMedium),
                             indicatorSize: TabBarIndicatorSize.label,
                             indicatorPadding: EdgeInsets.all(0.0),
                             indicatorColor: pinkColor,
@@ -271,7 +296,8 @@ class _Appoinment extends State<Appoinment> with SingleTickerProviderStateMixin 
                             children: <Widget>[
                               ///upcoming list
                               Container(
-                                margin: EdgeInsets.only(top: 5.0, left: 10, right: 10),
+                                margin: EdgeInsets.only(
+                                    top: 5.0, left: 10, right: 10),
                                 color: whiteColor,
                                 child: RefreshIndicator(
                                   onRefresh: _onRefresh,
@@ -283,56 +309,107 @@ class _Appoinment extends State<Appoinment> with SingleTickerProviderStateMixin 
                                         visible: upListVisible,
                                         child: ListView.builder(
                                           shrinkWrap: true,
-                                          physics: NeverScrollableScrollPhysics(),
-                                          itemCount: upcomingOrderDataList.length,
-                                          itemBuilder: (BuildContext context, int index) {
+                                          physics:
+                                              NeverScrollableScrollPhysics(),
+                                          itemCount:
+                                              upcomingOrderDataList.length,
+                                          itemBuilder: (BuildContext context,
+                                              int index) {
                                             var parsedDate;
-                                            parsedDate = DateTime.parse(upcomingOrderDataList[index].date!);
-                                            var df = new DateFormat('MMM dd,yyyy');
+                                            parsedDate = DateTime.parse(
+                                                upcomingOrderDataList[index]
+                                                    .date!);
+                                            var df =
+                                                new DateFormat('MMM dd,yyyy');
                                             parsedDate = df.format(parsedDate);
-                                            print(upcomingOrderDataList[index].bookingStatus);
+                                            print(upcomingOrderDataList[index]
+                                                .bookingStatus);
                                             upcomingServiceList.clear();
-                                            for (int i = 0; i < upcomingOrderDataList[index].services!.length; i++) {
-                                              upcomingServiceList.add(upcomingOrderDataList[index].services![i].name);
+                                            for (int i = 0;
+                                                i <
+                                                    upcomingOrderDataList[index]
+                                                        .services!
+                                                        .length;
+                                                i++) {
+                                              upcomingServiceList.add(
+                                                  upcomingOrderDataList[index]
+                                                      .services![i]
+                                                      .name);
                                             }
 
                                             return InkWell(
                                               onTap: () {
-                                                Navigator.of(context).push(MaterialPageRoute(
-                                                    builder: (context) => SingleAppoitmentScreen(
-                                                          appoitmentId: upcomingOrderDataList[index].id!,
-                                                        )));
+                                                Navigator.of(context).push(
+                                                    MaterialPageRoute(
+                                                        builder: (context) =>
+                                                            SingleAppoitmentScreen(
+                                                              appoitmentId:
+                                                                  upcomingOrderDataList[
+                                                                          index]
+                                                                      .id!,
+                                                            )));
                                               },
                                               child: Container(
-                                                margin: EdgeInsets.only(left: 10, right: 10, top: 10),
-                                                padding: EdgeInsets.symmetric(vertical: 10, horizontal: 20),
+                                                margin: EdgeInsets.only(
+                                                    left: 10,
+                                                    right: 10,
+                                                    top: 10),
+                                                padding: EdgeInsets.symmetric(
+                                                    vertical: 10,
+                                                    horizontal: 10),
                                                 width: double.infinity,
                                                 decoration: BoxDecoration(
-                                                  border: Border.all(color: whiteF1, width: 3),
-                                                  borderRadius: BorderRadius.all(Radius.circular(12)),
+                                                  border: Border.all(
+                                                      color: whiteF1, width: 3),
+                                                  borderRadius:
+                                                      BorderRadius.all(
+                                                          Radius.circular(12)),
                                                 ),
                                                 child: Column(
-                                                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                                                  crossAxisAlignment:
+                                                      CrossAxisAlignment
+                                                          .stretch,
                                                   children: [
                                                     Padding(
-                                                      padding: const EdgeInsets.only(left: 0.0),
+                                                      padding:
+                                                          const EdgeInsets.only(
+                                                              left: 0.0),
                                                       child: Row(
                                                         children: <Widget>[
                                                           Expanded(
-                                                            child: new Container(
+                                                            child:
+                                                                new Container(
                                                               height: 75,
-                                                              alignment: Alignment.topLeft,
-                                                              margin: EdgeInsets.only(left: 5),
-                                                              child: CachedNetworkImage(
-                                                                imageUrl:
-                                                                    PreferenceUtils.getString(AppConstant.salonImage),
-                                                                imageBuilder: (context, imageProvider) => Container(
-                                                                  decoration: BoxDecoration(
-                                                                    borderRadius: BorderRadius.circular(10.0),
-                                                                    image: DecorationImage(
-                                                                      image: imageProvider,
-                                                                      fit: BoxFit.contain,
-                                                                      alignment: Alignment.topCenter,
+                                                              alignment:
+                                                                  Alignment
+                                                                      .topLeft,
+                                                              margin: EdgeInsets
+                                                                  .only(
+                                                                      left: 5),
+                                                              child:
+                                                                  CachedNetworkImage(
+                                                                imageUrl: PreferenceUtils
+                                                                    .getString(
+                                                                        AppConstant
+                                                                            .salonImage),
+                                                                imageBuilder:
+                                                                    (context,
+                                                                            imageProvider) =>
+                                                                        Container(
+                                                                  decoration:
+                                                                      BoxDecoration(
+                                                                    borderRadius:
+                                                                        BorderRadius.circular(
+                                                                            10.0),
+                                                                    image:
+                                                                        DecorationImage(
+                                                                      image:
+                                                                          imageProvider,
+                                                                      fit: BoxFit
+                                                                          .contain,
+                                                                      alignment:
+                                                                          Alignment
+                                                                              .topCenter,
                                                                     ),
                                                                   ),
                                                                 ),
@@ -340,84 +417,91 @@ class _Appoinment extends State<Appoinment> with SingleTickerProviderStateMixin 
                                                             ),
                                                           ),
                                                           new Container(
-                                                              width: screenWidth * .65,
+                                                              width:
+                                                                  screenWidth *
+                                                                      .65,
                                                               height: 110,
-                                                              margin: EdgeInsets.only(left: 5.0, top: 0.0),
-                                                              alignment: Alignment.topLeft,
+                                                              margin: EdgeInsets
+                                                                  .only(
+                                                                      left: 5.0,
+                                                                      top: 0.0),
+                                                              alignment:
+                                                                  Alignment
+                                                                      .topLeft,
                                                               color: whiteColor,
                                                               child: ListView(
-                                                                physics: NeverScrollableScrollPhysics(),
-                                                                children: <Widget>[
+                                                                physics:
+                                                                    NeverScrollableScrollPhysics(),
+                                                                children: <
+                                                                    Widget>[
                                                                   Container(
-                                                                    margin: EdgeInsets.only(top: 25.0),
+                                                                    margin: EdgeInsets
+                                                                        .only(
+                                                                            top:
+                                                                                25.0,bottom:3.0),
                                                                     child: Text(
                                                                       PreferenceUtils.getString(
-                                                                          AppConstant.singlesalonName),
+                                                                          AppConstant
+                                                                              .singlesalonName),
                                                                       style: TextStyle(
-                                                                          color: Color(0xFF1e1e1e),
-                                                                          fontSize: 14,
-                                                                          fontWeight: FontWeight.w600,
-                                                                          fontFamily: ConstantFont.montserratSemiBold),
+                                                                          color: Color(
+                                                                              0xFF1e1e1e),
+                                                                          fontSize:
+                                                                              14,
+                                                                          fontWeight: FontWeight
+                                                                              .w600,
+                                                                          fontFamily:
+                                                                              ConstantFont.montserratSemiBold),
                                                                     ),
                                                                   ),
+                                                                  
                                                                   Container(
-                                                                    margin: EdgeInsets.only(top: 5.0, left: 0.0),
+                                                                    margin: EdgeInsets.only(
+                                                                        top:
+                                                                            5.0,
+                                                                        left:
+                                                                            0.0,bottom:3.0),
                                                                     child: Text(
                                                                       PreferenceUtils.getString(
-                                                                          AppConstant.salonAddress),
-                                                                      overflow: TextOverflow.ellipsis,
-                                                                      maxLines: 1,
+                                                                          AppConstant
+                                                                              .salonAddress),
+                                                                      overflow:
+                                                                          TextOverflow
+                                                                              .ellipsis,
+                                                                      maxLines:
+                                                                          1,
                                                                       style: TextStyle(
-                                                                          color: greyColor,
-                                                                          fontSize: 12,
-                                                                          fontWeight: FontWeight.w600,
-                                                                          fontFamily: ConstantFont.montserratRegular),
+                                                                          color:
+                                                                              greyColor,
+                                                                          fontSize:
+                                                                              12,
+                                                                          fontWeight: FontWeight
+                                                                              .w600,
+                                                                          fontFamily:
+                                                                              ConstantFont.montserratRegular),
                                                                     ),
                                                                   ),
-                                                                  Row(
-                                                                    children: <Widget>[
-                                                                      Container(
-                                                                        margin: EdgeInsets.only(top: 2, left: 0),
-                                                                        child: SvgPicture.asset(
-                                                                          DummyImage.star,
-                                                                          width: 10,
-                                                                          height: 10,
-                                                                        ),
-                                                                      ),
-                                                                      Container(
-                                                                        child: Container(
-                                                                          margin: EdgeInsets.only(top: 2, left: 2),
-                                                                          child: Text(
-                                                                              PreferenceUtils.getString(
-                                                                                      AppConstant.salonRating) +
-                                                                                  StringConstant.rating,
-                                                                              style: TextStyle(
-                                                                                  color: grey99,
-                                                                                  fontSize: 11,
-                                                                                  fontWeight: FontWeight.w600,
-                                                                                  fontFamily:
-                                                                                      ConstantFont.montserratMedium)),
-                                                                        ),
-                                                                      ),
-                                                                      Container(
-                                                                        alignment: Alignment.center,
-                                                                        width: 5.0,
-                                                                        height: 5.0,
-                                                                        margin: EdgeInsets.only(left: 5.0, top: 5.0),
-                                                                        decoration: BoxDecoration(
-                                                                          shape: BoxShape.circle,
-                                                                          color: greyColor,
-                                                                        ),
-                                                                      ),
+                                                                  Column(
+                                                                    crossAxisAlignment:
+                                                                        CrossAxisAlignment
+                                                                            .start,
+                                                                    children: [
                                                                       Container(
                                                                           margin: EdgeInsets.only(
-                                                                              left: 5.0, top: 5.0, right: 0),
+                                                                              left: 0.0,
+                                                                              top: 5.0,
+                                                                              right: 0,bottom:3.0),
                                                                           child: RichText(
-                                                                            maxLines: 2,
-                                                                            overflow: TextOverflow.ellipsis,
-                                                                            textScaleFactor: 1,
-                                                                            textAlign: TextAlign.center,
-                                                                            text: TextSpan(
+                                                                            maxLines:
+                                                                                2,
+                                                                            overflow:
+                                                                                TextOverflow.ellipsis,
+                                                                            textScaleFactor:
+                                                                                1,
+                                                                            textAlign:
+                                                                                TextAlign.center,
+                                                                            text:
+                                                                                TextSpan(
                                                                               children: [
                                                                                 WidgetSpan(
                                                                                   child: Icon(
@@ -426,20 +510,37 @@ class _Appoinment extends State<Appoinment> with SingleTickerProviderStateMixin 
                                                                                     color: pinkColor,
                                                                                   ),
                                                                                 ),
-                                                                                TextSpan(
-                                                                                    text: upcomingOrderDataList[index]
-                                                                                            .startTime! +
-                                                                                        " - " +
-                                                                                        parsedDate,
-                                                                                    style: TextStyle(
-                                                                                        color: greyColor,
-                                                                                        fontSize: 11,
-                                                                                        fontWeight: FontWeight.w600,
-                                                                                        fontFamily: ConstantFont
-                                                                                            .montserratMedium)),
+                                                                                WidgetSpan(
+                                                                                  child: SizedBox(width: 7.0),
+                                                                                ),
+                                                                                TextSpan(text: upcomingOrderDataList[index].startTime! + " - " + parsedDate, style: TextStyle(color: greyColor, fontSize: 11, fontWeight: FontWeight.w600, fontFamily: ConstantFont.montserratMedium)),
                                                                               ],
                                                                             ),
                                                                           )),
+                                                                         
+                                                                      Row(
+                                                                        children: <
+                                                                            Widget>[
+                                                                          Row(
+                                                                            children: [
+                                                                              Container(
+                                                                                margin: EdgeInsets.only(top: 2, left: 0,bottom:6.0),
+                                                                                child: SvgPicture.asset(
+                                                                                  DummyImage.star,
+                                                                                  width: 10,
+                                                                                  height: 10,
+                                                                                ),
+                                                                              ),
+                                                                              Container(
+                                                                                child: Container(
+                                                                                  margin: EdgeInsets.only(top: 2, left: 2),
+                                                                                  child: Text(PreferenceUtils.getString(AppConstant.salonRating) +' ' + StringConstant.rating, style: TextStyle(color: grey99, fontSize: 11, fontWeight: FontWeight.w600, fontFamily: ConstantFont.montserratMedium)),
+                                                                                ),
+                                                                              ),
+                                                                            ],
+                                                                          ),
+                                                                        ],
+                                                                      ),
                                                                     ],
                                                                   ),
                                                                 ],
@@ -448,102 +549,159 @@ class _Appoinment extends State<Appoinment> with SingleTickerProviderStateMixin 
                                                       ),
                                                     ),
                                                     Padding(
-                                                      padding: const EdgeInsets.all(0),
+                                                      padding:
+                                                          const EdgeInsets.only(
+                                                              top:10, bottom:0),
                                                       child: Container(
-                                                        width: MediaQuery.of(context).size.width,
-                                                        margin: EdgeInsets.only(left: 5.0, right: 5.0),
+                                                        width: MediaQuery.of(
+                                                                context)
+                                                            .size
+                                                            .width,
+                                                        margin: EdgeInsets.only(
+                                                            left: 5.0,
+                                                            right: 5.0),
                                                         color: whiteColor,
                                                         child: ListView(
                                                           shrinkWrap: true,
-                                                          physics: NeverScrollableScrollPhysics(),
+                                                          physics:
+                                                              NeverScrollableScrollPhysics(),
                                                           children: <Widget>[
                                                             Row(
-                                                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                                              mainAxisAlignment:
+                                                                  MainAxisAlignment
+                                                                      .spaceBetween,
                                                               children: [
-                                                                Expanded(
-                                                                  child: Text(
-                                                                    StringConstant.serviceType,
+                                                                Text(
+                                                                    StringConstant
+                                                                        .serviceType,
                                                                     style: TextStyle(
-                                                                        color: whiteB3,
-                                                                        fontSize: 12,
-                                                                        fontWeight: FontWeight.w600,
-                                                                        fontFamily: ConstantFont.montserratMedium),
+                                                                        color:
+                                                                            whiteB3,
+                                                                        fontSize:
+                                                                            12,
+                                                                        fontWeight:
+                                                                            FontWeight
+                                                                                .w600,
+                                                                        fontFamily:
+                                                                            ConstantFont.montserratMedium),
                                                                   ),
-                                                                ),
-                                                                Expanded(
-                                                                  child: Row(
-                                                                    mainAxisAlignment: MainAxisAlignment.end,
+                                                                
+                                                                 Row(
+                                                                    mainAxisAlignment:
+                                                                        MainAxisAlignment
+                                                                            .end,
                                                                     children: [
-                                                                      Expanded(
-                                                                        child: Text(
-                                                                          StringConstant.bookingStatus,
+                                                                     
+                                                                            Text(
+                                                                          StringConstant
+                                                                              .bookingStatus,
                                                                           style: TextStyle(
                                                                               color: whiteB3,
                                                                               fontSize: 12,
                                                                               fontWeight: FontWeight.w600,
-                                                                              fontFamily:
-                                                                                  ConstantFont.montserratMedium),
+                                                                              fontFamily: ConstantFont.montserratMedium),
                                                                         ),
-                                                                      ),
-                                                                      Expanded(
-                                                                        child: Text(
+                                                                      
+                                                                     
+                                                                            Text(
                                                                           " : " +
-                                                                              upcomingOrderDataList[index]
-                                                                                  .bookingStatus!,
-                                                                          maxLines: 1,
-                                                                          overflow: TextOverflow.ellipsis,
+                                                                              upcomingOrderDataList[index].bookingStatus!,
+                                                                          maxLines:
+                                                                              1,
+                                                                          overflow:
+                                                                              TextOverflow.ellipsis,
                                                                           style: TextStyle(
-                                                                              color: whiteB3,
+                                                                              color: blackColor,
                                                                               fontSize: 12,
                                                                               fontWeight: FontWeight.w600,
-                                                                              fontFamily:
-                                                                                  ConstantFont.montserratMedium),
+                                                                              fontFamily: ConstantFont.montserratMedium),
                                                                         ),
-                                                                      )
+                                                                      
                                                                     ],
                                                                   ),
-                                                                ),
+                                                                
                                                               ],
                                                             ),
                                                             Visibility(
-                                                              visible: upcomingOrderDataList[index].serListVisible,
+                                                              visible:
+                                                                  upcomingOrderDataList[
+                                                                          index]
+                                                                      .serListVisible,
                                                               child: Container(
-                                                                margin: EdgeInsets.only(left: 5),
+                                                                margin: EdgeInsets
+                                                                    .only(
+                                                                        left:
+                                                                            5),
                                                                 child: Text(
-                                                                  upcomingOrderDataList[index].services![0].name!,
+                                                                  upcomingOrderDataList[
+                                                                          index]
+                                                                      .services![
+                                                                          0]
+                                                                      .name!,
                                                                   style: TextStyle(
-                                                                      color: white4B,
-                                                                      fontSize: 12,
-                                                                      fontWeight: FontWeight.w600,
-                                                                      fontFamily: ConstantFont.montserratMedium),
+                                                                      color:
+                                                                          white4B,
+                                                                      fontSize:
+                                                                          12,
+                                                                      fontWeight:
+                                                                          FontWeight
+                                                                              .w600,
+                                                                      fontFamily:
+                                                                          ConstantFont
+                                                                              .montserratMedium),
                                                                 ),
                                                               ),
                                                             ),
                                                             Visibility(
-                                                              visible: upcomingOrderDataList[index].newListVisible,
-                                                              child: GestureDetector(
+                                                              visible:
+                                                                  upcomingOrderDataList[
+                                                                          index]
+                                                                      .newListVisible,
+                                                              child:
+                                                                  GestureDetector(
                                                                 onTap: () {
                                                                   setState(() {
-                                                                    print("seeAllTap");
-                                                                    upcomingOrderDataList[index].seeAllVisible = true;
-                                                                    upcomingOrderDataList[index].serListVisible = true;
-                                                                    upcomingOrderDataList[index].newListVisible = false;
+                                                                    print(
+                                                                        "seeAllTap");
+                                                                    upcomingOrderDataList[
+                                                                            index]
+                                                                        .seeAllVisible = true;
+                                                                    upcomingOrderDataList[
+                                                                            index]
+                                                                        .serListVisible = true;
+                                                                    upcomingOrderDataList[
+                                                                            index]
+                                                                        .newListVisible = false;
                                                                   });
                                                                 },
                                                                 child: ListView(
-                                                                  shrinkWrap: true,
-                                                                  physics: NeverScrollableScrollPhysics(),
-                                                                  children: <Widget>[
+                                                                  shrinkWrap:
+                                                                      true,
+                                                                  physics:
+                                                                      NeverScrollableScrollPhysics(),
+                                                                  children: <
+                                                                      Widget>[
                                                                     Container(
-                                                                      margin: EdgeInsets.only(left: 5, top: 5),
-                                                                      child: Text(
-                                                                        upcomingServiceList.join(" , "),
-                                                                        maxLines: 5,
-                                                                        overflow: TextOverflow.ellipsis,
+                                                                      margin: EdgeInsets.only(
+                                                                          left:
+                                                                              5,
+                                                                          top:
+                                                                              5),
+                                                                      child:
+                                                                          Text(
+                                                                        upcomingServiceList
+                                                                            .join(" , "),
+                                                                        maxLines:
+                                                                            5,
+                                                                        overflow:
+                                                                            TextOverflow.ellipsis,
                                                                         style: TextStyle(
-                                                                            color: white4B,
-                                                                            fontSize: 12,
-                                                                            fontWeight: FontWeight.w600,
+                                                                            color:
+                                                                                white4B,
+                                                                            fontSize:
+                                                                                12,
+                                                                            fontWeight:
+                                                                                FontWeight.w600,
                                                                             fontFamily: ConstantFont.montserratMedium),
                                                                       ),
                                                                     ),
@@ -551,18 +709,28 @@ class _Appoinment extends State<Appoinment> with SingleTickerProviderStateMixin 
                                                                 ),
                                                               ),
                                                             ),
-                                                            upcomingOrderDataList[index].services!.length == 1
+                                                            upcomingOrderDataList[
+                                                                            index]
+                                                                        .services!
+                                                                        .length ==
+                                                                    1
                                                                 ? Padding(
-                                                                    padding: const EdgeInsets.only(bottom: 10),
+                                                                    padding: const EdgeInsets
+                                                                            .only(
+                                                                        bottom:
+                                                                            10),
                                                                     child: Row(
-                                                                      mainAxisAlignment: MainAxisAlignment.end,
+                                                                      mainAxisAlignment:
+                                                                          MainAxisAlignment
+                                                                              .end,
                                                                       children: [
                                                                         GestureDetector(
-                                                                            onTap: () {
-                                                                              showCancelDialog1(
-                                                                                  upcomingOrderDataList[index].id);
+                                                                            onTap:
+                                                                                () {
+                                                                              showCancelDialog1(upcomingOrderDataList[index].id);
                                                                             },
-                                                                            child: RichText(
+                                                                            child:
+                                                                                RichText(
                                                                               text: TextSpan(
                                                                                 children: [
                                                                                   WidgetSpan(
@@ -576,17 +744,8 @@ class _Appoinment extends State<Appoinment> with SingleTickerProviderStateMixin 
                                                                                   ),
                                                                                   WidgetSpan(
                                                                                     child: Container(
-                                                                                      margin: EdgeInsets.only(
-                                                                                          top: 5, left: 5),
-                                                                                      child: Text(
-                                                                                          StringConstant.cancelBooking,
-                                                                                          style: TextStyle(
-                                                                                              color: redFF,
-                                                                                              fontSize: 12,
-                                                                                              fontFamily: ConstantFont
-                                                                                                  .montserratMedium,
-                                                                                              fontWeight:
-                                                                                                  FontWeight.w700)),
+                                                                                      margin: EdgeInsets.only(top: 5, left: 5),
+                                                                                      child: Text(StringConstant.cancelBooking, style: TextStyle(color: redFF, fontSize: 12, fontFamily: ConstantFont.montserratMedium, fontWeight: FontWeight.w700)),
                                                                                     ),
                                                                                   ),
                                                                                 ],
@@ -596,58 +755,55 @@ class _Appoinment extends State<Appoinment> with SingleTickerProviderStateMixin 
                                                                     ),
                                                                   )
                                                                 : Padding(
-                                                                    padding: const EdgeInsets.only(bottom: 10),
+                                                                    padding: const EdgeInsets
+                                                                            .only(
+                                                                        bottom:
+                                                                            10),
                                                                     child: Row(
-                                                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                                                      mainAxisAlignment:
+                                                                          MainAxisAlignment
+                                                                              .spaceBetween,
                                                                       children: [
                                                                         Expanded(
-                                                                          child: Visibility(
-                                                                            visible: upcomingOrderDataList[index]
-                                                                                .seeAllVisible,
-                                                                            child: GestureDetector(
+                                                                          child:
+                                                                              Visibility(
+                                                                            visible:
+                                                                                upcomingOrderDataList[index].seeAllVisible,
+                                                                            child:
+                                                                                GestureDetector(
                                                                               onTap: () {
                                                                                 setState(() {
-                                                                                  upcomingOrderDataList[index]
-                                                                                      .seeAllVisible = false;
-                                                                                  upcomingOrderDataList[index]
-                                                                                      .serListVisible = false;
-                                                                                  upcomingOrderDataList[index]
-                                                                                      .newListVisible = true;
+                                                                                  upcomingOrderDataList[index].seeAllVisible = false;
+                                                                                  upcomingOrderDataList[index].serListVisible = false;
+                                                                                  upcomingOrderDataList[index].newListVisible = true;
                                                                                 });
                                                                               },
                                                                               child: Container(
-                                                                                margin:
-                                                                                    EdgeInsets.only(left: 5, top: 5),
+                                                                                margin: EdgeInsets.only(left: 5, top: 5),
                                                                                 child: Text(
                                                                                   StringConstant.seeAll,
-                                                                                  style: TextStyle(
-                                                                                      color: blue4a,
-                                                                                      fontSize: 12,
-                                                                                      fontWeight: FontWeight.w600,
-                                                                                      fontFamily: ConstantFont
-                                                                                          .montserratMedium),
+                                                                                  style: TextStyle(color: blue4a, fontSize: 12, fontWeight: FontWeight.w600, fontFamily: ConstantFont.montserratMedium),
                                                                                 ),
                                                                               ),
                                                                             ),
                                                                           ),
                                                                         ),
                                                                         Expanded(
-                                                                          child: Row(
-                                                                            mainAxisAlignment: MainAxisAlignment.end,
+                                                                          child:
+                                                                              Row(
+                                                                            mainAxisAlignment:
+                                                                                MainAxisAlignment.end,
                                                                             children: [
                                                                               GestureDetector(
                                                                                   onTap: () {
-                                                                                    showCancelDialog1(
-                                                                                        upcomingOrderDataList[index]
-                                                                                            .id);
+                                                                                    showCancelDialog1(upcomingOrderDataList[index].id);
                                                                                   },
                                                                                   child: RichText(
                                                                                     text: TextSpan(
                                                                                       children: [
                                                                                         WidgetSpan(
                                                                                           child: Container(
-                                                                                            margin:
-                                                                                                EdgeInsets.only(top: 5),
+                                                                                            margin: EdgeInsets.only(top: 5),
                                                                                             child: SvgPicture.asset(
                                                                                               DummyImage.delete,
                                                                                               color: redFF,
@@ -656,19 +812,8 @@ class _Appoinment extends State<Appoinment> with SingleTickerProviderStateMixin 
                                                                                         ),
                                                                                         WidgetSpan(
                                                                                           child: Container(
-                                                                                            margin: EdgeInsets.only(
-                                                                                                top: 5, left: 5),
-                                                                                            child: Text(
-                                                                                                StringConstant
-                                                                                                    .cancelBooking,
-                                                                                                style: TextStyle(
-                                                                                                    color: redFF,
-                                                                                                    fontSize: 12,
-                                                                                                    fontFamily: ConstantFont
-                                                                                                        .montserratMedium,
-                                                                                                    fontWeight:
-                                                                                                        FontWeight
-                                                                                                            .w700)),
+                                                                                            margin: EdgeInsets.only(top: 10, left: 5, bottom: 5),
+                                                                                            child: Text(StringConstant.cancelBooking, style: TextStyle(color: redFF, fontSize: 12, fontFamily: ConstantFont.montserratMedium, fontWeight: FontWeight.w700)),
                                                                                           ),
                                                                                         ),
                                                                                       ],
@@ -700,7 +845,8 @@ class _Appoinment extends State<Appoinment> with SingleTickerProviderStateMixin 
                                               alignment: Alignment.center,
                                               child: ListView(
                                                 shrinkWrap: true,
-                                                physics: NeverScrollableScrollPhysics(),
+                                                physics:
+                                                    NeverScrollableScrollPhysics(),
                                                 children: <Widget>[
                                                   Image.asset(
                                                     DummyImage.noData,
@@ -711,11 +857,14 @@ class _Appoinment extends State<Appoinment> with SingleTickerProviderStateMixin 
                                                   Align(
                                                     alignment: Alignment.center,
                                                     child: Text(
-                                                      StringConstant.youHavenAnyAppointmentSet,
+                                                      StringConstant
+                                                          .youHavenAnyAppointmentSet,
                                                       style: TextStyle(
                                                           color: whiteA3,
-                                                          fontFamily: ConstantFont.montserratMedium,
-                                                          fontWeight: FontWeight.w600,
+                                                          fontFamily: ConstantFont
+                                                              .montserratMedium,
+                                                          fontWeight:
+                                                              FontWeight.w600,
                                                           fontSize: 16),
                                                     ),
                                                   ),
@@ -724,16 +873,26 @@ class _Appoinment extends State<Appoinment> with SingleTickerProviderStateMixin 
                                                     child: GestureDetector(
                                                       onTap: () {
                                                         Navigator.of(context).push(
-                                                            MaterialPageRoute(builder: (context) => HomeScreen(0)));
+                                                            MaterialPageRoute(
+                                                                builder:
+                                                                    (context) =>
+                                                                        HomeScreen(
+                                                                            0)));
                                                       },
                                                       child: Container(
-                                                        margin: EdgeInsets.only(top: 5),
+                                                        margin: EdgeInsets.only(
+                                                            top: 5),
                                                         child: Text(
-                                                          StringConstant.goToHome,
+                                                          StringConstant
+                                                              .goToHome,
                                                           style: TextStyle(
                                                               color: blue4a,
-                                                              fontFamily: ConstantFont.montserratMedium,
-                                                              fontWeight: FontWeight.w600,
+                                                              fontFamily:
+                                                                  ConstantFont
+                                                                      .montserratMedium,
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .w600,
                                                               fontSize: 16),
                                                         ),
                                                       ),
@@ -750,7 +909,8 @@ class _Appoinment extends State<Appoinment> with SingleTickerProviderStateMixin 
 
                               ///cancel list
                               Container(
-                                margin: EdgeInsets.only(top: 5.0, left: 10, right: 10),
+                                margin: EdgeInsets.only(
+                                    top: 5.0, left: 10, right: 10),
                                 color: whiteColor,
                                 child: RefreshIndicator(
                                   onRefresh: _onRefresh,
@@ -766,137 +926,212 @@ class _Appoinment extends State<Appoinment> with SingleTickerProviderStateMixin 
                                           },
                                           child: ListView.builder(
                                             shrinkWrap: true,
-                                            physics: NeverScrollableScrollPhysics(),
-                                            itemBuilder: (BuildContext context, int index) {
+                                            physics:
+                                                NeverScrollableScrollPhysics(),
+                                            itemBuilder: (BuildContext context,
+                                                int index) {
                                               var parsedDate;
-                                              parsedDate = DateTime.parse(cancelDataList[index].date!);
-                                              var df = new DateFormat('MMM dd,yyyy');
-                                              parsedDate = df.format(parsedDate);
+                                              parsedDate = DateTime.parse(
+                                                  cancelDataList[index].date!);
+                                              var df =
+                                                  new DateFormat('MMM dd,yyyy');
+                                              parsedDate =
+                                                  df.format(parsedDate);
 
                                               cancelServiceList.clear();
-                                              for (int i = 0; i < cancelDataList[index].services!.length; i++) {
-                                                cancelServiceList.add(cancelDataList[index].services![i].name);
+                                              for (int i = 0;
+                                                  i <
+                                                      cancelDataList[index]
+                                                          .services!
+                                                          .length;
+                                                  i++) {
+                                                cancelServiceList.add(
+                                                    cancelDataList[index]
+                                                        .services![i]
+                                                        .name);
                                               }
 
                                               return InkWell(
                                                 onTap: () {
-                                                  Navigator.of(context).push(MaterialPageRoute(
-                                                      builder: (context) => SingleAppoitmentScreen(
-                                                            appoitmentId: cancelDataList[index].id!,
-                                                          )));
+                                                  Navigator.of(context).push(
+                                                      MaterialPageRoute(
+                                                          builder: (context) =>
+                                                              SingleAppoitmentScreen(
+                                                                appoitmentId:
+                                                                    cancelDataList[
+                                                                            index]
+                                                                        .id!,
+                                                              )));
                                                 },
                                                 child: Container(
-                                                  margin: EdgeInsets.only(left: 10, right: 10, top: 10),
+                                                  margin: EdgeInsets.only(
+                                                      left: 10,
+                                                      right: 10,
+                                                      top: 10),
                                                   width: double.infinity,
                                                   decoration: BoxDecoration(
-                                                    border: Border.all(color: whiteF1, width: 3),
-                                                    borderRadius: BorderRadius.all(Radius.circular(12)),
+                                                    border: Border.all(
+                                                        color: whiteF1,
+                                                        width: 3),
+                                                    borderRadius:
+                                                        BorderRadius.all(
+                                                            Radius.circular(
+                                                                12)),
                                                   ),
                                                   child: Column(
-                                                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                                                    crossAxisAlignment:
+                                                        CrossAxisAlignment
+                                                            .stretch,
                                                     children: [
                                                       Padding(
-                                                                  padding: EdgeInsets.symmetric(horizontal: 20, vertical:10),
+                                                          padding: EdgeInsets
+                                                              .symmetric(
+                                                                  horizontal:
+                                                                      20,
+                                                                  vertical: 10),
                                                           child: Row(
                                                             children: <Widget>[
                                                               Expanded(
-                                                                child: new Container(
+                                                                child:
+                                                                    new Container(
                                                                   height: 75,
-                                                                  alignment: Alignment.topLeft,
-                                                                  margin: EdgeInsets.only(left: 5),
-                                                                  child: CachedNetworkImage(
+                                                                  alignment:
+                                                                      Alignment
+                                                                          .topLeft,
+                                                                  margin: EdgeInsets
+                                                                      .only(
+                                                                          left:
+                                                                              5),
+                                                                  child:
+                                                                      CachedNetworkImage(
                                                                     imageUrl: PreferenceUtils.getString(
-                                                                        AppConstant.salonImage),
-                                                                    imageBuilder: (context, imageProvider) => Container(
-                                                                      decoration: BoxDecoration(
-                                                                        borderRadius: BorderRadius.circular(10.0),
-                                                                        image: DecorationImage(
-                                                                          image: imageProvider,
-                                                                          fit: BoxFit.contain,
-                                                                          alignment: Alignment.topCenter,
+                                                                        AppConstant
+                                                                            .salonImage),
+                                                                    imageBuilder:
+                                                                        (context,
+                                                                                imageProvider) =>
+                                                                            Container(
+                                                                      decoration:
+                                                                          BoxDecoration(
+                                                                        borderRadius:
+                                                                            BorderRadius.circular(10.0),
+                                                                        image:
+                                                                            DecorationImage(
+                                                                          image:
+                                                                              imageProvider,
+                                                                          fit: BoxFit
+                                                                              .contain,
+                                                                          alignment:
+                                                                              Alignment.topCenter,
                                                                         ),
                                                                       ),
                                                                     ),
-                                                                    placeholder: (context, url) =>
-                                                                        SpinKitFadingCircle(color: pinkColor),
-                                                                    errorWidget: (context, url, error) =>
-                                                                        Image.asset(DummyImage.noImage),
+                                                                    placeholder: (context,
+                                                                            url) =>
+                                                                        SpinKitFadingCircle(
+                                                                            color:
+                                                                                pinkColor),
+                                                                    errorWidget: (context,
+                                                                            url,
+                                                                            error) =>
+                                                                        Image.asset(
+                                                                            DummyImage.noImage),
                                                                   ),
                                                                 ),
                                                               ),
                                                               new Container(
-                                                                  width: screenWidth * .66,
+                                                                  width:
+                                                                      screenWidth *
+                                                                          .66,
                                                                   height: 110,
-                                                                  margin: EdgeInsets.only(left: 5.0, top: 0.0),
-                                                                  alignment: Alignment.topLeft,
-                                                                  color: whiteColor,
-                                                                  child: ListView(
-                                                                    physics: NeverScrollableScrollPhysics(),
-                                                                    children: <Widget>[
+                                                                  margin: EdgeInsets
+                                                                      .only(
+                                                                          left:
+                                                                              5.0,
+                                                                          top:
+                                                                              0.0),
+                                                                  alignment:
+                                                                      Alignment
+                                                                          .topLeft,
+                                                                  color:
+                                                                      whiteColor,
+                                                                  child:
+                                                                      ListView(
+                                                                    physics:
+                                                                        NeverScrollableScrollPhysics(),
+                                                                    children: <
+                                                                        Widget>[
                                                                       Container(
-                                                                        margin: EdgeInsets.only(top: 25.0),
-                                                                        child: Text(
+                                                                        margin: EdgeInsets.only(
+                                                                            top:
+                                                                                25.0),
+                                                                        child:
+                                                                            Text(
                                                                           PreferenceUtils.getString(
                                                                               AppConstant.singlesalonName),
                                                                           style: TextStyle(
                                                                               color: black1E,
                                                                               fontSize: 14,
                                                                               fontWeight: FontWeight.w600,
-                                                                              fontFamily:
-                                                                                  ConstantFont.montserratSemiBold),
+                                                                              fontFamily: ConstantFont.montserratSemiBold),
                                                                         ),
                                                                       ),
                                                                       Container(
-                                                                        margin: EdgeInsets.only(top: 5.0, left: 0.0),
-                                                                        child: Text(
+                                                                        margin: EdgeInsets.only(
+                                                                            top:
+                                                                                5.0,
+                                                                            left:
+                                                                                0.0),
+                                                                        child:
+                                                                            Text(
                                                                           PreferenceUtils.getString(
                                                                               AppConstant.salonAddress),
-                                                                          overflow: TextOverflow.ellipsis,
-                                                                          maxLines: 1,
+                                                                          overflow:
+                                                                              TextOverflow.ellipsis,
+                                                                          maxLines:
+                                                                              1,
                                                                           style: TextStyle(
                                                                               color: greyColor,
                                                                               fontSize: 12,
                                                                               fontWeight: FontWeight.w600,
-                                                                              fontFamily:
-                                                                                  ConstantFont.montserratMedium),
+                                                                              fontFamily: ConstantFont.montserratMedium),
                                                                         ),
                                                                       ),
                                                                       Row(
-                                                                        children: <Widget>[
-                                                                          SvgPicture.asset(
+                                                                        children: <
+                                                                            Widget>[
+                                                                          SvgPicture
+                                                                              .asset(
                                                                             DummyImage.star,
-                                                                            width: 10,
-                                                                            height: 10,
+                                                                            width:
+                                                                                10,
+                                                                            height:
+                                                                                10,
                                                                           ),
                                                                           Container(
-                                                                            child: Container(
+                                                                            child:
+                                                                                Container(
                                                                               margin: EdgeInsets.only(top: 2, left: 2),
-                                                                              child: Text(
-                                                                                  PreferenceUtils.getString(
-                                                                                          AppConstant.salonRating) +
-                                                                                      " Rating",
-                                                                                  style: TextStyle(
-                                                                                      color: grey99,
-                                                                                      fontSize: 11,
-                                                                                      fontWeight: FontWeight.w600,
-                                                                                      fontFamily: ConstantFont
-                                                                                          .montserratMedium)),
+                                                                              child: Text(PreferenceUtils.getString(AppConstant.salonRating) + " Rating", style: TextStyle(color: grey99, fontSize: 11, fontWeight: FontWeight.w600, fontFamily: ConstantFont.montserratMedium)),
                                                                             ),
                                                                           ),
                                                                           Container(
-                                                                            alignment: Alignment.center,
-                                                                            width: 5.0,
-                                                                            height: 5.0,
+                                                                            alignment:
+                                                                                Alignment.center,
+                                                                            width:
+                                                                                5.0,
+                                                                            height:
+                                                                                5.0,
                                                                             margin:
                                                                                 EdgeInsets.only(left: 5.0, top: 5.0),
-                                                                            decoration: BoxDecoration(
+                                                                            decoration:
+                                                                                BoxDecoration(
                                                                               shape: BoxShape.circle,
                                                                               color: greyColor,
                                                                             ),
                                                                           ),
                                                                           Container(
-                                                                              margin: EdgeInsets.only(
-                                                                                  left: 5.0, top: 5.0, right: 0),
+                                                                              margin: EdgeInsets.only(left: 5.0, top: 5.0, right: 0),
                                                                               child: RichText(
                                                                                 maxLines: 2,
                                                                                 overflow: TextOverflow.ellipsis,
@@ -911,17 +1146,7 @@ class _Appoinment extends State<Appoinment> with SingleTickerProviderStateMixin 
                                                                                         color: pinkColor,
                                                                                       ),
                                                                                     ),
-                                                                                    TextSpan(
-                                                                                        text: cancelDataList[index]
-                                                                                                .startTime! +
-                                                                                            " - " +
-                                                                                            parsedDate,
-                                                                                        style: TextStyle(
-                                                                                            color: greyColor,
-                                                                                            fontSize: 11,
-                                                                                            fontWeight: FontWeight.w600,
-                                                                                            fontFamily: ConstantFont
-                                                                                                .montserratMedium)),
+                                                                                    TextSpan(text: cancelDataList[index].startTime! + " - " + parsedDate, style: TextStyle(color: greyColor, fontSize: 11, fontWeight: FontWeight.w600, fontFamily: ConstantFont.montserratMedium)),
                                                                                   ],
                                                                                 ),
                                                                               ))
@@ -933,118 +1158,138 @@ class _Appoinment extends State<Appoinment> with SingleTickerProviderStateMixin 
                                                           )),
                                                       Container(
                                                         child: Container(
-                                                          margin: const EdgeInsets.only(top: 1.0, bottom: 1.0),
-                                                          padding: const EdgeInsets.only(left: 10.0, right: 10.0),
-                                                          child: MySeparator(color: Color(0xFF9e9e9e)),
+                                                          margin:
+                                                              const EdgeInsets
+                                                                      .only(
+                                                                  top: 1.0,
+                                                                  bottom: 1.0),
+                                                          padding:
+                                                              const EdgeInsets
+                                                                      .only(
+                                                                  left: 10.0,
+                                                                  right: 10.0),
+                                                          child: MySeparator(
+                                                              color: Color(
+                                                                  0xFF9e9e9e)),
                                                         ),
                                                       ),
                                                       Padding(
-                                                          padding: const EdgeInsets.all(0),
+                                                          padding:
+                                                              const EdgeInsets
+                                                                  .all(0),
                                                           child: Row(
-                                                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                                            mainAxisAlignment:
+                                                                MainAxisAlignment
+                                                                    .spaceBetween,
                                                             children: <Widget>[
                                                               Container(
-                                                                  width: screenWidth * .33,
-                                                                  margin: EdgeInsets.only(left: 5.0, right: 10.0),
-                                                                  color: whiteColor,
-                                                                  alignment: Alignment.topLeft,
-                                                                  child: ListView(
-                                                                    shrinkWrap: true,
-                                                                    physics: NeverScrollableScrollPhysics(),
-                                                                    children: <Widget>[
+                                                                  width:
+                                                                      screenWidth *
+                                                                          .33,
+                                                                  margin: EdgeInsets.only(
+                                                                      left: 5.0,
+                                                                      right:
+                                                                          10.0),
+                                                                  color:
+                                                                      whiteColor,
+                                                                  alignment:
+                                                                      Alignment
+                                                                          .topLeft,
+                                                                  child:
+                                                                      ListView(
+                                                                    shrinkWrap:
+                                                                        true,
+                                                                    physics:
+                                                                        NeverScrollableScrollPhysics(),
+                                                                    children: <
+                                                                        Widget>[
                                                                       Container(
-                                                                        transform:
-                                                                            Matrix4.translationValues(5.0, 0.0, 0.0),
-                                                                        child: Text(
-                                                                          StringConstant.serviceType,
+                                                                        transform: Matrix4.translationValues(
+                                                                            5.0,
+                                                                            0.0,
+                                                                            0.0),
+                                                                        child:
+                                                                            Text(
+                                                                          StringConstant
+                                                                              .serviceType,
                                                                           style: TextStyle(
                                                                               color: Color(0xFFb3b3b3),
                                                                               fontSize: 12,
                                                                               fontWeight: FontWeight.w600,
-                                                                              fontFamily:
-                                                                                  ConstantFont.montserratMedium),
+                                                                              fontFamily: ConstantFont.montserratMedium),
                                                                         ),
                                                                       ),
                                                                       Visibility(
-                                                                        visible: cancelDataList[index].serListVisible,
-                                                                        child: Container(
-                                                                          margin: EdgeInsets.only(left: 5),
-                                                                          child: Text(
+                                                                        visible:
+                                                                            cancelDataList[index].serListVisible,
+                                                                        child:
+                                                                            Container(
+                                                                          margin:
+                                                                              EdgeInsets.only(left: 5),
+                                                                          child:
+                                                                              Text(
                                                                             cancelDataList[index].services![0].name!,
                                                                             style: TextStyle(
                                                                                 color: Color(0xFF4b4b4b),
                                                                                 fontSize: 12,
                                                                                 fontWeight: FontWeight.w600,
-                                                                                fontFamily:
-                                                                                    ConstantFont.montserratMedium),
+                                                                                fontFamily: ConstantFont.montserratMedium),
                                                                           ),
                                                                         ),
                                                                       ),
-                                                                      cancelDataList[index].services!.length == 1
+                                                                      cancelDataList[index].services!.length ==
+                                                                              1
                                                                           ? Container(
                                                                               height: 0,
                                                                               width: 0,
                                                                             )
                                                                           : Visibility(
-                                                                              visible:
-                                                                                  cancelDataList[index].seeAllVisible,
+                                                                              visible: cancelDataList[index].seeAllVisible,
                                                                               child: GestureDetector(
                                                                                 onTap: () {
                                                                                   setState(() {
-                                                                                    cancelDataList[index]
-                                                                                        .seeAllVisible = false;
-                                                                                    cancelDataList[index]
-                                                                                        .serListVisible = false;
-                                                                                    cancelDataList[index]
-                                                                                        .newListVisible = true;
+                                                                                    cancelDataList[index].seeAllVisible = false;
+                                                                                    cancelDataList[index].serListVisible = false;
+                                                                                    cancelDataList[index].newListVisible = true;
                                                                                   });
                                                                                 },
                                                                                 child: Container(
-                                                                                  margin:
-                                                                                      EdgeInsets.only(left: 5, top: 5),
+                                                                                  margin: EdgeInsets.only(left: 5, top: 5),
                                                                                   child: Text(
                                                                                     StringConstant.seeAll,
-                                                                                    style: TextStyle(
-                                                                                        color: blue4a,
-                                                                                        fontSize: 12,
-                                                                                        fontWeight: FontWeight.w600,
-                                                                                        fontFamily: ConstantFont
-                                                                                            .montserratMedium),
+                                                                                    style: TextStyle(color: blue4a, fontSize: 12, fontWeight: FontWeight.w600, fontFamily: ConstantFont.montserratMedium),
                                                                                   ),
                                                                                 ),
                                                                               ),
                                                                             ),
                                                                       Visibility(
-                                                                        visible: cancelDataList[index].newListVisible,
-                                                                        child: GestureDetector(
-                                                                          onTap: () {
+                                                                        visible:
+                                                                            cancelDataList[index].newListVisible,
+                                                                        child:
+                                                                            GestureDetector(
+                                                                          onTap:
+                                                                              () {
                                                                             setState(() {
                                                                               print("SeeAllTop");
-                                                                              cancelDataList[index].seeAllVisible =
-                                                                                  true;
-                                                                              cancelDataList[index].serListVisible =
-                                                                                  true;
-                                                                              cancelDataList[index].newListVisible =
-                                                                                  false;
+                                                                              cancelDataList[index].seeAllVisible = true;
+                                                                              cancelDataList[index].serListVisible = true;
+                                                                              cancelDataList[index].newListVisible = false;
                                                                             });
                                                                           },
-                                                                          child: ListView(
-                                                                            shrinkWrap: true,
-                                                                            physics: NeverScrollableScrollPhysics(),
+                                                                          child:
+                                                                              ListView(
+                                                                            shrinkWrap:
+                                                                                true,
+                                                                            physics:
+                                                                                NeverScrollableScrollPhysics(),
                                                                             children: <Widget>[
                                                                               Container(
-                                                                                margin:
-                                                                                    EdgeInsets.only(left: 5, top: 5),
+                                                                                margin: EdgeInsets.only(left: 5, top: 5),
                                                                                 child: Text(
                                                                                   cancelServiceList.join(" , "),
                                                                                   maxLines: 5,
                                                                                   overflow: TextOverflow.ellipsis,
-                                                                                  style: TextStyle(
-                                                                                      color: white4B,
-                                                                                      fontSize: 12,
-                                                                                      fontWeight: FontWeight.w600,
-                                                                                      fontFamily: ConstantFont
-                                                                                          .montserratMedium),
+                                                                                  style: TextStyle(color: white4B, fontSize: 12, fontWeight: FontWeight.w600, fontFamily: ConstantFont.montserratMedium),
                                                                                 ),
                                                                               ),
                                                                             ],
@@ -1054,18 +1299,35 @@ class _Appoinment extends State<Appoinment> with SingleTickerProviderStateMixin 
                                                                     ],
                                                                   )),
                                                               Container(
-                                                                width: MediaQuery.of(context).size.width * 0.4,
+                                                                width: MediaQuery.of(
+                                                                            context)
+                                                                        .size
+                                                                        .width *
+                                                                    0.4,
                                                                 height: 50,
-                                                                alignment: Alignment.topRight,
-                                                                margin: EdgeInsets.only(top: 20, right: 10),
-                                                                child: GestureDetector(
+                                                                alignment:
+                                                                    Alignment
+                                                                        .topRight,
+                                                                margin: EdgeInsets
+                                                                    .only(
+                                                                        top: 20,
+                                                                        right:
+                                                                            10),
+                                                                child:
+                                                                    GestureDetector(
                                                                   onTap: () {},
-                                                                  child: Text(StringConstant.canceled,
+                                                                  child: Text(
+                                                                      StringConstant
+                                                                          .canceled,
                                                                       style: TextStyle(
-                                                                          color: redFF,
-                                                                          fontSize: 12,
-                                                                          fontFamily: ConstantFont.montserratMedium,
-                                                                          fontWeight: FontWeight.w700)),
+                                                                          color:
+                                                                              redFF,
+                                                                          fontSize:
+                                                                              12,
+                                                                          fontFamily: ConstantFont
+                                                                              .montserratMedium,
+                                                                          fontWeight:
+                                                                              FontWeight.w700)),
                                                                 ),
                                                               ),
                                                             ],
@@ -1088,7 +1350,8 @@ class _Appoinment extends State<Appoinment> with SingleTickerProviderStateMixin 
                                               alignment: Alignment.center,
                                               child: ListView(
                                                 shrinkWrap: true,
-                                                physics: NeverScrollableScrollPhysics(),
+                                                physics:
+                                                    NeverScrollableScrollPhysics(),
                                                 children: <Widget>[
                                                   Image.asset(
                                                     DummyImage.noData,
@@ -1099,11 +1362,14 @@ class _Appoinment extends State<Appoinment> with SingleTickerProviderStateMixin 
                                                   Align(
                                                     alignment: Alignment.center,
                                                     child: Text(
-                                                      StringConstant.youHavenAnyCanceledAppointment,
+                                                      StringConstant
+                                                          .youHavenAnyCanceledAppointment,
                                                       style: TextStyle(
                                                           color: whiteA3,
-                                                          fontFamily: ConstantFont.montserratMedium,
-                                                          fontWeight: FontWeight.w600,
+                                                          fontFamily: ConstantFont
+                                                              .montserratMedium,
+                                                          fontWeight:
+                                                              FontWeight.w600,
                                                           fontSize: 16),
                                                     ),
                                                   ),
@@ -1118,7 +1384,8 @@ class _Appoinment extends State<Appoinment> with SingleTickerProviderStateMixin 
 
                               ///completed list
                               Container(
-                                margin: EdgeInsets.only(top: 5.0, left: 10, right: 10),
+                                margin: EdgeInsets.only(
+                                    top: 5.0, left: 10, right: 10),
                                 color: whiteColor,
                                 child: RefreshIndicator(
                                   onRefresh: _onRefresh,
@@ -1134,140 +1401,215 @@ class _Appoinment extends State<Appoinment> with SingleTickerProviderStateMixin 
                                           },
                                           child: ListView.builder(
                                             shrinkWrap: true,
-                                            physics: NeverScrollableScrollPhysics(),
-                                            itemBuilder: (BuildContext context, int index) {
+                                            physics:
+                                                NeverScrollableScrollPhysics(),
+                                            itemBuilder: (BuildContext context,
+                                                int index) {
                                               var parsedDate;
-                                              parsedDate = DateTime.parse(completedDataList[index].date!);
-                                              var df = new DateFormat('MMM dd,yyyy');
-                                              parsedDate = df.format(parsedDate);
+                                              parsedDate = DateTime.parse(
+                                                  completedDataList[index]
+                                                      .date!);
+                                              var df =
+                                                  new DateFormat('MMM dd,yyyy');
+                                              parsedDate =
+                                                  df.format(parsedDate);
 
                                               completedServiceList.clear();
-                                              for (int i = 0; i < completedDataList[index].services!.length; i++) {
-                                                completedServiceList.add(completedDataList[index].services![i].name);
+                                              for (int i = 0;
+                                                  i <
+                                                      completedDataList[index]
+                                                          .services!
+                                                          .length;
+                                                  i++) {
+                                                completedServiceList.add(
+                                                    completedDataList[index]
+                                                        .services![i]
+                                                        .name);
                                               }
 
                                               return InkWell(
                                                 onTap: () {
-                                                  Navigator.of(context).push(MaterialPageRoute(
-                                                      builder: (context) => SingleAppoitmentScreen(
-                                                            appoitmentId: completedDataList[index].id!,
-                                                          )));
+                                                  Navigator.of(context).push(
+                                                      MaterialPageRoute(
+                                                          builder: (context) =>
+                                                              SingleAppoitmentScreen(
+                                                                appoitmentId:
+                                                                    completedDataList[
+                                                                            index]
+                                                                        .id!,
+                                                              )));
                                                 },
                                                 child: Container(
-                                                  margin: EdgeInsets.only(left: 10, right: 10, top: 10),
+                                                  margin: EdgeInsets.only(
+                                                      left: 10,
+                                                      right: 10,
+                                                      top: 10),
                                                   width: double.infinity,
                                                   decoration: BoxDecoration(
-                                                    border: Border.all(color: whiteF1, width: 3),
-                                                    borderRadius: BorderRadius.all(Radius.circular(12)),
+                                                    border: Border.all(
+                                                        color: whiteF1,
+                                                        width: 3),
+                                                    borderRadius:
+                                                        BorderRadius.all(
+                                                            Radius.circular(
+                                                                12)),
                                                   ),
                                                   child: Column(
-                                                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                                                    crossAxisAlignment:
+                                                        CrossAxisAlignment
+                                                            .stretch,
                                                     children: [
                                                       Padding(
-                                                          padding: EdgeInsets.symmetric(vertical:10,horizontal: 20, ),
+                                                          padding: EdgeInsets
+                                                              .symmetric(
+                                                            vertical: 10,
+                                                            horizontal: 20,
+                                                          ),
                                                           child: Row(
                                                             children: <Widget>[
                                                               Expanded(
-                                                                child: new Container(
+                                                                child:
+                                                                    new Container(
                                                                   height: 75,
-                                                                  alignment: Alignment.topLeft,
-                                                                  margin: EdgeInsets.only(left: 5),
-                                                                  child: CachedNetworkImage(
+                                                                  alignment:
+                                                                      Alignment
+                                                                          .topLeft,
+                                                                  margin: EdgeInsets
+                                                                      .only(
+                                                                          left:
+                                                                              5),
+                                                                  child:
+                                                                      CachedNetworkImage(
                                                                     imageUrl: PreferenceUtils.getString(
-                                                                        AppConstant.salonImage),
-                                                                    imageBuilder: (context, imageProvider) => Container(
-                                                                      decoration: BoxDecoration(
-                                                                        borderRadius: BorderRadius.circular(10.0),
-                                                                        image: DecorationImage(
-                                                                          image: imageProvider,
-                                                                          fit: BoxFit.contain,
-                                                                          alignment: Alignment.topCenter,
+                                                                        AppConstant
+                                                                            .salonImage),
+                                                                    imageBuilder:
+                                                                        (context,
+                                                                                imageProvider) =>
+                                                                            Container(
+                                                                      decoration:
+                                                                          BoxDecoration(
+                                                                        borderRadius:
+                                                                            BorderRadius.circular(10.0),
+                                                                        image:
+                                                                            DecorationImage(
+                                                                          image:
+                                                                              imageProvider,
+                                                                          fit: BoxFit
+                                                                              .contain,
+                                                                          alignment:
+                                                                              Alignment.topCenter,
                                                                         ),
                                                                       ),
                                                                     ),
-                                                                    placeholder: (context, url) =>
-                                                                        SpinKitFadingCircle(color: pinkColor),
-                                                                    errorWidget: (context, url, error) =>
-                                                                        Image.asset(DummyImage.noImage),
+                                                                    placeholder: (context,
+                                                                            url) =>
+                                                                        SpinKitFadingCircle(
+                                                                            color:
+                                                                                pinkColor),
+                                                                    errorWidget: (context,
+                                                                            url,
+                                                                            error) =>
+                                                                        Image.asset(
+                                                                            DummyImage.noImage),
                                                                   ),
                                                                 ),
                                                               ),
                                                               new Container(
-                                                                  width: screenWidth * .67,
+                                                                  width:
+                                                                      screenWidth *
+                                                                          .67,
                                                                   height: 110,
-                                                                  margin: EdgeInsets.only(left: 5.0, top: 0.0),
-                                                                  alignment: Alignment.topLeft,
-                                                                  color: whiteColor,
-                                                                  child: ListView(
-                                                                    physics: NeverScrollableScrollPhysics(),
-                                                                    children: <Widget>[
+                                                                  margin: EdgeInsets
+                                                                      .only(
+                                                                          left:
+                                                                              5.0,
+                                                                          top:
+                                                                              0.0),
+                                                                  alignment:
+                                                                      Alignment
+                                                                          .topLeft,
+                                                                  color:
+                                                                      whiteColor,
+                                                                  child:
+                                                                      ListView(
+                                                                    physics:
+                                                                        NeverScrollableScrollPhysics(),
+                                                                    children: <
+                                                                        Widget>[
                                                                       Container(
-                                                                        margin: EdgeInsets.only(top: 25.0),
-                                                                        child: Text(
+                                                                        margin: EdgeInsets.only(
+                                                                            top:
+                                                                                25.0),
+                                                                        child:
+                                                                            Text(
                                                                           PreferenceUtils.getString(
                                                                               AppConstant.singlesalonName),
                                                                           style: TextStyle(
                                                                               color: black1E,
                                                                               fontSize: 14,
                                                                               fontWeight: FontWeight.w600,
-                                                                              fontFamily:
-                                                                                  ConstantFont.montserratSemiBold),
+                                                                              fontFamily: ConstantFont.montserratSemiBold),
                                                                         ),
                                                                       ),
                                                                       Container(
-                                                                        margin: EdgeInsets.only(top: 5.0, left: 0.0),
-                                                                        child: Text(
+                                                                        margin: EdgeInsets.only(
+                                                                            top:
+                                                                                5.0,
+                                                                            left:
+                                                                                0.0),
+                                                                        child:
+                                                                            Text(
                                                                           PreferenceUtils.getString(
                                                                               AppConstant.salonAddress),
-                                                                          overflow: TextOverflow.ellipsis,
-                                                                          maxLines: 1,
+                                                                          overflow:
+                                                                              TextOverflow.ellipsis,
+                                                                          maxLines:
+                                                                              1,
                                                                           style: TextStyle(
                                                                               color: Color(0xFF9e9e9e),
                                                                               fontSize: 12,
                                                                               fontWeight: FontWeight.w600,
-                                                                              fontFamily:
-                                                                                  ConstantFont.montserratMedium),
+                                                                              fontFamily: ConstantFont.montserratMedium),
                                                                         ),
                                                                       ),
                                                                       Row(
-                                                                        children: <Widget>[
+                                                                        children: <
+                                                                            Widget>[
                                                                           Container(
-                                                                            margin: EdgeInsets.only(top: 2, left: 0),
-                                                                            child: SvgPicture.asset(
+                                                                            margin:
+                                                                                EdgeInsets.only(top: 2, left: 0),
+                                                                            child:
+                                                                                SvgPicture.asset(
                                                                               DummyImage.star,
                                                                               width: 10,
                                                                               height: 10,
                                                                             ),
                                                                           ),
                                                                           Container(
-                                                                            child: Container(
+                                                                            child:
+                                                                                Container(
                                                                               margin: EdgeInsets.only(top: 2, left: 2),
-                                                                              child: Text(
-                                                                                  PreferenceUtils.getString(
-                                                                                          AppConstant.salonRating) +
-                                                                                      " Rating",
-                                                                                  style: TextStyle(
-                                                                                      color: grey99,
-                                                                                      fontSize: 11,
-                                                                                      fontWeight: FontWeight.w600,
-                                                                                      fontFamily: ConstantFont
-                                                                                          .montserratMedium)),
+                                                                              child: Text(PreferenceUtils.getString(AppConstant.salonRating) + " Rating", style: TextStyle(color: grey99, fontSize: 11, fontWeight: FontWeight.w600, fontFamily: ConstantFont.montserratMedium)),
                                                                             ),
                                                                           ),
                                                                           Container(
-                                                                            alignment: Alignment.center,
-                                                                            width: 5.0,
-                                                                            height: 5.0,
+                                                                            alignment:
+                                                                                Alignment.center,
+                                                                            width:
+                                                                                5.0,
+                                                                            height:
+                                                                                5.0,
                                                                             margin:
                                                                                 EdgeInsets.only(left: 5.0, top: 5.0),
-                                                                            decoration: BoxDecoration(
+                                                                            decoration:
+                                                                                BoxDecoration(
                                                                               shape: BoxShape.circle,
                                                                               color: greyColor,
                                                                             ),
                                                                           ),
                                                                           Container(
-                                                                              margin: EdgeInsets.only(
-                                                                                  left: 5.0, top: 5.0, right: 0),
+                                                                              margin: EdgeInsets.only(left: 5.0, top: 5.0, right: 0),
                                                                               child: RichText(
                                                                                 maxLines: 2,
                                                                                 overflow: TextOverflow.ellipsis,
@@ -1282,17 +1624,7 @@ class _Appoinment extends State<Appoinment> with SingleTickerProviderStateMixin 
                                                                                         color: pinkColor,
                                                                                       ),
                                                                                     ),
-                                                                                    TextSpan(
-                                                                                        text: completedDataList[index]
-                                                                                                .startTime! +
-                                                                                            " - " +
-                                                                                            parsedDate,
-                                                                                        style: TextStyle(
-                                                                                            color: greyColor,
-                                                                                            fontSize: 11,
-                                                                                            fontWeight: FontWeight.w600,
-                                                                                            fontFamily: ConstantFont
-                                                                                                .montserratMedium)),
+                                                                                    TextSpan(text: completedDataList[index].startTime! + " - " + parsedDate, style: TextStyle(color: greyColor, fontSize: 11, fontWeight: FontWeight.w600, fontFamily: ConstantFont.montserratMedium)),
                                                                                   ],
                                                                                 ),
                                                                               ))
@@ -1304,84 +1636,105 @@ class _Appoinment extends State<Appoinment> with SingleTickerProviderStateMixin 
                                                           )),
                                                       Container(
                                                         child: Container(
-                                                          margin: const EdgeInsets.only(top: 1.0, bottom: 1.0),
-                                                          padding: const EdgeInsets.only(left: 10.0, right: 10.0),
-                                                          child: MySeparator(color: greyColor),
+                                                          margin:
+                                                              const EdgeInsets
+                                                                      .only(
+                                                                  top: 1.0,
+                                                                  bottom: 1.0),
+                                                          padding:
+                                                              const EdgeInsets
+                                                                      .only(
+                                                                  left: 10.0,
+                                                                  right: 10.0),
+                                                          child: MySeparator(
+                                                              color: greyColor),
                                                         ),
                                                       ),
                                                       Padding(
-                                                          padding: const EdgeInsets.all(0),
+                                                          padding:
+                                                              const EdgeInsets
+                                                                  .all(0),
                                                           child: Row(
-                                                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                                            mainAxisAlignment:
+                                                                MainAxisAlignment
+                                                                    .spaceBetween,
                                                             children: <Widget>[
                                                               Container(
-                                                                  width: screenWidth * .33,
-                                                                  margin: EdgeInsets.only(left: 5.0, right: 10.0),
-                                                                  color: whiteColor,
-                                                                  alignment: Alignment.topLeft,
-                                                                  child: ListView(
-                                                                    shrinkWrap: true,
-                                                                    physics: NeverScrollableScrollPhysics(),
-                                                                    children: <Widget>[
+                                                                  width:
+                                                                      screenWidth *
+                                                                          .33,
+                                                                  margin: EdgeInsets.only(
+                                                                      left: 5.0,
+                                                                      right:
+                                                                          10.0),
+                                                                  color:
+                                                                      whiteColor,
+                                                                  alignment:
+                                                                      Alignment
+                                                                          .topLeft,
+                                                                  child:
+                                                                      ListView(
+                                                                    shrinkWrap:
+                                                                        true,
+                                                                    physics:
+                                                                        NeverScrollableScrollPhysics(),
+                                                                    children: <
+                                                                        Widget>[
                                                                       Container(
-                                                                        transform:
-                                                                            Matrix4.translationValues(5.0, 0.0, 0.0),
-                                                                        child: Text(
-                                                                          StringConstant.serviceType,
+                                                                        transform: Matrix4.translationValues(
+                                                                            5.0,
+                                                                            0.0,
+                                                                            0.0),
+                                                                        child:
+                                                                            Text(
+                                                                          StringConstant
+                                                                              .serviceType,
                                                                           style: TextStyle(
                                                                               color: whiteB3,
                                                                               fontSize: 12,
                                                                               fontWeight: FontWeight.w600,
-                                                                              fontFamily:
-                                                                                  ConstantFont.montserratMedium),
+                                                                              fontFamily: ConstantFont.montserratMedium),
                                                                         ),
                                                                       ),
                                                                       Visibility(
                                                                         visible:
                                                                             completedDataList[index].serListVisible,
-                                                                        child: Container(
-                                                                          margin: EdgeInsets.only(left: 5),
-                                                                          child: Text(
+                                                                        child:
+                                                                            Container(
+                                                                          margin:
+                                                                              EdgeInsets.only(left: 5),
+                                                                          child:
+                                                                              Text(
                                                                             completedDataList[index].services![0].name!,
                                                                             style: TextStyle(
                                                                                 color: white4B,
                                                                                 fontSize: 12,
                                                                                 fontWeight: FontWeight.w600,
-                                                                                fontFamily:
-                                                                                    ConstantFont.montserratMedium),
+                                                                                fontFamily: ConstantFont.montserratMedium),
                                                                           ),
                                                                         ),
                                                                       ),
-                                                                      completedDataList[index].services!.length == 1
+                                                                      completedDataList[index].services!.length ==
+                                                                              1
                                                                           ? Container(
                                                                               height: 0,
                                                                               width: 0,
                                                                             )
                                                                           : Visibility(
-                                                                              visible: completedDataList[index]
-                                                                                  .seeAllVisible,
+                                                                              visible: completedDataList[index].seeAllVisible,
                                                                               child: GestureDetector(
                                                                                 onTap: () {
                                                                                   setState(() {
-                                                                                    completedDataList[index]
-                                                                                        .seeAllVisible = false;
-                                                                                    completedDataList[index]
-                                                                                        .serListVisible = false;
-                                                                                    completedDataList[index]
-                                                                                        .newListVisible = true;
+                                                                                    completedDataList[index].seeAllVisible = false;
+                                                                                    completedDataList[index].serListVisible = false;
+                                                                                    completedDataList[index].newListVisible = true;
                                                                                   });
                                                                                 },
                                                                                 child: Container(
-                                                                                  margin:
-                                                                                      EdgeInsets.only(left: 5, top: 5),
+                                                                                  margin: EdgeInsets.only(left: 5, top: 5),
                                                                                   child: Text(
                                                                                     StringConstant.seeAll,
-                                                                                    style: TextStyle(
-                                                                                        color: blue4a,
-                                                                                        fontSize: 12,
-                                                                                        fontWeight: FontWeight.w600,
-                                                                                        fontFamily: ConstantFont
-                                                                                            .montserratMedium),
+                                                                                    style: TextStyle(color: blue4a, fontSize: 12, fontWeight: FontWeight.w600, fontFamily: ConstantFont.montserratMedium),
                                                                                   ),
                                                                                 ),
                                                                               ),
@@ -1389,35 +1742,31 @@ class _Appoinment extends State<Appoinment> with SingleTickerProviderStateMixin 
                                                                       Visibility(
                                                                         visible:
                                                                             completedDataList[index].newListVisible,
-                                                                        child: GestureDetector(
-                                                                          onTap: () {
+                                                                        child:
+                                                                            GestureDetector(
+                                                                          onTap:
+                                                                              () {
                                                                             setState(() {
                                                                               print("SeeAllTop");
-                                                                              completedDataList[index].seeAllVisible =
-                                                                                  true;
-                                                                              completedDataList[index].serListVisible =
-                                                                                  true;
-                                                                              completedDataList[index].newListVisible =
-                                                                                  false;
+                                                                              completedDataList[index].seeAllVisible = true;
+                                                                              completedDataList[index].serListVisible = true;
+                                                                              completedDataList[index].newListVisible = false;
                                                                             });
                                                                           },
-                                                                          child: ListView(
-                                                                            shrinkWrap: true,
-                                                                            physics: NeverScrollableScrollPhysics(),
+                                                                          child:
+                                                                              ListView(
+                                                                            shrinkWrap:
+                                                                                true,
+                                                                            physics:
+                                                                                NeverScrollableScrollPhysics(),
                                                                             children: <Widget>[
                                                                               Container(
-                                                                                margin:
-                                                                                    EdgeInsets.only(left: 5, top: 5),
+                                                                                margin: EdgeInsets.only(left: 5, top: 5),
                                                                                 child: Text(
                                                                                   completedServiceList.join(" , "),
                                                                                   maxLines: 5,
                                                                                   overflow: TextOverflow.ellipsis,
-                                                                                  style: TextStyle(
-                                                                                      color: white4B,
-                                                                                      fontSize: 12,
-                                                                                      fontWeight: FontWeight.w600,
-                                                                                      fontFamily: ConstantFont
-                                                                                          .montserratMedium),
+                                                                                  style: TextStyle(color: white4B, fontSize: 12, fontWeight: FontWeight.w600, fontFamily: ConstantFont.montserratMedium),
                                                                                 ),
                                                                               ),
                                                                             ],
@@ -1427,17 +1776,30 @@ class _Appoinment extends State<Appoinment> with SingleTickerProviderStateMixin 
                                                                     ],
                                                                   )),
                                                               Column(
-                                                                crossAxisAlignment: CrossAxisAlignment.center,
-                                                                mainAxisAlignment: MainAxisAlignment.center,
+                                                                crossAxisAlignment:
+                                                                    CrossAxisAlignment
+                                                                        .center,
+                                                                mainAxisAlignment:
+                                                                    MainAxisAlignment
+                                                                        .center,
                                                                 children: [
                                                                   Container(
-                                                                    width: MediaQuery.of(context).size.width * 0.4,
-                                                                    alignment: Alignment.topRight,
-                                                                    margin: EdgeInsets.only(top: 10, right: 10),
+                                                                    width: MediaQuery.of(context)
+                                                                            .size
+                                                                            .width *
+                                                                        0.4,
+                                                                    alignment:
+                                                                        Alignment
+                                                                            .topRight,
+                                                                    margin: EdgeInsets.only(
+                                                                        top: 10,
+                                                                        right:
+                                                                            10),
                                                                     child: GestureDetector(
                                                                         onTap: () {},
                                                                         child: RichText(
-                                                                          text: TextSpan(
+                                                                          text:
+                                                                              TextSpan(
                                                                             children: [
                                                                               WidgetSpan(
                                                                                 child: Container(
@@ -1449,39 +1811,38 @@ class _Appoinment extends State<Appoinment> with SingleTickerProviderStateMixin 
                                                                               ),
                                                                               WidgetSpan(
                                                                                 child: Container(
-                                                                                  margin:
-                                                                                      EdgeInsets.only(top: 5, left: 5),
-                                                                                  child: Text(StringConstant.completed,
-                                                                                      style: TextStyle(
-                                                                                          color: green00,
-                                                                                          fontSize: 12,
-                                                                                          fontWeight: FontWeight.w500,
-                                                                                          fontFamily: ConstantFont
-                                                                                              .montserratMedium)),
+                                                                                  margin: EdgeInsets.only(top: 5, left: 5),
+                                                                                  child: Text(StringConstant.completed, style: TextStyle(color: green00, fontSize: 12, fontWeight: FontWeight.w500, fontFamily: ConstantFont.montserratMedium)),
                                                                                 ),
                                                                               ),
                                                                             ],
                                                                           ),
                                                                         )),
                                                                   ),
-                                                                  completedDataList[index].review == null
+                                                                  completedDataList[index]
+                                                                              .review ==
+                                                                          null
                                                                       ? InkWell(
-                                                                          onTap: () {
-                                                                            _newAddReview(
-                                                                                context, completedDataList[index].id);
+                                                                          onTap:
+                                                                              () {
+                                                                            _newAddReview(context,
+                                                                                completedDataList[index].id);
                                                                           },
-                                                                          child: Container(
+                                                                          child:
+                                                                              Container(
                                                                             width:
                                                                                 MediaQuery.of(context).size.width * 0.4,
-                                                                            alignment: Alignment.topRight,
-                                                                            margin: EdgeInsets.only(top: 10, right: 10),
-                                                                            child: Container(
+                                                                            alignment:
+                                                                                Alignment.topRight,
+                                                                            margin:
+                                                                                EdgeInsets.only(top: 10, right: 10),
+                                                                            child:
+                                                                                Container(
                                                                               margin: EdgeInsets.only(top: 5, left: 5),
                                                                               child: Text(
                                                                                 StringConstant.addReview,
                                                                                 style: TextStyle(
-                                                                                  fontFamily:
-                                                                                      ConstantFont.montserratMedium,
+                                                                                  fontFamily: ConstantFont.montserratMedium,
                                                                                   fontWeight: FontWeight.w600,
                                                                                   color: blue4a,
                                                                                 ),
@@ -1490,10 +1851,14 @@ class _Appoinment extends State<Appoinment> with SingleTickerProviderStateMixin 
                                                                           ),
                                                                         )
                                                                       : Container(),
-                                                                  completedDataList[index].review != null
+                                                                  completedDataList[index]
+                                                                              .review !=
+                                                                          null
                                                                       ? Padding(
-                                                                          padding: const EdgeInsets.only(top: 10),
-                                                                          child: Row(
+                                                                          padding:
+                                                                              const EdgeInsets.only(top: 10),
+                                                                          child:
+                                                                              Row(
                                                                             children: [
                                                                               SvgPicture.asset(
                                                                                 DummyImage.star,
@@ -1502,10 +1867,7 @@ class _Appoinment extends State<Appoinment> with SingleTickerProviderStateMixin 
                                                                                 padding: const EdgeInsets.all(5.0),
                                                                                 child: Text(
                                                                                   '(${completedDataList[index].review != null ? completedDataList[index].review!.rate.toString() : '0'})',
-                                                                                  style: TextStyle(
-                                                                                      fontFamily:
-                                                                                          ConstantFont.montserratMedium,
-                                                                                      fontWeight: FontWeight.w600),
+                                                                                  style: TextStyle(fontFamily: ConstantFont.montserratMedium, fontWeight: FontWeight.w600),
                                                                                 ),
                                                                               ),
                                                                               Container(
@@ -1524,21 +1886,17 @@ class _Appoinment extends State<Appoinment> with SingleTickerProviderStateMixin 
                                                                                   });
                                                                                 },
                                                                                 child: Padding(
-                                                                                    padding:
-                                                                                        const EdgeInsets.only(left: 10),
+                                                                                    padding: const EdgeInsets.only(left: 10),
                                                                                     child: RichText(
                                                                                       text: TextSpan(
                                                                                         children: [
                                                                                           WidgetSpan(
                                                                                             child: Container(
                                                                                               child: Text(
-                                                                                                StringConstant
-                                                                                                    .showReview,
+                                                                                                StringConstant.showReview,
                                                                                                 style: TextStyle(
-                                                                                                  fontFamily: ConstantFont
-                                                                                                      .montserratMedium,
-                                                                                                  fontWeight:
-                                                                                                      FontWeight.w600,
+                                                                                                  fontFamily: ConstantFont.montserratMedium,
+                                                                                                  fontWeight: FontWeight.w600,
                                                                                                   color: blue4a,
                                                                                                 ),
                                                                                               ),
@@ -1546,14 +1904,9 @@ class _Appoinment extends State<Appoinment> with SingleTickerProviderStateMixin 
                                                                                           ),
                                                                                           WidgetSpan(
                                                                                             child: Container(
-                                                                                              margin: EdgeInsets.only(
-                                                                                                  left: 5,
-                                                                                                  bottom: 5,
-                                                                                                  right: 10),
+                                                                                              margin: EdgeInsets.only(left: 5, bottom: 5, right: 10),
                                                                                               child: SvgPicture.asset(
-                                                                                                isShowReview
-                                                                                                    ? DummyImage.icUp
-                                                                                                    : DummyImage.icDown,
+                                                                                                isShowReview ? DummyImage.icUp : DummyImage.icDown,
                                                                                               ),
                                                                                             ),
                                                                                           ),
@@ -1573,13 +1926,22 @@ class _Appoinment extends State<Appoinment> with SingleTickerProviderStateMixin 
                                                         height: 10,
                                                       ),
                                                       (() {
-                                                        if (completedDataList[index].review != null) {
-                                                          DateTime today = new DateTime.now();
+                                                        if (completedDataList[
+                                                                    index]
+                                                                .review !=
+                                                            null) {
+                                                          DateTime today =
+                                                              new DateTime
+                                                                  .now();
 
                                                           String difference;
                                                           String difference1;
 
-                                                          String date = completedDataList[index].review!.createdAt!;
+                                                          String date =
+                                                              completedDataList[
+                                                                      index]
+                                                                  .review!
+                                                                  .createdAt!;
 
                                                           difference1 =
                                                               "${today.difference(DateTime.parse(date)).inHours}" +
@@ -1587,36 +1949,49 @@ class _Appoinment extends State<Appoinment> with SingleTickerProviderStateMixin 
                                                           difference =
                                                               "${today.difference(DateTime.parse(date)).inHours}";
 
-                                                          int differenceValue = int.parse(difference);
+                                                          int differenceValue =
+                                                              int.parse(
+                                                                  difference);
 
-                                                          if (differenceValue > 24) {
+                                                          if (differenceValue >
+                                                              24) {
                                                             difference1 =
                                                                 "${today.difference(DateTime.parse(date)).inDays}" +
                                                                     " Days Ago.";
                                                           }
 
                                                           return Visibility(
-                                                            visible: isShowReview,
+                                                            visible:
+                                                                isShowReview,
                                                             child: Column(
                                                               children: [
-                                                                MySeparator(color: greyColor),
+                                                                MySeparator(
+                                                                    color:
+                                                                        greyColor),
                                                                 SizedBox(
                                                                   height: 10,
                                                                 ),
                                                                 Row(
-                                                                  mainAxisAlignment: MainAxisAlignment.start,
-                                                                  children: <Widget>[
+                                                                  mainAxisAlignment:
+                                                                      MainAxisAlignment
+                                                                          .start,
+                                                                  children: <
+                                                                      Widget>[
                                                                     Padding(
-                                                                      padding: const EdgeInsets.all(8.0),
-                                                                      child: Column(
-                                                                        children: <Widget>[
+                                                                      padding:
+                                                                          const EdgeInsets.all(
+                                                                              8.0),
+                                                                      child:
+                                                                          Column(
+                                                                        children: <
+                                                                            Widget>[
                                                                           CachedNetworkImage(
-                                                                            height: 35,
-                                                                            width: 35,
-                                                                            imageUrl: PreferenceUtils.getString(
-                                                                                    AppConstant.imagePath) +
-                                                                                PreferenceUtils.getString(
-                                                                                    AppConstant.userimage),
+                                                                            height:
+                                                                                35,
+                                                                            width:
+                                                                                35,
+                                                                            imageUrl:
+                                                                                PreferenceUtils.getString(AppConstant.imagePath) + PreferenceUtils.getString(AppConstant.userimage),
                                                                             imageBuilder: (context, imageProvider) =>
                                                                                 Container(
                                                                               decoration: BoxDecoration(
@@ -1634,7 +2009,8 @@ class _Appoinment extends State<Appoinment> with SingleTickerProviderStateMixin 
                                                                                 Image.asset(DummyImage.noImage),
                                                                           ),
                                                                           Row(
-                                                                            mainAxisAlignment: MainAxisAlignment.center,
+                                                                            mainAxisAlignment:
+                                                                                MainAxisAlignment.center,
                                                                             crossAxisAlignment:
                                                                                 CrossAxisAlignment.center,
                                                                             children: <Widget>[
@@ -1643,62 +2019,58 @@ class _Appoinment extends State<Appoinment> with SingleTickerProviderStateMixin 
                                                                                 width: 10,
                                                                                 height: 10,
                                                                               ),
-                                                                              Text(
-                                                                                  completedDataList[index]
-                                                                                              .review!
-                                                                                              .rate !=
-                                                                                          null
-                                                                                      ? completedDataList[index]
-                                                                                          .review!
-                                                                                          .rate
-                                                                                          .toString()
-                                                                                      : '0',
-                                                                                  style: TextStyle(
-                                                                                      color: yellowColor,
-                                                                                      fontSize: 11,
-                                                                                      fontWeight: FontWeight.w600,
-                                                                                      fontFamily: 'Montserrat')),
+                                                                              Text(completedDataList[index].review!.rate != null ? completedDataList[index].review!.rate.toString() : '0', style: TextStyle(color: yellowColor, fontSize: 11, fontWeight: FontWeight.w600, fontFamily: 'Montserrat')),
                                                                             ],
                                                                           ),
                                                                         ],
                                                                       ),
                                                                     ),
                                                                     Expanded(
-                                                                      child: Container(
-                                                                        alignment: Alignment.topCenter,
-                                                                        margin:
-                                                                            EdgeInsets.only(top: 5, left: 0, right: 5),
-                                                                        decoration: BoxDecoration(
-                                                                          color: whiteF1,
-                                                                          borderRadius: BorderRadius.circular(8),
+                                                                      child:
+                                                                          Container(
+                                                                        alignment:
+                                                                            Alignment.topCenter,
+                                                                        margin: EdgeInsets.only(
+                                                                            top:
+                                                                                5,
+                                                                            left:
+                                                                                0,
+                                                                            right:
+                                                                                5),
+                                                                        decoration:
+                                                                            BoxDecoration(
+                                                                          color:
+                                                                              whiteF1,
+                                                                          borderRadius:
+                                                                              BorderRadius.circular(8),
                                                                         ),
-                                                                        child: Padding(
+                                                                        child:
+                                                                            Padding(
                                                                           padding: const EdgeInsets.only(
-                                                                              left: 8, bottom: 8, top: 5),
-                                                                          child: Column(
-                                                                            mainAxisAlignment: MainAxisAlignment.start,
+                                                                              left: 8,
+                                                                              bottom: 8,
+                                                                              top: 5),
+                                                                          child:
+                                                                              Column(
+                                                                            mainAxisAlignment:
+                                                                                MainAxisAlignment.start,
                                                                             crossAxisAlignment:
                                                                                 CrossAxisAlignment.start,
                                                                             children: <Widget>[
                                                                               Row(
-                                                                                mainAxisAlignment:
-                                                                                    MainAxisAlignment.spaceBetween,
+                                                                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                                                                 children: <Widget>[
                                                                                   Column(
-                                                                                    crossAxisAlignment:
-                                                                                        CrossAxisAlignment.start,
-                                                                                    mainAxisAlignment:
-                                                                                        MainAxisAlignment.start,
+                                                                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                                                                    mainAxisAlignment: MainAxisAlignment.start,
                                                                                     children: [
                                                                                       Text(
-                                                                                        PreferenceUtils.getString(
-                                                                                            AppConstant.username),
+                                                                                        PreferenceUtils.getString(AppConstant.username),
                                                                                         style: TextStyle(
                                                                                           color: blackColor,
                                                                                           fontSize: 14,
                                                                                           fontWeight: FontWeight.w600,
-                                                                                          fontFamily: ConstantFont
-                                                                                              .montserratMedium,
+                                                                                          fontFamily: ConstantFont.montserratMedium,
                                                                                         ),
                                                                                       ),
                                                                                       Text(
@@ -1707,8 +2079,7 @@ class _Appoinment extends State<Appoinment> with SingleTickerProviderStateMixin 
                                                                                           color: grey99,
                                                                                           fontSize: 12,
                                                                                           fontWeight: FontWeight.w600,
-                                                                                          fontFamily: ConstantFont
-                                                                                              .montserratMedium,
+                                                                                          fontFamily: ConstantFont.montserratMedium,
                                                                                         ),
                                                                                       ),
                                                                                     ],
@@ -1722,22 +2093,15 @@ class _Appoinment extends State<Appoinment> with SingleTickerProviderStateMixin 
                                                                                     ),
                                                                                     offset: Offset(-95, 50),
                                                                                     onSelected: handleClick,
-                                                                                    itemBuilder:
-                                                                                        (BuildContext context) {
-                                                                                      return {"Notification Settings"}
-                                                                                          .map((String choice) {
+                                                                                    itemBuilder: (BuildContext context) {
+                                                                                      return {
+                                                                                        "Notification Settings"
+                                                                                      }.map((String choice) {
                                                                                         return PopupMenuItem<String>(
-                                                                                          value:
-                                                                                              completedDataList[index]
-                                                                                                  .review!
-                                                                                                  .reviewId
-                                                                                                  .toString(),
+                                                                                          value: completedDataList[index].review!.reviewId.toString(),
                                                                                           child: Text(
                                                                                             "Delete",
-                                                                                            style: TextStyle(
-                                                                                                color: blackColor,
-                                                                                                fontFamily: ConstantFont
-                                                                                                    .montserratMedium),
+                                                                                            style: TextStyle(color: blackColor, fontFamily: ConstantFont.montserratMedium),
                                                                                           ),
                                                                                         );
                                                                                       }).toList();
@@ -1746,16 +2110,13 @@ class _Appoinment extends State<Appoinment> with SingleTickerProviderStateMixin 
                                                                                 ],
                                                                               ),
                                                                               Text(
-                                                                                completedDataList[index]
-                                                                                    .review!
-                                                                                    .message!,
+                                                                                completedDataList[index].review!.message!,
                                                                                 textAlign: TextAlign.start,
                                                                                 style: TextStyle(
                                                                                   color: grey99,
                                                                                   fontSize: 12,
                                                                                   fontWeight: FontWeight.w600,
-                                                                                  fontFamily:
-                                                                                      ConstantFont.montserratMedium,
+                                                                                  fontFamily: ConstantFont.montserratMedium,
                                                                                 ),
                                                                                 maxLines: 5,
                                                                                 overflow: TextOverflow.ellipsis,
@@ -1795,7 +2156,8 @@ class _Appoinment extends State<Appoinment> with SingleTickerProviderStateMixin 
                                               alignment: Alignment.center,
                                               child: ListView(
                                                 shrinkWrap: true,
-                                                physics: NeverScrollableScrollPhysics(),
+                                                physics:
+                                                    NeverScrollableScrollPhysics(),
                                                 children: <Widget>[
                                                   Image.asset(
                                                     DummyImage.noData,
@@ -1806,11 +2168,14 @@ class _Appoinment extends State<Appoinment> with SingleTickerProviderStateMixin 
                                                   Align(
                                                     alignment: Alignment.center,
                                                     child: Text(
-                                                      StringConstant.youHavenAnyCompletedAppointment,
+                                                      StringConstant
+                                                          .youHavenAnyCompletedAppointment,
                                                       style: TextStyle(
                                                           color: whiteA3,
-                                                          fontFamily: ConstantFont.montserratMedium,
-                                                          fontWeight: FontWeight.w600,
+                                                          fontFamily: ConstantFont
+                                                              .montserratMedium,
+                                                          fontWeight:
+                                                              FontWeight.w600,
                                                           fontSize: 16),
                                                     ),
                                                   ),
@@ -1854,10 +2219,15 @@ class _Appoinment extends State<Appoinment> with SingleTickerProviderStateMixin 
         if (response.success = true) {
           print("sucess");
           ToastMessage.toastMessage(response.msg!);
-          Navigator.push(
-            context,
-            MaterialPageRoute(builder: (context) => HomeScreen(1)),
-          );
+          // Navigator.push(
+          //   context,
+          //   MaterialPageRoute(builder: (context) => HomeScreen(1)),
+          // );
+          pushNewScreen(
+                            context,
+                            screen: HomeScreen(1),
+                            withNavBar: false,
+                          );
         }
       });
     }).catchError((Object obj) {
@@ -1872,11 +2242,11 @@ class _Appoinment extends State<Appoinment> with SingleTickerProviderStateMixin 
           var msg = res.statusMessage;
 
           if (responseCode == 401) {
-            ToastMessage.toastMessage("Invalid Data");
+            ToastMessage.toastMessage("Data invalide ");
             print(responseCode);
             print(res.statusMessage);
           } else if (responseCode == 422) {
-            ToastMessage.toastMessage("Invalid Email");
+            ToastMessage.toastMessage("Email invalide");
             print("code:$responseCode");
             print("msg:$msg");
           }
@@ -1927,7 +2297,8 @@ class _Appoinment extends State<Appoinment> with SingleTickerProviderStateMixin 
                           ),
                           Container(
                             alignment: Alignment.topLeft,
-                            margin: EdgeInsets.only(top: 25, left: 5, right: 10, bottom: 5),
+                            margin: EdgeInsets.only(
+                                top: 25, left: 5, right: 10, bottom: 5),
                             width: screenWidth,
                             height: 70,
                             color: whiteColor,
@@ -1948,7 +2319,8 @@ class _Appoinment extends State<Appoinment> with SingleTickerProviderStateMixin 
                                           radius: 55,
                                           child: CircleAvatar(
                                             radius: 50,
-                                            backgroundImage: AssetImage(DummyImage.theBarber),
+                                            backgroundImage: AssetImage(
+                                                DummyImage.theBarber),
                                           ),
                                         ),
                                       ),
@@ -1957,7 +2329,8 @@ class _Appoinment extends State<Appoinment> with SingleTickerProviderStateMixin 
                                 ),
                                 Container(
                                   alignment: Alignment.topLeft,
-                                  margin: EdgeInsets.only(top: 10, left: 5, right: 5),
+                                  margin: EdgeInsets.only(
+                                      top: 10, left: 5, right: 5),
                                   width: screenWidth * .65,
                                   height: 90,
                                   decoration: BoxDecoration(
@@ -1972,8 +2345,10 @@ class _Appoinment extends State<Appoinment> with SingleTickerProviderStateMixin 
                                       textInputAction: TextInputAction.done,
                                       maxLines: 8,
                                       validator: (msg) {
-                                        Pattern pattern = r'^[A-Za-z0-9]+(?:[ _-][A-Za-z0-9]+)*$';
-                                        RegExp regex = new RegExp(pattern as String);
+                                        Pattern pattern =
+                                            r'^[A-Za-z0-9]+(?:[ _-][A-Za-z0-9]+)*$';
+                                        RegExp regex =
+                                            new RegExp(pattern as String);
                                         if (!regex.hasMatch(msg!))
                                           return 'Please Enter review message';
                                         else
@@ -1982,21 +2357,29 @@ class _Appoinment extends State<Appoinment> with SingleTickerProviderStateMixin 
                                       style: TextStyle(
                                           fontSize: 14.0,
                                           color: blackColor,
-                                          fontFamily: ConstantFont.montserratMedium,
+                                          fontFamily:
+                                              ConstantFont.montserratMedium,
                                           fontWeight: FontWeight.w600),
                                       decoration: InputDecoration(
                                         filled: true,
                                         fillColor: whiteF1,
                                         hintText: 'Enter review',
-                                        contentPadding:
-                                            const EdgeInsets.only(left: 14.0, bottom: 0.0, top: 5.0, right: 5),
+                                        contentPadding: const EdgeInsets.only(
+                                            left: 14.0,
+                                            bottom: 0.0,
+                                            top: 5.0,
+                                            right: 5),
                                         focusedBorder: OutlineInputBorder(
-                                          borderSide: BorderSide(color: whiteF1),
-                                          borderRadius: BorderRadius.circular(5),
+                                          borderSide:
+                                              BorderSide(color: whiteF1),
+                                          borderRadius:
+                                              BorderRadius.circular(5),
                                         ),
                                         enabledBorder: UnderlineInputBorder(
-                                          borderSide: BorderSide(color: whiteF1),
-                                          borderRadius: BorderRadius.circular(5),
+                                          borderSide:
+                                              BorderSide(color: whiteF1),
+                                          borderRadius:
+                                              BorderRadius.circular(5),
                                         ),
                                       ),
                                     ),
@@ -2046,7 +2429,8 @@ class _Appoinment extends State<Appoinment> with SingleTickerProviderStateMixin 
                               maxValueVisibility: true,
                               valueLabelVisibility: false,
                               animationDuration: Duration(milliseconds: 1000),
-                              valueLabelPadding: const EdgeInsets.symmetric(vertical: 1, horizontal: 8),
+                              valueLabelPadding: const EdgeInsets.symmetric(
+                                  vertical: 1, horizontal: 8),
                               valueLabelMargin: const EdgeInsets.only(right: 8),
                               starOffColor: whiteE7,
                               starColor: yellowColor,
@@ -2059,19 +2443,21 @@ class _Appoinment extends State<Appoinment> with SingleTickerProviderStateMixin 
                                 minimumSize: Size(double.infinity, 40),
                                 shape: RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(7),
-                                    side: BorderSide(color: pinkColor, width: 2)),
+                                    side:
+                                        BorderSide(color: pinkColor, width: 2)),
                               ),
                               onPressed: () {
                                 if (_formKey.currentState!.validate()) {
                                   _formKey.currentState!.save();
                                   if (rating != 0.0) {
-                                    AppConstant.checkNetwork()
-                                        .whenComplete(() => callApiForAddReview(id, reviewTextController.text));
+                                    AppConstant.checkNetwork().whenComplete(
+                                        () => callApiForAddReview(
+                                            id, reviewTextController.text));
 
                                     Navigator.pop(context);
                                     return;
                                   } else {
-                                    ToastMessage.toastMessage('Please give star rating.');
+                                    ToastMessage.toastMessage('Veuillez donner votre avis en étoiles.');
                                     return;
                                   }
                                 }
@@ -2101,7 +2487,8 @@ class _Appoinment extends State<Appoinment> with SingleTickerProviderStateMixin 
         builder: (BuildContext context) {
           return Dialog(
             child: Padding(
-              padding: const EdgeInsets.only(left: 20, right: 20, bottom: 0, top: 20),
+              padding: const EdgeInsets.only(
+                  left: 20, right: 20, bottom: 0, top: 20),
               child: Container(
                 height: MediaQuery.of(context).size.height * 0.27,
                 child: Column(
@@ -2131,7 +2518,8 @@ class _Appoinment extends State<Appoinment> with SingleTickerProviderStateMixin 
                           height: ScreenUtil().setHeight(20),
                         ),
                         Text(
-                          StringConstant.areYouSureYouWantToCancelYourAppointment,
+                          StringConstant
+                              .areYouSureYouWantToCancelYourAppointment,
                           textAlign: TextAlign.center,
                           style: TextStyle(
                               fontSize: 14,
@@ -2161,7 +2549,8 @@ class _Appoinment extends State<Appoinment> with SingleTickerProviderStateMixin 
                                       color: greyColor,
                                       fontSize: 16,
                                       fontWeight: FontWeight.w600,
-                                      fontFamily: ConstantFont.montserratMedium),
+                                      fontFamily:
+                                          ConstantFont.montserratMedium),
                                 ),
                               ),
                               Padding(
@@ -2170,7 +2559,8 @@ class _Appoinment extends State<Appoinment> with SingleTickerProviderStateMixin 
                                   onTap: () {
                                     print("BookingId:$id");
 
-                                    AppConstant.checkNetwork().whenComplete(() => callApiForCancelBooking(id!));
+                                    AppConstant.checkNetwork().whenComplete(
+                                        () => callApiForCancelBooking(id!));
                                     Navigator.pop(context);
                                   },
                                   child: Text(
@@ -2179,7 +2569,8 @@ class _Appoinment extends State<Appoinment> with SingleTickerProviderStateMixin 
                                         color: pinkColor,
                                         fontSize: 16,
                                         fontWeight: FontWeight.w600,
-                                        fontFamily: ConstantFont.montserratMedium),
+                                        fontFamily:
+                                            ConstantFont.montserratMedium),
                                   ),
                                 ),
                               ),
@@ -2199,14 +2590,18 @@ class _Appoinment extends State<Appoinment> with SingleTickerProviderStateMixin 
   Future<bool> _onWillPop() async {
     Navigator.pop(context);
 
-    return (await Navigator.of(context).push(MaterialPageRoute(builder: (context) => new HomeScreen(0)))) ?? false;
+    return (await Navigator.of(context).push(
+            MaterialPageRoute(builder: (context) => new HomeScreen(0)))) ??
+        false;
   }
 
   void handleClick(
     String value,
   ) {
     print(value);
-    RestClient(RetroApi().dioData()).deletereview(int.parse(value)).then((response) {
+    RestClient(RetroApi().dioData())
+        .deletereview(int.parse(value))
+        .then((response) {
       print(response.toString());
       final body = json.decode(response!);
 
@@ -2217,7 +2612,8 @@ class _Appoinment extends State<Appoinment> with SingleTickerProviderStateMixin 
         if (sucess = true) {
           ToastMessage.toastMessage(body['msg']);
 
-          AppConstant.checkNetwork().whenComplete(() => CallApiForAppointment());
+          AppConstant.checkNetwork()
+              .whenComplete(() => CallApiForAppointment());
         } else {
           ToastMessage.toastMessage(body['msg']);
         }

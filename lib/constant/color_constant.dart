@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-Color pinkColor=Color(0xFFe06287);
+Color pinkColor=Color(0xFFFA8FD1);
 Color whiteColor=Color(0xFFffffff);
 Color blackColor=Color(0xFF000000);
 Color whiteCc=Color(0xFFcccccc);
@@ -19,6 +19,10 @@ Color grey99=Color(0xFF999999);
 Color greyA5=Color(0xFFa5a5a5);
 Color blue21=Color(0xff2196f3);
 Color yellowColor=Colors.yellow;
-Color mustardColor=Color(0xFFF5D486);
+Color mustardColor=Color(0xFFFFF2D3);
 Color greenColor=Colors.green;
 Color whiteDD=Color(0xffdddddd);
+Color beigeColor = Color(0xffF2E9E6);
+Color drawerColor = Color(0xFFB8517E);
+
+

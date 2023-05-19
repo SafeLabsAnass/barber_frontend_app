@@ -1,4 +1,3 @@
-import 'dart:collection';
 
 import 'package:barber_app/constant/appconstant.dart';
 import 'package:barber_app/constant/color_constant.dart';
@@ -25,7 +24,6 @@ class BottomBar extends StatefulWidget {
 }
 
 class BottomBar1 extends State<BottomBar> {
-  ListQueue<int> _navigationQueue = ListQueue();
   int index = 0;
   bool? login = false;
 
@@ -40,6 +38,7 @@ class BottomBar1 extends State<BottomBar> {
 
 
   login = PreferenceUtils.getlogin(AppConstant.isLoggedIn);
+
 
     void onOpen(){
     setState(() {
@@ -77,10 +76,11 @@ class BottomBar1 extends State<BottomBar> {
             ],
             hideNavigationBarWhenKeyboardShows: true,
             handleAndroidBackButtonPress: true,
-            stateManagement: true,
-            navBarHeight: 60,
-            confineInSafeArea: true,
-            resizeToAvoidBottomInset: true,
+             stateManagement: false,
+            navBarHeight: 70,
+            padding: NavBarPadding.only(left: 1, right: 1),
+             confineInSafeArea: false,
+            resizeToAvoidBottomInset: false,
             items: [
               PersistentBottomNavBarItem(
                 icon: Icon(Icons.home),
