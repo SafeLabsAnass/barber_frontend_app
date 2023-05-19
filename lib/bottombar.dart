@@ -1,4 +1,3 @@
-import 'dart:collection';
 
 import 'package:barber_app/constant/appconstant.dart';
 import 'package:barber_app/constant/color_constant.dart';
@@ -25,7 +24,6 @@ class BottomBar extends StatefulWidget {
 }
 
 class BottomBar1 extends State<BottomBar> {
-  ListQueue<int> _navigationQueue = ListQueue();
   int index = 0;
   bool? login = false;
 

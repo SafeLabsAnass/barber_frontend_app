@@ -1,4 +1,3 @@
-import 'dart:ui';
 
 import 'package:barber_app/ResponseModel/salonDetailResponse.dart';
 import 'package:barber_app/appbar/app_bar_only.dart';
@@ -20,7 +19,6 @@ import 'package:barber_app/network/Apiservice.dart';
 import 'package:barber_app/network/Retro_Api.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:intl/intl.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 
@@ -30,7 +28,7 @@ class DetailBarber extends StatefulWidget {
   final String? title;
   final VoidCallback onOpen;
   final VoidCallback onClose;
-  bool isDrawerOpen;
+  final bool isDrawerOpen;
 
   final int? catId;
   final int? currentSelectedIndex;
@@ -302,8 +300,6 @@ class _DetailBarber extends State<DetailBarber>
 
           double salonLat = double.parse(response.data!.salon!.latitude!);
           double salonLong = double.parse(response.data!.salon!.longitude!);
-          assert(salonLat is double);
-          assert(salonLong is double);
 
           AppConstant.getDistance(salonLat, salonLong).whenComplete(
               () => AppConstant.getDistance(salonLat, salonLong).then((value) {

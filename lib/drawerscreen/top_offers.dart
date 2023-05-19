@@ -1,6 +1,5 @@
 import 'package:barber_app/ResponseModel/offerResponse.dart';
 import 'package:barber_app/ResponseModel/offerbannerResppose.dart';
-import 'package:barber_app/bottombar.dart';
 import 'package:barber_app/constant/appconstant.dart';
 import 'package:barber_app/constant/color_constant.dart';
 import 'package:barber_app/constant/constant_font.dart';

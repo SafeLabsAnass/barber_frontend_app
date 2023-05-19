@@ -53,7 +53,6 @@ class _GalleryView extends State<GalleryView> {
 Widget build(BuildContext context) {
   dynamic screenHeight = MediaQuery.of(context).size.height;
   dynamic screenWidth = MediaQuery.of(context).size.width;
-  dynamic ratio = MediaQuery.of(context).size.aspectRatio;
   
   return SafeArea(
     child: Scaffold(
