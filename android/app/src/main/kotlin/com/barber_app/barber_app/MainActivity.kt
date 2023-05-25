@@ -1,4 +1,4 @@
-package com.barber_app.barber_app
+package com.cindybeauty.app
 
 //import io.flutter.embedding.android.FlutterActivity
 import io.flutter.embedding.android.FlutterFragmentActivity
