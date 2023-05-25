@@ -1092,8 +1092,13 @@ class _Profile extends State<Profile> {
                                                                   ),
                                                                   Text(
                                                                     " : " +
-                                                                        upcomingOrderDataList[index]
-                                                                            .bookingStatus!,
+                                                                         (upcomingOrderDataList[index].bookingStatus! == 'Pending'
+                                                                              ? "En attente"
+                                                                              : upcomingOrderDataList[index].bookingStatus! == 'Cancelled'
+                                                                                  ? "Annulé"
+                                                                                  : upcomingOrderDataList[index].bookingStatus! == 'Approved'
+                                                                                      ? "Validé"
+                                                                                      : "Terminé"),
                                                                     style: TextStyle(
                                                                         color:
                                                                             whiteB3,

@@ -9,6 +9,7 @@ import 'package:barber_app/constant/dymmyimages.dart';
 import 'package:barber_app/constant/preferenceutils.dart';
 import 'package:barber_app/constant/string_constant.dart';
 import 'package:barber_app/constant/toast_message.dart';
+import 'package:barber_app/fragments/appoinment.dart';
 import 'package:barber_app/network/Apiservice.dart';
 import 'package:barber_app/network/BaseModel.dart';
 import 'package:barber_app/network/Retro_Api.dart';
@@ -656,7 +657,7 @@ class _ConfirmBooking extends State<ConfirmBooking> {
                                           Container(
                                             child: Text(
                                               _totalprice![index].toString() +
-                                                  " ₹",
+                                                  " DH",
                                               style: TextStyle(
                                                   color: grey99,
                                                   fontWeight: FontWeight.w600,
@@ -789,7 +790,7 @@ class _ConfirmBooking extends State<ConfirmBooking> {
                                           child: Text(
                                             'new price: ' +
                                                 totalprice.toString() +
-                                                " ₹",
+                                                " DH",
                                             style: TextStyle(
                                                 color: whiteColor,
                                                 fontWeight: FontWeight.w600,
@@ -1007,7 +1008,7 @@ class _ConfirmBooking extends State<ConfirmBooking> {
                           // Navigator.push(context, new MaterialPageRoute(builder: (context) =>  HomeScreen(1) ));
                           pushNewScreen(
                             context,
-                            screen: HomeScreen(1),
+                            screen: Appoinment(isDrawerOpen: isDrawerOpen, onOpen: onOpen, onClose: onClose),
                             withNavBar: false,
                           );
                         },

@@ -42,7 +42,7 @@ class BottomBar1 extends State<BottomBar> {
 
     void onOpen(){
     setState(() {
-      xOffset=220;
+      xOffset=235;
       yOffset=130;
       scaleFactor=0.7;
       isDrawerOpen=true;
@@ -84,14 +84,14 @@ class BottomBar1 extends State<BottomBar> {
             items: [
               PersistentBottomNavBarItem(
                 icon: Icon(Icons.home),
-                title: "Home",
+                title: "Accueil",
                 activeColorPrimary: pinkColor,
                 inactiveColorPrimary: Colors.grey.shade700,
                 iconSize: 20,
               ),
               PersistentBottomNavBarItem(
                 icon: Icon(Icons.calendar_today),
-                title: "Schedule",
+                title: "Calendrier",
                 activeColorPrimary: pinkColor,
                 inactiveColorPrimary: Colors.grey.shade700,
                 iconSize: 20,
@@ -105,7 +105,7 @@ class BottomBar1 extends State<BottomBar> {
               ),
               PersistentBottomNavBarItem(
                 icon: Icon(Icons.person),
-                title: "Profile",
+                title: "Profil",
                 activeColorPrimary: pinkColor,
                 inactiveColorPrimary: Colors.grey.shade700,
                 iconSize: 20,

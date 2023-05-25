@@ -432,14 +432,14 @@ class _ServiceTab extends State<ServiceTab> {
                                                               EdgeInsets.only(
                                                                   left: 10,
                                                                   top: 5),
-                                                          height: 35,
-                                                          width: 35,
+                                                          height: 50,
+                                                          width: 50,
                                                           alignment:
                                                               Alignment.topLeft,
                                                           child:
                                                               CachedNetworkImage(
-                                                            height: 35,
-                                                            width: 35,
+                                                            height: 50,
+                                                            width: 50,
                                                             imageUrl: catService[
                                                                         index]
                                                                     .imagePath! +
@@ -459,8 +459,8 @@ class _ServiceTab extends State<ServiceTab> {
                                                                     DecorationImage(
                                                                   image:
                                                                       imageProvider,
-                                                                  fit: BoxFit
-                                                                      .fill,
+                                                                  fit: BoxFit.cover,
+                                                                  
                                                                   alignment:
                                                                       Alignment
                                                                           .topCenter,
@@ -528,7 +528,7 @@ class _ServiceTab extends State<ServiceTab> {
                                                                         child:
                                                                             Text(
                                                                           catService[index].price.toString() +
-                                                                              ' ₹',
+                                                                              'DH',
                                                                           style: TextStyle(
                                                                               color: grey99,
                                                                               fontWeight: FontWeight.w600,
@@ -638,7 +638,7 @@ class _ServiceTab extends State<ServiceTab> {
                               margin: EdgeInsets.only(left: 10),
                               alignment: FractionalOffset.centerLeft,
                               child: Text(
-                                ("Total : " + totalprice.toString()) + " ₹ ",
+                                ("Total : " + totalprice.toString()) + " DH ",
                                 textAlign: TextAlign.end,
                                 style: TextStyle(
                                     color: black1E,

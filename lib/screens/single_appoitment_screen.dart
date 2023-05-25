@@ -69,7 +69,7 @@ class _SingleAppoitmentScreenState extends State<SingleAppoitmentScreen> {
         centerTitle: true,
         elevation: 0,
         title: Text(
-          "Appointment Details",
+          "Details du rendez-vous",
           textAlign: TextAlign.center,
           style: TextStyle(
               color: Colors.white, fontFamily: ConstantFont.montserratBold, fontSize: 15, fontWeight: FontWeight.w600),
@@ -175,7 +175,7 @@ class _SingleAppoitmentScreenState extends State<SingleAppoitmentScreen> {
 
           ///employee Details
           Text(
-            "Employee Details",
+            "Détails de l'employé",
             style: TextStyle(
                 fontFamily: ConstantFont.montserratBold,
                 fontSize: 18,
@@ -296,7 +296,7 @@ class _SingleAppoitmentScreenState extends State<SingleAppoitmentScreen> {
                       fontFamily: ConstantFont.montserratRegular),
                 ),
                 trailing: Text(
-                  PreferenceUtils.getString(AppConstant.currencySymbol) + " " + service.price.toString(),
+                service.price.toString()  + " " +  PreferenceUtils.getString(AppConstant.currencySymbol),
                   style: TextStyle(
                       color: Colors.black,
                       fontWeight: FontWeight.w600,
@@ -318,7 +318,7 @@ class _SingleAppoitmentScreenState extends State<SingleAppoitmentScreen> {
 
           ///booking details
           Text(
-            "Booking Details",
+            "Détails de réservation",
             style: TextStyle(
                 fontFamily: ConstantFont.montserratBold,
                 fontSize: 18,
@@ -369,7 +369,7 @@ class _SingleAppoitmentScreenState extends State<SingleAppoitmentScreen> {
               children: [
                 Container(
                   child: Text(
-                    "Time",
+                    "Heure",
                     style: TextStyle(
                         color: grey99,
                         fontWeight: FontWeight.w600,
@@ -400,7 +400,7 @@ class _SingleAppoitmentScreenState extends State<SingleAppoitmentScreen> {
               children: [
                 Container(
                   child: Text(
-                    "Payment Status",
+                   "Statut de paiement",
                     style: TextStyle(
                         color: grey99,
                         fontWeight: FontWeight.w600,
@@ -410,7 +410,7 @@ class _SingleAppoitmentScreenState extends State<SingleAppoitmentScreen> {
                 ),
                 Container(
                   child: Text(
-                    appoitmentDatas.paymentStatus == 0 ? "pending" : "complete",
+                    appoitmentDatas.paymentStatus == 0 ? "En attente" : "Terminé",
                     style: TextStyle(
                         color: grey99,
                         fontWeight: FontWeight.w600,
@@ -431,7 +431,7 @@ class _SingleAppoitmentScreenState extends State<SingleAppoitmentScreen> {
               children: [
                 Container(
                   child: Text(
-                    "Payment Method",
+                    "Mode de paiement",
                     style: TextStyle(
                         color: grey99,
                         fontWeight: FontWeight.w600,
@@ -462,7 +462,7 @@ class _SingleAppoitmentScreenState extends State<SingleAppoitmentScreen> {
               children: [
                 Container(
                   child: Text(
-                    "Appointment Status",
+                    "Statut du rendez-vous",
                     style: TextStyle(
                         color: grey99,
                         fontWeight: FontWeight.w600,
@@ -472,7 +472,14 @@ class _SingleAppoitmentScreenState extends State<SingleAppoitmentScreen> {
                 ),
                 Container(
                   child: Text(
-                    appoitmentDatas.bookingStatus!,
+                    
+                      (appoitmentDatas.bookingStatus! == 'Pending'
+                                                                              ? "En attente"
+                                                                              : appoitmentDatas.bookingStatus! == 'Cancelled'
+                                                                                  ? "Annulé"
+                                                                                  : appoitmentDatas.bookingStatus! == 'Approved'
+                                                                                      ? "Validé"
+                                                                                      : "Terminé"),
                     style: TextStyle(
                         color: grey99,
                         fontWeight: FontWeight.w600,
@@ -499,7 +506,7 @@ class _SingleAppoitmentScreenState extends State<SingleAppoitmentScreen> {
                   height: 10,
                 ),
                 Text(
-                  "Review",
+                  "Avis",
                   style: TextStyle(
                       fontFamily: ConstantFont.montserratBold,
                       fontSize: 18,
@@ -643,7 +650,7 @@ class _SingleAppoitmentScreenState extends State<SingleAppoitmentScreen> {
 
           ///add review
           Visibility(
-            visible: appoitmentDatas.bookingStatus == "Completed" && appoitmentDatas.review == null ? true : false,
+            visible: appoitmentDatas.bookingStatus == "Terminé" && appoitmentDatas.review == null ? true : false,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -655,7 +662,7 @@ class _SingleAppoitmentScreenState extends State<SingleAppoitmentScreen> {
                   height: 10,
                 ),
                 Text(
-                  "Add Review",
+                  "Ajouter un avis",
                   style: TextStyle(
                       fontFamily: ConstantFont.montserratBold,
                       fontSize: 18,
@@ -682,7 +689,7 @@ class _SingleAppoitmentScreenState extends State<SingleAppoitmentScreen> {
           visible:
               appoitmentData.bookingStatus == "Pending" || appoitmentData.bookingStatus == "Approved" ? true : false,
           child: ElevatedButton(
-            child: Text("Cancel Booking"),
+            child: Text("Annuler la réservation"),
             onPressed: () {
               showCancelDialog(context, int.parse(appoitmentData.id.toString()));
             },

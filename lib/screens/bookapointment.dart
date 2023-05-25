@@ -545,19 +545,19 @@ class _BookAppointment extends State<BookAppoitment> with TickerProviderStateMix
                                                     ),
                                                     new Container(
                                                       margin: EdgeInsets.only(left: 10, top: 5),
-                                                      height: 35,
-                                                      width: 35,
+                                                      height: 55,
+                                                      width: 55,
                                                       alignment: Alignment.topLeft,
                                                       child: CachedNetworkImage(
-                                                        height: 35,
-                                                        width: 35,
+                                                        height: 55,
+                                                        width: 55,
                                                         imageUrl: empList[index].imagePath! + empList[index].image!,
                                                         imageBuilder: (context, imageProvider) => Container(
                                                           decoration: BoxDecoration(
                                                             borderRadius: BorderRadius.circular(5.0),
                                                             image: DecorationImage(
                                                               image: imageProvider,
-                                                              fit: BoxFit.fill,
+                                                              fit: BoxFit.cover,
                                                               alignment: Alignment.topCenter,
                                                             ),
                                                           ),
@@ -570,6 +570,7 @@ class _BookAppointment extends State<BookAppoitment> with TickerProviderStateMix
                                                     ),
                                                     new Container(
                                                         margin: EdgeInsets.only(left: 10, top: 10),
+                                                        width: 180,
                                                         height: 50,
                                                         child: Column(
                                                           mainAxisAlignment: MainAxisAlignment.start,
@@ -659,7 +660,7 @@ class _BookAppointment extends State<BookAppoitment> with TickerProviderStateMix
                                             top: 5,
                                           ),
                                           child: Text(
-                                            totalprice.toString() + " ₹",
+                                            totalprice.toString() + " DH",
                                             style: TextStyle(
                                                 color: blackColor,
                                                 fontSize: 16,

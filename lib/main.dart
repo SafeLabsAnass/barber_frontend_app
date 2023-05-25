@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'package:barber_app/screens/homescreen.dart';
 import 'package:barber_app/screens/loginscreen.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_stripe/flutter_stripe.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:barber_app/constant/appconstant.dart';
@@ -10,6 +11,8 @@ import 'constant/preferenceutils.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  SystemChrome.setPreferredOrientations(
+      [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]);
   await PreferenceUtils.init();
   runApp(MyApp());
   Stripe.publishableKey = "demo";

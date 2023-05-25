@@ -41,7 +41,7 @@ class StringConstant {
   static const String inviteAFriends = "Inviter des amis";
   static const String about = "À propos";
   static const String deleteAccount = "Supprimer le compte";
-  static const String logout = "Déconnecter";
+  static const String logout = "Se Déconnecter";
   static const String delete = "Supprimer";
   static const String areYouWantToSureLogoutYourAccount =
       "Voulez-vous vraiment vous déconnecter de votre compte?";

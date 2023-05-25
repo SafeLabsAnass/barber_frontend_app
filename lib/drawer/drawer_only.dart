@@ -192,7 +192,7 @@ class _DrawerOnlyState extends State<DrawerOnly> {
                               StringConstant.topOffers,
                               style: TextStyle(
                                 color: beigeColor ,
-                                fontSize: 13.5,
+                                fontSize: 13,
                                 fontWeight: FontWeight.w500,
                                 fontFamily: 'Montserrat',
                               ),
@@ -226,7 +226,7 @@ class _DrawerOnlyState extends State<DrawerOnly> {
                                 StringConstant.termsAndConditions,
                                 style: TextStyle(
                                     color: beigeColor ,
-                                    fontSize: 13.5,
+                                    fontSize: 13,
                                     fontWeight: FontWeight.w500,
                                     fontFamily: 'Montserrat'),
                               ),
@@ -257,7 +257,7 @@ class _DrawerOnlyState extends State<DrawerOnly> {
                                 StringConstant.privacyAndPolicy,
                                 style: TextStyle(
                                     color: beigeColor ,
-                                    fontSize: 13.5,
+                                    fontSize: 13,
                                     fontWeight: FontWeight.w500,
                                     fontFamily: 'Montserrat'),
                               ),
@@ -286,7 +286,7 @@ class _DrawerOnlyState extends State<DrawerOnly> {
                               StringConstant.inviteAFriends,
                               style: TextStyle(
                                   color: beigeColor ,
-                                  fontSize: 13.5,
+                                  fontSize: 13,
                                   fontWeight: FontWeight.w500,
                                   fontFamily: 'Montserrat'),
                             )
@@ -317,7 +317,7 @@ class _DrawerOnlyState extends State<DrawerOnly> {
                             StringConstant.about,
                             style: TextStyle(
                                 color: beigeColor ,
-                                fontSize: 13.5,
+                                fontSize: 13,
                                 fontWeight: FontWeight.w500,
                                 fontFamily: 'Montserrat'),
                           ),
@@ -349,7 +349,7 @@ class _DrawerOnlyState extends State<DrawerOnly> {
                                   StringConstant.deleteAccount,
                                   style: TextStyle(
                                       color: beigeColor ,
-                                      fontSize: 13.5,
+                                      fontSize: 13,
                                       fontWeight: FontWeight.w500,
                                       fontFamily: 'Montserrat'),
                                 ),

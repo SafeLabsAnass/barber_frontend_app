@@ -435,10 +435,11 @@ class _Appoinment extends State<Appoinment>
                                                                 children: <
                                                                     Widget>[
                                                                   Container(
-                                                                    margin: EdgeInsets
-                                                                        .only(
-                                                                            top:
-                                                                                25.0,bottom:3.0),
+                                                                    margin: EdgeInsets.only(
+                                                                        top:
+                                                                            25.0,
+                                                                        bottom:
+                                                                            3.0),
                                                                     child: Text(
                                                                       PreferenceUtils.getString(
                                                                           AppConstant
@@ -454,13 +455,14 @@ class _Appoinment extends State<Appoinment>
                                                                               ConstantFont.montserratSemiBold),
                                                                     ),
                                                                   ),
-                                                                  
                                                                   Container(
                                                                     margin: EdgeInsets.only(
                                                                         top:
                                                                             5.0,
                                                                         left:
-                                                                            0.0,bottom:3.0),
+                                                                            0.0,
+                                                                        bottom:
+                                                                            3.0),
                                                                     child: Text(
                                                                       PreferenceUtils.getString(
                                                                           AppConstant
@@ -490,7 +492,8 @@ class _Appoinment extends State<Appoinment>
                                                                           margin: EdgeInsets.only(
                                                                               left: 0.0,
                                                                               top: 5.0,
-                                                                              right: 0,bottom:3.0),
+                                                                              right: 0,
+                                                                              bottom: 3.0),
                                                                           child: RichText(
                                                                             maxLines:
                                                                                 2,
@@ -517,14 +520,13 @@ class _Appoinment extends State<Appoinment>
                                                                               ],
                                                                             ),
                                                                           )),
-                                                                         
                                                                       Row(
                                                                         children: <
                                                                             Widget>[
                                                                           Row(
                                                                             children: [
                                                                               Container(
-                                                                                margin: EdgeInsets.only(top: 2, left: 0,bottom:6.0),
+                                                                                margin: EdgeInsets.only(top: 2, left: 0, bottom: 6.0),
                                                                                 child: SvgPicture.asset(
                                                                                   DummyImage.star,
                                                                                   width: 10,
@@ -534,7 +536,7 @@ class _Appoinment extends State<Appoinment>
                                                                               Container(
                                                                                 child: Container(
                                                                                   margin: EdgeInsets.only(top: 2, left: 2),
-                                                                                  child: Text(PreferenceUtils.getString(AppConstant.salonRating) +' ' + StringConstant.rating, style: TextStyle(color: grey99, fontSize: 11, fontWeight: FontWeight.w600, fontFamily: ConstantFont.montserratMedium)),
+                                                                                  child: Text(PreferenceUtils.getString(AppConstant.salonRating) + ' ' + StringConstant.rating, style: TextStyle(color: grey99, fontSize: 11, fontWeight: FontWeight.w600, fontFamily: ConstantFont.montserratMedium)),
                                                                                 ),
                                                                               ),
                                                                             ],
@@ -551,7 +553,8 @@ class _Appoinment extends State<Appoinment>
                                                     Padding(
                                                       padding:
                                                           const EdgeInsets.only(
-                                                              top:10, bottom:0),
+                                                              top: 10,
+                                                              bottom: 0),
                                                       child: Container(
                                                         width: MediaQuery.of(
                                                                 context)
@@ -572,54 +575,64 @@ class _Appoinment extends State<Appoinment>
                                                                       .spaceBetween,
                                                               children: [
                                                                 Text(
-                                                                    StringConstant
-                                                                        .serviceType,
-                                                                    style: TextStyle(
-                                                                        color:
-                                                                            whiteB3,
-                                                                        fontSize:
-                                                                            12,
-                                                                        fontWeight:
-                                                                            FontWeight
-                                                                                .w600,
-                                                                        fontFamily:
-                                                                            ConstantFont.montserratMedium),
-                                                                  ),
-                                                                
-                                                                 Row(
-                                                                    mainAxisAlignment:
-                                                                        MainAxisAlignment
-                                                                            .end,
-                                                                    children: [
-                                                                     
-                                                                            Text(
-                                                                          StringConstant
-                                                                              .bookingStatus,
-                                                                          style: TextStyle(
-                                                                              color: whiteB3,
-                                                                              fontSize: 12,
-                                                                              fontWeight: FontWeight.w600,
-                                                                              fontFamily: ConstantFont.montserratMedium),
-                                                                        ),
-                                                                      
-                                                                     
-                                                                            Text(
-                                                                          " : " +
-                                                                              upcomingOrderDataList[index].bookingStatus!,
-                                                                          maxLines:
-                                                                              1,
-                                                                          overflow:
-                                                                              TextOverflow.ellipsis,
-                                                                          style: TextStyle(
-                                                                              color: blackColor,
-                                                                              fontSize: 12,
-                                                                              fontWeight: FontWeight.w600,
-                                                                              fontFamily: ConstantFont.montserratMedium),
-                                                                        ),
-                                                                      
-                                                                    ],
-                                                                  ),
-                                                                
+                                                                  StringConstant
+                                                                      .serviceType,
+                                                                  style: TextStyle(
+                                                                      color:
+                                                                          whiteB3,
+                                                                      fontSize:
+                                                                          12,
+                                                                      fontWeight:
+                                                                          FontWeight
+                                                                              .w600,
+                                                                      fontFamily:
+                                                                          ConstantFont
+                                                                              .montserratMedium),
+                                                                ),
+                                                                Row(
+                                                                  mainAxisAlignment:
+                                                                      MainAxisAlignment
+                                                                          .end,
+                                                                  children: [
+                                                                    Text(
+                                                                      StringConstant
+                                                                          .bookingStatus,
+                                                                      style: TextStyle(
+                                                                          color:
+                                                                              whiteB3,
+                                                                          fontSize:
+                                                                              12,
+                                                                          fontWeight: FontWeight
+                                                                              .w600,
+                                                                          fontFamily:
+                                                                              ConstantFont.montserratMedium),
+                                                                    ),
+                                                                    Text(
+                                                                      " : " +
+                                                                          (upcomingOrderDataList[index].bookingStatus! == 'Pending'
+                                                                              ? "En attente"
+                                                                              : upcomingOrderDataList[index].bookingStatus! == 'Cancelled'
+                                                                                  ? "Annulé"
+                                                                                  : (upcomingOrderDataList[index].bookingStatus! == 'Approved'
+                                                                                      ? "Validé"
+                                                                                      : "Terminé")),
+                                                                      maxLines:
+                                                                          1,
+                                                                      overflow:
+                                                                          TextOverflow
+                                                                              .ellipsis,
+                                                                      style: TextStyle(
+                                                                          color:
+                                                                              blackColor,
+                                                                          fontSize:
+                                                                              12,
+                                                                          fontWeight: FontWeight
+                                                                              .w600,
+                                                                          fontFamily:
+                                                                              ConstantFont.montserratMedium),
+                                                                    ),
+                                                                  ],
+                                                                ),
                                                               ],
                                                             ),
                                                             Visibility(
@@ -2224,10 +2237,10 @@ class _Appoinment extends State<Appoinment>
           //   MaterialPageRoute(builder: (context) => HomeScreen(1)),
           // );
           pushNewScreen(
-                            context,
-                            screen: HomeScreen(1),
-                            withNavBar: false,
-                          );
+            context,
+            screen: HomeScreen(1),
+            withNavBar: false,
+          );
         }
       });
     }).catchError((Object obj) {
@@ -2457,7 +2470,8 @@ class _Appoinment extends State<Appoinment>
                                     Navigator.pop(context);
                                     return;
                                   } else {
-                                    ToastMessage.toastMessage('Veuillez donner votre avis en étoiles.');
+                                    ToastMessage.toastMessage(
+                                        'Veuillez donner votre avis en étoiles.');
                                     return;
                                   }
                                 }
@@ -2626,4 +2640,30 @@ class _Appoinment extends State<Appoinment>
       print(obj.runtimeType);
     });
   }
+
+//   Widget statusWidget(int index) {
+//     if (upcomingOrderDataList[index].bookingStatus! == 'Pending') {
+
+//     } else if (upcomingOrderDataList[index].bookingStatus! == 'cancelled') {
+
+//     }
+//     return Text(
+//                                                                           " : " +
+//                                                                              ( upcomingOrderDataList[index].bookingStatus! == 'Pending'
+//                                                                               ? "En attente"
+//                                                                               : upcomingOrderDataList[index].bookingStatus! == 'cancelled'
+//                                                                                ? "Annulé"
+//                                                                                : "Terminé"),
+//                                                                           maxLines:
+//                                                                               1,
+//                                                                           overflow:
+//                                                                               TextOverflow.ellipsis,
+//                                                                           style: TextStyle(
+//                                                                               color: blackColor,
+//                                                                               fontSize: 12,
+//                                                                               fontWeight: FontWeight.w600,
+//                                                                               fontFamily: ConstantFont.montserratMedium),
+//                                                                         );
+//   }
+// }
 }
