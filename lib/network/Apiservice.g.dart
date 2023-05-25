@@ -13,7 +13,7 @@ class _RestClient implements RestClient {
     this._dio, {
     this.baseUrl,
   }) {
-    baseUrl ??= 'http://192.168.1.17:8000/api/';
+    baseUrl ??= 'https://cindybeauty-marrakech.com/api/';
   }
 
   final Dio _dio;
