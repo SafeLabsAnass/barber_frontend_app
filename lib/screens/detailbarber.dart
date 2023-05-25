@@ -393,14 +393,14 @@ class _DetailBarber extends State<DetailBarber>
                                 bottom: 10,
                                 child: Container(
                                   margin: EdgeInsets.only(left: 15, right: 15),
-                                  width: double.infinity,
+                                  width: 70,
                                   height: 50,
                                   decoration: BoxDecoration(
                                     borderRadius: BorderRadius.circular(8.0),
                                     color: whiteColor,
                                     boxShadow: [
                                       BoxShadow(
-                                        color: greyColor,
+                                        color:pinkColor,
                                         offset: Offset(0.0, 1.0), //(x,y)
                                         blurRadius: 10.0,
                                       ),
@@ -408,9 +408,11 @@ class _DetailBarber extends State<DetailBarber>
                                   ),
                                   child: TabBar(
                                     controller: _controller,
+                                    isScrollable:true,
                                     tabs: [
                                       new Tab(
                                         text: StringConstant.about,
+                                        
                                       ),
                                       new Tab(
                                         text: StringConstant.gallery,
@@ -424,13 +426,15 @@ class _DetailBarber extends State<DetailBarber>
                                     ],
                                     labelColor: pinkColor,
                                     unselectedLabelColor: greyColor,
+                                    
                                     unselectedLabelStyle: TextStyle(
+
                                         fontSize: 13,
                                         fontWeight: FontWeight.w600,
                                         fontFamily:
                                             ConstantFont.montserratMedium),
                                     labelStyle: TextStyle(
-                                        fontSize: 13,
+                                        fontSize: 14,
                                         fontWeight: FontWeight.w600,
                                         fontFamily:
                                             ConstantFont.montserratBold),
