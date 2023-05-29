@@ -249,14 +249,15 @@ class _FgHome extends State<FgHome> {
                         bannerImage.length > 0
                             ? bannerImage.length == 1
                                 ? Container(
-                                    width: screenWidth,
+                                  color:blackColor,
+                                    width: double.infinity,
                                     height: 200,
                                     decoration: BoxDecoration(
                                       borderRadius: BorderRadius.circular(15),
                                       color: Colors.transparent,
                                     ),
                                     alignment: Alignment.topCenter,
-                                    //margin: EdgeInsets.only(top: 10, left: 20, right: 20),
+                                    margin: EdgeInsets.only(top: 10, left: 20, right: 20),
                                     child: Card(
                                       elevation: 10,
                                       shape: new RoundedRectangleBorder(
@@ -337,7 +338,7 @@ class _FgHome extends State<FgHome> {
                                     height: 200,
                                     color: Colors.transparent,
                                     alignment: Alignment.topCenter,
-                                    //margin: EdgeInsets.only(top: 10, left: 20, right: 20),
+                                    margin: EdgeInsets.only(top: 10, left: 20, right: 20),
                                     child: Card(
                                       elevation: 10,
                                       shape: new RoundedRectangleBorder(

@@ -123,7 +123,7 @@ class StringConstant {
   static const String bookAppointment = "Réserver un rendez-vous";
   static const String selectTheTime = "Sélectionnez l'heure";
   static const String salonOff = "Fermé";
-  static const String selectEmployee = "Sélectionner un employé";
+  static const String selectEmployee = "Sélectionnez votre expert beauté";
   static const String yourTotalPayment = "Paiement total";
   static const String makePayment = "Effectuer le paiement";
 
