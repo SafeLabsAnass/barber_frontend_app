@@ -478,79 +478,92 @@ class _FgHome extends State<FgHome> {
                                 ),
                               )
                             : Container(
-                                margin: EdgeInsets.only(left: 8, right: 8),
-                                child: GridView.count(
-                                  childAspectRatio:(180.0 / 80.0),
-                                  crossAxisCount: 2,
-                                  crossAxisSpacing: 0.0,
-                                  shrinkWrap: true,
-                                  physics: NeverScrollableScrollPhysics(),
-                                  mainAxisSpacing: ScreenUtil().setWidth(10),
-                                  children: List.generate(categoryDataList.length, (index) {
-                                    return Container(
-                                      padding: EdgeInsets.only(bottom: 5),
-                                      child: GestureDetector(
-                                        onTap: () {
-                                          print(" index: ${index}");
-                                          Navigator.of(context).push(MaterialPageRoute(
-                                              builder: (context) => new DetailBarber(catId:categoryDataList[index].catId, currentSelectedIndex:index, isDrawerOpen: widget.isDrawerOpen, onOpen: widget.onOpen,onClose: widget.onClose,)));
-                                        },
-                                        child: Container(
-                                          margin: EdgeInsets.only(
-                                              left: ScreenUtil().setWidth(10), right: ScreenUtil().setWidth(10)),
-                                          child: Card(
-                                            shape: RoundedRectangleBorder(
-                                              borderRadius: BorderRadius.circular(15.0),
-                                       
-                                            ),
-                                            color: whiteColor,
-                                            elevation: 5,
-                                            child:  Row(
-                                              children: [
-                                               ClipRRect(
-                                                  borderRadius: BorderRadius.only( topLeft: Radius.circular(15), bottomLeft: Radius.circular(15), ),
-                                                  child: CachedNetworkImage(
-                                                      imageUrl: categoryDataList[index].imagePath! +
-                                                          categoryDataList[index].image!,
-                                                      width: MediaQuery.of(context).size.width/5,
-                                                      height: ScreenUtil().setHeight(double.infinity),
-                                                      fit: BoxFit.fill,
-                                                      placeholder: (context, url) => SpinKitFadingCircle(
-                                                        color: pinkColor,
-                                                      ),
-                                                      errorWidget: (context, url, error) =>
-                                                          Image.asset(DummyImage.noImage),
-                                                    ),
-                                                ),
-                                                
-                                                Container(
-                                                   color: whiteColor,
-                                                  width: ScreenUtil().setWidth(70),
-                                                 padding: EdgeInsets.symmetric(horizontal: 5),
-                                                  child:
-                                                        Text(                                
-                                                        categoryDataList[index].name!,
-                                                        textAlign: TextAlign.justify,
-                                                        overflow: TextOverflow.ellipsis,
-                                                        maxLines: 2,
-                                                        style: TextStyle(
-                                                            color: blackColor,
-                                                            fontSize: 10,
-                                                            fontWeight: FontWeight.w600,
-                                                            fontFamily: ConstantFont.montserratMedium),
-                                                                                                         ),
-                                                     
-                                                  
-                                                ),
-                                              ],
-                                            ),
-                                          ),
-                                        ),
-                                      ),
-                                    );
-                                  }),
-                                ),
-                              ),
+  margin: EdgeInsets.only(left: 8, right: 8),
+  child: GridView.count(
+    childAspectRatio: (180.0 / 80.0),
+    crossAxisCount: 2,
+    crossAxisSpacing: 0.0,
+    shrinkWrap: true,
+    physics: NeverScrollableScrollPhysics(),
+    mainAxisSpacing: ScreenUtil().setWidth(10),
+    children: List.generate(categoryDataList.length, (index) {
+      return Container(
+        padding: EdgeInsets.only(bottom: 5),
+        child: GestureDetector(
+          onTap: () {
+            Navigator.of(context).push(
+              MaterialPageRoute(
+                builder: (context) => DetailBarber(
+                  catId: categoryDataList[index].catId,
+                  currentSelectedIndex: index,
+                  isDrawerOpen: widget.isDrawerOpen,
+                  onOpen: widget.onOpen,
+                  onClose: widget.onClose,
+                ),
+              ),
+            );
+          },
+          child: Hero(
+            tag: 'datail_barber_screen', 
+            child: Container(
+              margin: EdgeInsets.only(
+                left: ScreenUtil().setWidth(10),
+                right: ScreenUtil().setWidth(10),
+              ),
+              child: Card(
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(15.0),
+                ),
+                color: whiteColor,
+                elevation: 5,
+                child: Row(
+                  children: [
+                    ClipRRect(
+                      borderRadius: BorderRadius.only(
+                        topLeft: Radius.circular(15),
+                        bottomLeft: Radius.circular(15),
+                      ),
+                      child: CachedNetworkImage(
+                        imageUrl: categoryDataList[index].imagePath! +
+                            categoryDataList[index].image!,
+                        width: MediaQuery.of(context).size.width / 5,
+                        height: ScreenUtil().setHeight(double.infinity),
+                        fit: BoxFit.fill,
+                        placeholder: (context, url) => SpinKitFadingCircle(
+                          color: pinkColor,
+                        ),
+                        errorWidget: (context, url, error) =>
+                            Image.asset(DummyImage.noImage),
+                      ),
+                    ),
+                    Container(
+                      color: whiteColor,
+                      width: ScreenUtil().setWidth(70),
+                      padding: EdgeInsets.symmetric(horizontal: 5),
+                      child: Text(
+                        categoryDataList[index].name!,
+                        textAlign: TextAlign.justify,
+                        overflow: TextOverflow.ellipsis,
+                        maxLines: 2,
+                        style: TextStyle(
+                          color: blackColor,
+                          fontSize: 10,
+                          fontWeight: FontWeight.w600,
+                          fontFamily: ConstantFont.montserratMedium,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ),
+        ),
+      );
+    }),
+  ),
+),
+
                      
                       ],
                     ),

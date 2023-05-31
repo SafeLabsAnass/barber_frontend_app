@@ -104,7 +104,8 @@ class _OtpScreen extends State<OtpScreen> {
                       margin: const EdgeInsets.only(top: 1.0, left: 0.0),
                       alignment: FractionalOffset.center,
                       child: Text(
-                        "Set your $otp1 here.",
+                        // "Set your $otp1 here.",
+                        "Set your otp here.",
                         textAlign: TextAlign.center,
                         style: TextStyle(
                             color: blackColor,

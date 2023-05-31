@@ -1,4 +1,3 @@
-
 import 'package:barber_app/ResponseModel/salonDetailResponse.dart';
 import 'package:barber_app/appbar/app_bar_only.dart';
 import 'package:barber_app/common/common_view.dart';
@@ -123,7 +122,8 @@ class _DetailBarber extends State<DetailBarber>
       print("Today Is:$day");
 
       setState(() {
-        _controller = new TabController(length: 4, vsync: this, initialIndex: 2);
+        _controller =
+            new TabController(length: 4, vsync: this, initialIndex: 2);
         int? catId = widget.catId;
         print("catId:$catId");
         PreferenceUtils.init();
@@ -363,158 +363,165 @@ class _DetailBarber extends State<DetailBarber>
                 widget.isDrawerOpen, widget.onOpen, widget.onClose,
                 drawer: true) as PreferredSizeWidget?,
             body: Scaffold(
-              resizeToAvoidBottomInset: true,
-              extendBody: true,
-              key: _drawerScaffoldKey,
-              drawer: new DrawerOnly(),
-              body: new Stack(
-                children: <Widget>[
-                  Visibility(
-                    visible: dataVisible,
-                    child: Column(
-                      children: <Widget>[
-                        Container(
-                          child: Stack(
-                            clipBehavior: Clip.none,
-                            children: <Widget>[
-                              Container(
-                                height: 210,
-                                width: double.infinity,
-                                decoration: BoxDecoration(
-                                  image: DecorationImage(
-                                    image: AssetImage(DummyImage.salonBg),
-                                    fit: BoxFit.cover,
-                                  ),
-                                ),
-                              ),
-                              Positioned(
-                                right: 0,
-                                left: 0,
-                                bottom: 10,
-                                child: Container(
-                                  margin: EdgeInsets.only(left: 15, right: 15),
-                                  width: 70,
-                                  height: 50,
-                                  decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(8.0),
-                                    color: whiteColor,
-                                    boxShadow: [
-                                      BoxShadow(
-                                        color:pinkColor,
-                                        offset: Offset(0.0, 1.0), //(x,y)
-                                        blurRadius: 10.0,
+                resizeToAvoidBottomInset: true,
+                extendBody: true,
+                key: _drawerScaffoldKey,
+                drawer: new DrawerOnly(),
+                body: Hero(
+                  tag: 'datail_barber_screen',
+                  child: new Stack(
+                    children: <Widget>[
+                      Visibility(
+                        visible: dataVisible,
+                        child: Column(
+                          children: <Widget>[
+                            Container(
+                              child: Stack(
+                                clipBehavior: Clip.none,
+                                children: <Widget>[
+                                  Container(
+                                    height: 210,
+                                    width: double.infinity,
+                                    decoration: BoxDecoration(
+                                      image: DecorationImage(
+                                        image: AssetImage(DummyImage.salonBg),
+                                        fit: BoxFit.cover,
                                       ),
-                                    ],
-                                  ),
-                                  child: TabBar(
-                                    controller: _controller,
-                                    isScrollable:true,
-                                    tabs: [
-                                      new Tab(
-                                        text: StringConstant.about,
-                                        
-                                      ),
-                                      new Tab(
-                                        text: StringConstant.gallery,
-                                      ),
-                                      new Tab(
-                                        text: StringConstant.service,
-                                      ),
-                                      new Tab(
-                                        text: StringConstant.review,
-                                      ),
-                                    ],
-                                    labelColor: pinkColor,
-                                    unselectedLabelColor: greyColor,
-                                    
-                                    unselectedLabelStyle: TextStyle(
-
-                                        fontSize: 13,
-                                        fontWeight: FontWeight.w600,
-                                        fontFamily:
-                                            ConstantFont.montserratMedium),
-                                    labelStyle: TextStyle(
-                                        fontSize: 14,
-                                        fontWeight: FontWeight.w600,
-                                        fontFamily:
-                                            ConstantFont.montserratBold),
-                                    indicatorSize: TabBarIndicatorSize.label,
-                                    indicatorPadding: EdgeInsets.all(0.0),
-                                    indicatorColor: pinkColor,
-                                    indicatorWeight: 5.0,
-                                    indicator: MD2Indicator(
-                                      indicatorSize: MD2IndicatorSize.full,
-                                      indicatorHeight: 8.0,
-                                      indicatorColor: pinkColor,
                                     ),
                                   ),
+                                  Positioned(
+                                    right: 0,
+                                    left: 0,
+                                    bottom: 10,
+                                    child: Container(
+                                      margin:
+                                          EdgeInsets.only(left: 15, right: 15),
+                                      width: 70,
+                                      height: 50,
+                                      decoration: BoxDecoration(
+                                        borderRadius:
+                                            BorderRadius.circular(8.0),
+                                        color: whiteColor,
+                                        boxShadow: [
+                                          BoxShadow(
+                                            color: pinkColor,
+                                            offset: Offset(0.0, 1.0), //(x,y)
+                                            blurRadius: 10.0,
+                                          ),
+                                        ],
+                                      ),
+                                      child: TabBar(
+                                        controller: _controller,
+                                        isScrollable: true,
+                                        tabs: [
+                                          new Tab(
+                                            text: StringConstant.about,
+                                          ),
+                                          new Tab(
+                                            text: StringConstant.gallery,
+                                          ),
+                                          new Tab(
+                                            text: StringConstant.service,
+                                          ),
+                                          new Tab(
+                                            text: StringConstant.review,
+                                          ),
+                                        ],
+                                        labelColor: pinkColor,
+                                        unselectedLabelColor: greyColor,
+                                        unselectedLabelStyle: TextStyle(
+                                            fontSize: 13,
+                                            fontWeight: FontWeight.w600,
+                                            fontFamily:
+                                                ConstantFont.montserratMedium),
+                                        labelStyle: TextStyle(
+                                            fontSize: 14,
+                                            fontWeight: FontWeight.w600,
+                                            fontFamily:
+                                                ConstantFont.montserratBold),
+                                        indicatorSize:
+                                            TabBarIndicatorSize.label,
+                                        indicatorPadding: EdgeInsets.all(0.0),
+                                        indicatorColor: pinkColor,
+                                        indicatorWeight: 5.0,
+                                        indicator: MD2Indicator(
+                                          indicatorSize: MD2IndicatorSize.full,
+                                          indicatorHeight: 8.0,
+                                          indicatorColor: pinkColor,
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                            SizedBox(
+                              height: 1,
+                            ),
+                            Expanded(
+                              flex: 6,
+                              child: Container(
+                                color: whiteColor,
+                                child: new TabBarView(
+                                  controller: _controller,
+                                  children: <Widget>[
+                                    TabAbout(salonData, widget.catId, distance),
+                                    GalleryView(galleyDataList),
+                                    ServiceTab(
+                                        categoryList,
+                                        widget.currentSelectedIndex,
+                                        salonId,
+                                        salonData),
+                                    ReViewTab(reviewList),
+                                  ],
                                 ),
                               ),
-                            ],
-                          ),
-                        ),
-                        SizedBox(
-                          height: 1,
-                        ),
-                        Expanded(
-                          flex: 6,
-                          child: Container(
-                            color: whiteColor,
-                            child: new TabBarView(
-                              controller: _controller,
-                              children: <Widget>[
-                                TabAbout(salonData, widget.catId, distance),
-                                GalleryView(galleyDataList),
-                                ServiceTab(categoryList, widget.currentSelectedIndex, salonId, salonData),
-                                ReViewTab(reviewList),
-                              ],
                             ),
+                          ],
+                        ),
+                      ),
+                      Visibility(
+                        visible: noDataVisible,
+                        child: Container(
+                          margin: EdgeInsets.only(
+                              left: 15, right: 15, top: 10, bottom: 40),
+                          child: Center(
+                            child: Container(
+                                width: MediaQuery.of(context).size.width,
+                                height:
+                                    MediaQuery.of(context).size.height * 0.75,
+                                alignment: Alignment.center,
+                                child: ListView(
+                                  shrinkWrap: true,
+                                  physics: NeverScrollableScrollPhysics(),
+                                  children: <Widget>[
+                                    Image.asset(
+                                      DummyImage.noData,
+                                      alignment: Alignment.center,
+                                      width: 150,
+                                      height: 100,
+                                    ),
+                                    Align(
+                                      alignment: Alignment.center,
+                                      child: Text(
+                                        StringConstant.noData,
+                                        style: TextStyle(
+                                            color: whiteA3,
+                                            fontFamily:
+                                                ConstantFont.montserratMedium,
+                                            fontWeight: FontWeight.w600,
+                                            fontSize: 16),
+                                      ),
+                                    ),
+                                  ],
+                                )),
                           ),
                         ),
-                      ],
-                    ),
-                  ),
-                  Visibility(
-                    visible: noDataVisible,
-                    child: Container(
-                      margin: EdgeInsets.only(
-                          left: 15, right: 15, top: 10, bottom: 40),
-                      child: Center(
-                        child: Container(
-                            width: MediaQuery.of(context).size.width,
-                            height: MediaQuery.of(context).size.height * 0.75,
-                            alignment: Alignment.center,
-                            child: ListView(
-                              shrinkWrap: true,
-                              physics: NeverScrollableScrollPhysics(),
-                              children: <Widget>[
-                                Image.asset(
-                                  DummyImage.noData,
-                                  alignment: Alignment.center,
-                                  width: 150,
-                                  height: 100,
-                                ),
-                                Align(
-                                  alignment: Alignment.center,
-                                  child: Text(
-                                    StringConstant.noData,
-                                    style: TextStyle(
-                                        color: whiteA3,
-                                        fontFamily:
-                                            ConstantFont.montserratMedium,
-                                        fontWeight: FontWeight.w600,
-                                        fontSize: 16),
-                                  ),
-                                ),
-                              ],
-                            )),
                       ),
-                    ),
+                      // new Container(child: Body())
+                    ],
                   ),
-                  // new Container(child: Body())
-                ],
-              ),
-            ),
+                )),
           ),
         ),
       ),
