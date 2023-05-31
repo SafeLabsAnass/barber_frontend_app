@@ -66,7 +66,7 @@ class _RegisterScreen extends State<RegisterScreen> {
           isDownIcon: true,
           showEnglishName: true,
         ),
-        initialSelection: "IN",
+        initialSelection: "MA",
         onChanged: (CountryCode? value) {
           setState(() {
             _selectedCountryCode = value!.dialCode;
