@@ -26,7 +26,7 @@ class _CustomView extends State<CustomView> {
           color: whiteColor,
           alignment: FractionalOffset.center,
           height: 45,
-          padding: EdgeInsets.symmetric(horizontal: 40),
+          padding: EdgeInsets.zero,
           child: Row(
             children: <Widget>[
               Expanded(
@@ -41,7 +41,7 @@ class _CustomView extends State<CustomView> {
                       child: new SvgPicture.asset(
                         DummyImage.homeWhite,
                         color: Colors.grey.shade700,
-                        width: 20,
+                        width: MediaQuery.of(context).size.aspectRatio * 37.5,
                       )),
                 ),
               ),
@@ -57,7 +57,7 @@ class _CustomView extends State<CustomView> {
                       child: new SvgPicture.asset(
                         DummyImage.calenderWhite,
                         color: Colors.grey.shade700,
-                        width: 20,
+                        width: MediaQuery.of(context).size.aspectRatio * 37.5,
                       )),
                 ),
               ),
@@ -73,7 +73,7 @@ class _CustomView extends State<CustomView> {
                       child: Icon(
                     Icons.notifications,
                     color: Colors.grey.shade700,
-                    size: 25,
+                    size: MediaQuery.of(context).size.aspectRatio * 50,
                   )),
                 ),
               ),
@@ -89,7 +89,7 @@ class _CustomView extends State<CustomView> {
                       child: new SvgPicture.asset(
                         DummyImage.profileWhite,
                         color: Colors.grey.shade700,
-                        width: 20,
+                        width: MediaQuery.of(context).size.aspectRatio * 37.5,
                       )),
                 ),
               ),
