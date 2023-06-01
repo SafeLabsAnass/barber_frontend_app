@@ -203,8 +203,6 @@ class _ServiceTab extends State<ServiceTab> {
                                         ),
                                       );
                                     },
-
-                                    
                                   ),
                                 ),
                                 Visibility(
@@ -299,270 +297,158 @@ class _ServiceTab extends State<ServiceTab> {
                                                   child: Container(
                                                     height: 60,
                                                     width: screenWidth,
-                                                    child: Row(
-                                                      children: <Widget>[
-                                                        new Container(
-                                                          margin:
-                                                              EdgeInsets.only(
-                                                                  left: 10,
-                                                                  top: 5),
-                                                          width: 20,
-                                                          height: 20,
-                                                          color: whiteColor,
-                                                          child: Container(
-                                                              width: 15,
-                                                              height: 15,
-                                                              child:
-                                                                  GestureDetector(
-                                                                onTap: () {
-                                                                  setState(() {
-                                                                    catService[
-                                                                            index]
-                                                                        .isSelected = !catService[
-                                                                            index]
-                                                                        .isSelected;
-                                                                    print(catService[
-                                                                            index]
-                                                                        .isSelected);
-                                                                    print(catService[
-                                                                            index]
-                                                                        .serviceId);
+                                                    child: GestureDetector(
+  onTap: () {
+    setState(() {
+      catService[index].isSelected = !catService[index].isSelected;
+      print(catService[index].isSelected);
+      print(catService[index].serviceId);
 
-                                                                    if (catService[index]
-                                                                            .isSelected ==
-                                                                        true) {
-                                                                      setState(
-                                                                          () {
-                                                                        currentSelectedIndex1 =
-                                                                            index;
-                                                                        _selectedServices
-                                                                            .add(catService[index].serviceId);
-                                                                        _selectedServicesName
-                                                                            .add(catService[index].name);
-                                                                        _totalprice
-                                                                            .add(catService[index].price);
-                                                                      });
-                                                                    } else {
-                                                                      setState(
-                                                                          () {
-                                                                        _selectedServices
-                                                                            .remove(catService[index].serviceId);
-                                                                        _selectedServicesName
-                                                                            .remove(catService[index].name);
-                                                                        _totalprice
-                                                                            .remove(catService[index].price);
-                                                                      });
-                                                                    }
+      if (catService[index].isSelected == true) {
+        setState(() {
+          currentSelectedIndex1 = index;
+          _selectedServices.add(catService[index].serviceId);
+          _selectedServicesName.add(catService[index].name);
+          _totalprice.add(catService[index].price);
+        });
+      } else {
+        setState(() {
+          _selectedServices.remove(catService[index].serviceId);
+          _selectedServicesName.remove(catService[index].name);
+          _totalprice.remove(catService[index].price);
+        });
+      }
 
-                                                                    if (_selectedServices
-                                                                        .isEmpty) {
-                                                                      setState(
-                                                                          () {
-                                                                        viewVisible =
-                                                                            false;
-                                                                      });
-                                                                    } else {
-                                                                      setState(
-                                                                          () {
-                                                                        viewVisible =
-                                                                            true;
-                                                                      });
-                                                                    }
+      if (_selectedServices.isEmpty) {
+        setState(() {
+          viewVisible = false;
+        });
+      } else {
+        setState(() {
+          viewVisible = true;
+        });
+      }
 
-                                                                    String
-                                                                        _selectedServicesLength =
-                                                                        _selectedServices
-                                                                            .toString();
-                                                                    print(
-                                                                        "selectedServiceLength:$_selectedServicesLength");
-                                                                    totalprice = _totalprice.fold(
-                                                                        0,
-                                                                        (p, c) =>
-                                                                            p +
-                                                                            c);
-                                                                    print(
-                                                                        "sum:$totalprice");
-                                                                  });
-                                                                },
-                                                                child:
-                                                                    Container(
-                                                                  width: 20,
-                                                                  height: 20,
-                                                                  decoration:
-                                                                      BoxDecoration(
-                                                                    color:
-                                                                        color,
-                                                                    border:
-                                                                        Border
-                                                                            .all(
-                                                                      color: const Color(
-                                                                          0xFFdddddd),
-                                                                    ),
-                                                                    borderRadius:
-                                                                        BorderRadius
-                                                                            .circular(8),
-                                                                  ),
-                                                                  child:
-                                                                      Padding(
-                                                                    padding:
-                                                                        const EdgeInsets.all(
-                                                                            1.0),
-                                                                    child: catService[index]
-                                                                            .isSelected
-                                                                        ? Icon(
-                                                                            Icons.check,
-                                                                            size:
-                                                                                15.0,
-                                                                            color:
-                                                                                whiteColor,
-                                                                          )
-                                                                        : Icon(
-                                                                            Icons.check_box_outline_blank_outlined,
-                                                                            size:
-                                                                                15.0,
-                                                                            color:
-                                                                                color,
-                                                                          ),
-                                                                  ),
-                                                                ),
-                                                              )),
-                                                        ),
-                                                        new Container(
-                                                          margin:
-                                                              EdgeInsets.only(
-                                                                  left: 10,
-                                                                  top: 5),
-                                                          height: 50,
-                                                          width: 50,
-                                                          alignment:
-                                                              Alignment.topLeft,
-                                                          child:
-                                                              CachedNetworkImage(
-                                                            height: 50,
-                                                            width: 50,
-                                                            imageUrl: catService[
-                                                                        index]
-                                                                    .imagePath! +
-                                                                catService[
-                                                                        index]
-                                                                    .image!,
-                                                            imageBuilder: (context,
-                                                                    imageProvider) =>
-                                                                Container(
-                                                              decoration:
-                                                                  BoxDecoration(
-                                                                borderRadius:
-                                                                    BorderRadius
-                                                                        .circular(
-                                                                            5.0),
-                                                                image:
-                                                                    DecorationImage(
-                                                                  image:
-                                                                      imageProvider,
-                                                                  fit: BoxFit.cover,
-                                                                  
-                                                                  alignment:
-                                                                      Alignment
-                                                                          .topCenter,
-                                                                ),
-                                                              ),
-                                                            ),
-                                                            placeholder: (context,
-                                                                    url) =>
-                                                                SpinKitFadingCircle(
-                                                                    color:
-                                                                        pinkColor),
-                                                            errorWidget: (context,
-                                                                    url,
-                                                                    error) =>
-                                                                Image.asset(
-                                                                    DummyImage
-                                                                        .noImage),
-                                                          ),
-                                                        ),
-                                                        new Container(
-                                                            margin:
-                                                                EdgeInsets.only(
-                                                                    left: 10,
-                                                                    top: 10),
-                                                            height: 50,
-                                                            child: Column(
-                                                              mainAxisAlignment:
-                                                                  MainAxisAlignment
-                                                                      .start,
-                                                              children: <
-                                                                  Widget>[
-                                                                Container(
-                                                                  width: MediaQuery.of(
-                                                                              context)
-                                                                          .size
-                                                                          .width *
-                                                                      .60,
-                                                                  height: 30,
-                                                                  margin: EdgeInsets
-                                                                      .only(
-                                                                          left:
-                                                                              1,
-                                                                          top:
-                                                                              2,
-                                                                          right:
-                                                                              15),
-                                                                  child: Row(
-                                                                    mainAxisAlignment:
-                                                                        MainAxisAlignment
-                                                                            .spaceBetween,
-                                                                    children: [
-                                                                      Container(
-                                                                        child:
-                                                                            Text(
-                                                                          catService[index]
-                                                                              .name!,
-                                                                          style: TextStyle(
-                                                                              color: blackColor,
-                                                                              fontWeight: FontWeight.w600,
-                                                                              fontSize: 12,
-                                                                              fontFamily: ConstantFont.montserratMedium),
-                                                                        ),
-                                                                      ),
-                                                                      Container(
-                                                                        child:
-                                                                            Text(
-                                                                          catService[index].price.toString() +
-                                                                              'DH',
-                                                                          style: TextStyle(
-                                                                              color: grey99,
-                                                                              fontWeight: FontWeight.w600,
-                                                                              fontSize: 12,
-                                                                              fontFamily: ConstantFont.montserratMedium),
-                                                                        ),
-                                                                      ),
-                                                                    ],
-                                                                  ),
-                                                                ),
-                                                                Container(
-                                                                  width: MediaQuery.of(
-                                                                              context)
-                                                                          .size
-                                                                          .width *
-                                                                      .65,
-                                                                  height: 10,
-                                                                  margin: EdgeInsets
-                                                                      .only(
-                                                                          left:
-                                                                              1,
-                                                                          top:
-                                                                              8,
-                                                                          right:
-                                                                              10),
-                                                                  child:
-                                                                      MySeparator(),
-                                                                ),
-                                                              ],
-                                                            )),
-                                                      ],
-                                                    ),
-                                                  ),
-                                                );
+      String _selectedServicesLength = _selectedServices.toString();
+      print("selectedServiceLength:$_selectedServicesLength");
+      totalprice =
+          _totalprice.fold(0, (p, c) => p + c);
+      print("sum:$totalprice");
+    });
+  },
+  child: Row(
+    children: <Widget>[
+      Container(
+        margin: EdgeInsets.only(left: 10, top: 5),
+        width: 20,
+        height: 20,
+        color: whiteColor,
+        child: Container(
+          width: 15,
+          height: 15,
+          child: Container(
+            width: 20,
+            height: 20,
+            decoration: BoxDecoration(
+              color: color,
+              border: Border.all(
+                color: const Color(0xFFdddddd),
+              ),
+              borderRadius: BorderRadius.circular(8),
+            ),
+            child: Padding(
+              padding: const EdgeInsets.all(1.0),
+              child: catService[index].isSelected
+                  ? Icon(
+                      Icons.check,
+                      size: 15.0,
+                      color: whiteColor,
+                    )
+                  : Icon(
+                      Icons.check_box_outline_blank_outlined,
+                      size: 15.0,
+                      color: color,
+                    ),
+            ),
+          ),
+        ),
+      ),
+      Container(
+        margin: EdgeInsets.only(left: 10, top: 5),
+        height: 50,
+        width: 50,
+        alignment: Alignment.topLeft,
+        child: CachedNetworkImage(
+          height: 50,
+          width: 50,
+          imageUrl: catService[index].imagePath! +
+              catService[index].image!,
+          imageBuilder: (context, imageProvider) => Container(
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(5.0),
+              image: DecorationImage(
+                image: imageProvider,
+                fit: BoxFit.cover,
+                alignment: Alignment.topCenter,
+              ),
+            ),
+          ),
+          placeholder: (context, url) =>
+              SpinKitFadingCircle(color: pinkColor),
+          errorWidget: (context, url, error) =>
+              Image.asset(DummyImage.noImage),
+        ),
+      ),
+      Container(
+        margin: EdgeInsets.only(left: 10, top: 10),
+        height: 50,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: <Widget>[
+            Container(
+              width: MediaQuery.of(context).size.width * .60,
+              height: 30,
+              margin: EdgeInsets.only(left: 1, top: 2, right: 15),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Container(
+                    child: Text(
+                      catService[index].name!,
+                      style: TextStyle(
+                        color: blackColor,
+                        fontWeight: FontWeight.w600,
+                        fontSize: 12,
+                        fontFamily: ConstantFont.montserratMedium,
+                      ),
+                    ),
+                  ),
+                  Container(
+                    child: Text(
+                      catService[index].price.toString() + 'DH',
+                      style: TextStyle(
+                        color: grey99,
+                        fontWeight: FontWeight.w600,
+                        fontSize: 12,
+                        fontFamily: ConstantFont.montserratMedium,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            Container(
+              width: MediaQuery.of(context).size.width * .65,
+              height: 10,
+              margin: EdgeInsets.only(left: 1, top: 8, right: 10),
+              child: MySeparator(),
+            ),
+          ],
+        ),
+      ),
+    ],
+  ),
+)));
                                               },
                                               itemCount: catService.length,
                                             ),
