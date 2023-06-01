@@ -8,6 +8,7 @@ import 'package:barber_app/constant/appconstant.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'constant/preferenceutils.dart';
+import 'utils/size_utils.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -100,6 +101,7 @@ class _SplashScreenState extends State<SplashScreen> {
 
   @override
   Widget build(BuildContext context) {
+    print({SizeUtils.width, SizeUtils.height});
     return new SafeArea(
       child: Scaffold(
         body: new Container(
