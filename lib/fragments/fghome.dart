@@ -24,6 +24,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
+import 'package:animations/animations.dart';
 
 class FgHome extends StatefulWidget {
   FgHome({Key? key, this.title,required this.isDrawerOpen, required this.onOpen, required this.onClose}) : super(key: key);
@@ -491,17 +492,37 @@ class _FgHome extends State<FgHome> {
         padding: EdgeInsets.only(bottom: 5),
         child: GestureDetector(
           onTap: () {
-            Navigator.of(context).push(
-              MaterialPageRoute(
-                builder: (context) => DetailBarber(
-                  catId: categoryDataList[index].catId,
-                  currentSelectedIndex: index,
-                  isDrawerOpen: widget.isDrawerOpen,
-                  onOpen: widget.onOpen,
-                  onClose: widget.onClose,
-                ),
+             Navigator.of(context).push(
+              PageRouteBuilder(
+                pageBuilder: (context, animation, secondaryAnimation) {
+                  return FadeTransition(
+                    opacity: animation,
+                    child: ScaleTransition(
+                      scale: Tween<double>(begin: 0.5, end: 1.0).animate(
+                        CurvedAnimation(
+                          parent: animation,
+                          curve: Curves.easeInOut,
+                        ),
+                      ),
+                      child: Container(
+                        width: MediaQuery.of(context).size.width,
+                        height: MediaQuery.of(context).size.height, 
+                        child: DetailBarber(
+                          catId: categoryDataList[index].catId,
+                          currentSelectedIndex: index,
+                          isDrawerOpen: widget.isDrawerOpen,
+                          onOpen: widget.onOpen,
+                          onClose: widget.onClose,
+                        ),
+                      ),
+                    ),
+                  );
+                },
+                transitionDuration: Duration(milliseconds: 500),
               ),
-            );
+  );
+
+            
           },
           child: Hero(
             tag: 'datail_barber_screen', 

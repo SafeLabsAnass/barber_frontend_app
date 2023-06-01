@@ -71,29 +71,6 @@ class _ConfirmBooking extends State<ConfirmBooking> {
   List? _totalprice = [];
   var rating = 1.0;
 
-  double xOffset = 0;
-  double yOffset = 0;
-  double scaleFactor = 1;
-  bool isDrawerOpen = false;
-
-  void onOpen() {
-    setState(() {
-      xOffset = 220;
-      yOffset = 130;
-      scaleFactor = 0.7;
-      isDrawerOpen = true;
-    });
-  }
-
-  void onClose() {
-    setState(() {
-      xOffset = 0;
-      yOffset = 0;
-      scaleFactor = 1;
-      isDrawerOpen = false;
-    });
-  }
-
   List<String>? _selectedServicesName = <String>[];
   late var parsedDate;
 
@@ -134,6 +111,28 @@ class _ConfirmBooking extends State<ConfirmBooking> {
   }
 
   PaymentGatwayResponse? paymentSetting;
+    double xOffset = 0;
+    double yOffset = 0;
+    double scaleFactor = 1;
+    bool isDrawerOpen = false;
+
+    void onOpen() {
+      setState(() {
+        xOffset = 220;
+        yOffset = 130;
+        scaleFactor = 0.7;
+        isDrawerOpen = true;
+      });
+    }
+
+    void onClose() {
+      setState(() {
+        xOffset = 0;
+        yOffset = 0;
+        scaleFactor = 1;
+        isDrawerOpen = false;
+      });
+    }
 
   void callApiForAddReview(int id, String? message) {
     print("bookId:$id");
@@ -307,6 +306,7 @@ class _ConfirmBooking extends State<ConfirmBooking> {
   @override
   Widget build(BuildContext context) {
     dynamic screenWidth = MediaQuery.of(context).size.width;
+  
 
     return ModalProgressHUD(
       inAsyncCall: _loading,
@@ -911,7 +911,6 @@ class _ConfirmBooking extends State<ConfirmBooking> {
                                         } else {
                                           _sucessPayment(
                                               context, _radioValue, _result);
-
                                         }
                                       });
                                     }
@@ -944,7 +943,6 @@ class _ConfirmBooking extends State<ConfirmBooking> {
         builder: (context) {
           return StatefulBuilder(
             builder: (context, setState) {
-             
               return Container(
                 margin: EdgeInsets.only(top: 30, left: 15, bottom: 20),
                 color: whiteColor,
@@ -1004,18 +1002,20 @@ class _ConfirmBooking extends State<ConfirmBooking> {
                       ),
                       GestureDetector(
                         onTap: () {
-                          _radioValue = -1;
-                          // Navigator.push(context, new MaterialPageRoute(builder: (context) =>  HomeScreen(1) ));
+                          //Navigator.push(context, new MaterialPageRoute(builder: (context) =>  HomeScreen(1) ));
                           pushNewScreen(
                             context,
-                            screen: Appoinment(isDrawerOpen: isDrawerOpen, onOpen: onOpen, onClose: onClose),
+                            pageTransitionAnimation:
+                                PageTransitionAnimation.cupertino,
+                            screen: HomeScreen(1),
                             withNavBar: false,
                           );
                         },
                         child: Align(
                           alignment: Alignment.center,
                           child: Container(
-                            margin: const EdgeInsets.only(top: 40.0, left: 15.0, right: 15, bottom: 20),
+                            margin: const EdgeInsets.only(
+                                top: 40.0, left: 15.0, right: 15, bottom: 20),
                             child: Text(
                               StringConstant.goThere,
                               style: TextStyle(
