@@ -524,9 +524,7 @@ class _FgHome extends State<FgHome> {
 
             
           },
-          child: Hero(
-            tag: 'datail_barber_screen', 
-            child: Container(
+          child:Container(
               margin: EdgeInsets.only(
                 left: ScreenUtil().setWidth(10),
                 right: ScreenUtil().setWidth(10),
@@ -578,7 +576,7 @@ class _FgHome extends State<FgHome> {
                 ),
               ),
             ),
-          ),
+          
         ),
       );
     }),

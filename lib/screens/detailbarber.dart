@@ -358,9 +358,7 @@ class _DetailBarber extends State<DetailBarber>
         color: Colors.transparent.withOpacity(0.2),
         progressIndicator: SpinKitFadingCircle(color: pinkColor),
         child: SafeArea(
-            child: Hero(
-          tag: "detail_barber_screen",
-          child: Scaffold(
+            child: Scaffold(
             appBar: appbar(context, salonName!, _drawerScaffoldKey, false,
                 widget.isDrawerOpen, widget.onOpen, widget.onClose,
                 drawer: true) as PreferredSizeWidget?,
@@ -519,7 +517,7 @@ class _DetailBarber extends State<DetailBarber>
               ),
             ),
           ),
-        )),
+        ),
       ),
     );
   }
