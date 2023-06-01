@@ -881,36 +881,36 @@ class _Appoinment extends State<Appoinment>
                                                           fontSize: 16),
                                                     ),
                                                   ),
-                                                  Align(
-                                                    alignment: Alignment.center,
-                                                    child: GestureDetector(
-                                                      onTap: () {
-                                                        Navigator.of(context).push(
-                                                            MaterialPageRoute(
-                                                                builder:
-                                                                    (context) =>
-                                                                        HomeScreen(
-                                                                            0)));
-                                                      },
-                                                      child: Container(
-                                                        margin: EdgeInsets.only(
-                                                            top: 5),
-                                                        child: Text(
-                                                          StringConstant
-                                                              .goToHome,
-                                                          style: TextStyle(
-                                                              color: blue4a,
-                                                              fontFamily:
-                                                                  ConstantFont
-                                                                      .montserratMedium,
-                                                              fontWeight:
-                                                                  FontWeight
-                                                                      .w600,
-                                                              fontSize: 16),
-                                                        ),
-                                                      ),
-                                                    ),
-                                                  ),
+                                                  // Align(
+                                                  //   alignment: Alignment.center,
+                                                  //   child: GestureDetector(
+                                                  //     onTap: () {
+                                                  //       Navigator.of(context).push(
+                                                  //           MaterialPageRoute(
+                                                  //               builder:
+                                                  //                   (context) =>
+                                                  //                       HomeScreen(
+                                                  //                           0)));
+                                                  //     },
+                                                  //     child: Container(
+                                                  //       margin: EdgeInsets.only(
+                                                  //           top: 5),
+                                                  //       child: Text(
+                                                  //         StringConstant
+                                                  //             .goToHome,
+                                                  //         style: TextStyle(
+                                                  //             color: blue4a,
+                                                  //             fontFamily:
+                                                  //                 ConstantFont
+                                                  //                     .montserratMedium,
+                                                  //             fontWeight:
+                                                  //                 FontWeight
+                                                  //                     .w600,
+                                                  //             fontSize: 16),
+                                                  //       ),
+                                                  //     ),
+                                                  //   ),
+                                                  // ),
                                                 ],
                                               )),
                                         ),
