@@ -87,13 +87,7 @@ class _DrawerOnlyState extends State<DrawerOnly> {
                           Expanded(
                             child: Row(
                               children: [
-                                GestureDetector(
-                                  onTap: () {
-                                    Navigator.of(context).push(
-                                      MaterialPageRoute(builder: (context) => Profile(isDrawerOpen: isDrawerOpen,onOpen: onOpen, onClose: onClose))
-                                    );
-                                  },
-                                  child: CachedNetworkImage(
+                                  CachedNetworkImage( 
                                     height: 60,
                                     width: 60,
                                     imageUrl: PreferenceUtils.getString(
@@ -113,7 +107,7 @@ class _DrawerOnlyState extends State<DrawerOnly> {
                                     errorWidget: (context, url, error) =>
                                         Image.asset(DummyImage.noImage),
                                   ),
-                                ),
+                                
                                 Expanded(
                                   child: Padding(
                                       padding: EdgeInsets.only(left: 12.0),
